@@ -25,7 +25,7 @@ require_once BASE_PATH . '/helpers/helpers.php';
 
 define('DB_HOST', "localhost");
 define('DB_USER', "u819150567_qr");
-define('DB_PASSWORD', "2V3u@yIr=");
+define('DB_PASSWORD', "ks82PeL2E");
 define('DB_NAME', "u819150567_qr");
 
 /**
