@@ -169,7 +169,7 @@ foreach ($createdQrcode_static as $row) {
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total qr codes</span>
+                                    <span class="info-box-text">Total Códigos QR</span>
                                     <span class="info-box-number"><?php echo $total; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div>
@@ -206,7 +206,7 @@ foreach ($createdQrcode_static as $row) {
                                 <span class="info-box-icon"><i class="fas fa-chart-line"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total Scans</span>
+                                    <span class="info-box-text">Escaneos Totales</span>
                                     <span class="info-box-number"><?php echo $numScan[0]['sum(scan)']; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div>

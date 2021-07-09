@@ -81,7 +81,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 				<?php endforeach ?>
 				<form method="POST" action="authenticate.php">
 					<div class="input-group mb-3">
-						<input type="text" name="username" class="form-control" placeholder="Username" required="required">
+						<input type="text" name="username" class="form-control" placeholder="Nombre de usuario" required="required">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fa fa-user"></span>

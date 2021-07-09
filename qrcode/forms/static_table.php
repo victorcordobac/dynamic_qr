@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th width="5%">ID</th>
-                <th width="12%">Archivo</th>
+                <th width="12%">Nombre</th>
                 <th width="7%">Type</th>
                 <th width="40%">Content</th>
                 <th width="15%">Creado por</th>

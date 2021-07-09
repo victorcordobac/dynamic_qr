@@ -50,7 +50,7 @@ class Profile
     {
         $ordering = [
             'id' => 'ID',
-            'user_name' => 'Username',
+            'user_name' => 'Nombre de usuario',
             'admin_type' => 'Admin Type'
         ];
 
@@ -79,7 +79,7 @@ class Profile
         $db->get('admin_accounts');
 
         if ($db->count >= 1) {
-            $this->failure('Username already exists');
+            $this->failure('Este Nombre de Usuario ya existe');
         }
     }
 

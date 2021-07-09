@@ -1,13 +1,13 @@
 <fieldset>
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Nombre de usuario</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                 </div>
 
-                <input type="text" name="user_name" placeholder="Username" class="form-control" required=""
+                <input type="text" name="user_name" placeholder="Nombre de usuario" class="form-control" required=""
                     value="<?php echo ($edit) ? $admin_account['user_name'] : ''; ?>" autocomplete="off"
                     pattern="^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
                 >

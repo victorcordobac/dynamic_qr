@@ -45,7 +45,7 @@
               <li class="nav-item">
                 <a href="./dynamic_qrcodes.php" <?php echo (CURRENT_PAGE == 'dynamic_qrcodes.php') ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List all</p>
+                  <p>Ver Todos</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -68,7 +68,7 @@
               <li class="nav-item">
                 <a href="./static_qrcodes.php" <?php echo (CURRENT_PAGE == 'static_qrcodes.php') ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List all</p>
+                  <p>Ver Todos</p>
                 </a>
               </li>
               <li class="nav-item">
