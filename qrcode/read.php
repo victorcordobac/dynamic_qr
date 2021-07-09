@@ -9,7 +9,7 @@
 * @version   1.0
 */
 
-include 'qrcode/config/config.php';
+include 'config/config.php';
 
 //Get DB instance. function is defined in config.php
 $db = getDbInstance();
