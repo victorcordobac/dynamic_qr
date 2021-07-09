@@ -124,8 +124,8 @@ foreach ($createdQrcode_static as $row) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<title>PHP Qr Code Generator v1.0</title>
+<html lang="es">
+<title>QR - Expression Way</title>
 
 <head>
     <?php include './includes/head.php'; ?>
@@ -148,7 +148,7 @@ foreach ($createdQrcode_static as $row) {
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard</h1>
+                            <h1 class="m-0 text-dark">Panel de Control</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
