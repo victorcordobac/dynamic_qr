@@ -70,7 +70,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 <body class="login-page" style="min-height: 512.391px;">
 	<div class="login-box">
 		<div class="login-logo">
-			<img src="dist/img/DynamicQRCode_Original.png" style="width: 95%; height: 95%">
+			<img src="dist/img/logo_horizontal_expressionway.png" style="width: 95%; height: 95%">
 		</div>
 
 		<div class="card">
