@@ -16,7 +16,7 @@
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <div class="dropdown-divider"></div>
         <a href="admin_user_profile.php" class="dropdown-item">
-          <i class="fas fa-user"></i> Profile
+          <i class="fas fa-user"></i> Perfil
         </a>
         <div class="dropdown-divider"></div>
         <?php if ($_SESSION['admin_type'] == 'super'): ?>
@@ -26,7 +26,7 @@
         <?php endif; ?>
         <div class="dropdown-divider"></div>
         <a href="./logout.php" class="dropdown-item">
-          <i class="fas fa-sign-out-alt"></i> Logout
+          <i class="fas fa-sign-out-alt"></i> Salir
         </a>
       </div>
     </li>

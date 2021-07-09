@@ -101,14 +101,14 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 							<div class="icheck-primary">
 								<input name="remember" type="checkbox" id="remember">
 								<label for="remember">
-									Remember Me
+									Recordar
 								</label>
 							</div>
 						</div>
 						<!-- /.col -->
 
 						<div class="col-4">
-							<button type="submit" class="btn btn-primary btn-block">Sign In</button>
+							<button type="submit" class="btn btn-primary btn-block">Entrar</button>
 						</div>
 						<!-- /.col -->
 					</div>

@@ -63,7 +63,7 @@ $total_pages = $db->totalPages;
                     <div class="row mb-2">
 
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Users Directory</h1>
+                            <h1 class="m-0 text-dark">Todos los Usuarios</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -79,8 +79,8 @@ $total_pages = $db->totalPages;
 
             <!-- Filters -->
             <?php $options = $ordering = [
-                'first_name' => 'First Name',
-                'last_name' => 'Last Name',
+                'first_name' => 'Nombre',
+                'last_name' => 'Apellido',
                 'email' => 'Email',
             ];
 

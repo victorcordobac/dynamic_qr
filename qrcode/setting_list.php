@@ -63,13 +63,13 @@ $total_pages = $db->totalPages;
         <div class="row mb-2">
             
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dynamic Qr codes</h1>
+            <h1 class="m-0 text-dark"> QR Dinámicos</h1>
           </div><!-- /.col -->
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
-                  <a href="add_setting.php" class="btn btn-success"><i class="fa fa-plus"></i> Add new</a>
+                  <a href="add_setting.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir nuevo</a>
                 </li>
             </ol>
           </div><!-- /.col -->

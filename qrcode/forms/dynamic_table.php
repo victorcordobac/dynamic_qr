@@ -6,13 +6,13 @@
         <thead>
             <tr>
                 <th width="5%">ID</th>
-                <th width="15%">Filename</th>
-                <th width="18%">Unique redirect identifier</th>
+                <th width="15%">Archivo</th>
+                <th width="18%">Identificador</th>
                 <th width="20%">URL</th>
-                <th width="15%">Created By</th>
+                <th width="15%">Creado por</th>
                 <th width="8%">Qr code</th>
                 <th width="5%">Scan</th>
-                <th width="23%">Operations</th>
+                <th width="23%">Operaciones</th>
             </tr>
         </thead>
         <tbody>

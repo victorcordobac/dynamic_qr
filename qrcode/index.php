@@ -180,7 +180,7 @@ foreach ($createdQrcode_static as $row) {
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Dynamic Qr codes</span>
+                                    <span class="info-box-text"> QR Dinámicos</span>
                                     <span class="info-box-number"><?php echo $numQrcode_dynamic; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div>
@@ -194,7 +194,7 @@ foreach ($createdQrcode_static as $row) {
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Static QR codes</span>
+                                    <span class="info-box-text"> QR Estáticos</span>
                                     <span class="info-box-number"><?php echo $numQrcode_static; ?></span>
                                 </div><!-- /.info-box-content -->
 

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Update User Profile - Expression Way</title>
+<title>Update Mi Perfil - Expression Way</title>
 
 <head>
     <?php include './includes/head.php'; ?>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">User Profile</h1>
+                            <h1 class="m-0 text-dark">Mi Perfil</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -66,14 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="container-fluid">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Update Your profile</h3>
+                            <h3 class="card-title">Edita tu perfilprofile</h3>
                         </div>
                         <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
                             <div class="card-body">
                                 <?php include BASE_PATH . '/forms/user_profile_form.php'; ?>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
                             </div>
                         </form>
                     </div>

@@ -16,7 +16,7 @@
                 <th width="5%">ID</th>
                 <th width="60%">Provider</th>
                 <th width="5%">Published</th>
-                <th width="15%">Operations</th>
+                <th width="15%">Operaciones</th>
             </tr>
         </thead>
         <tbody>

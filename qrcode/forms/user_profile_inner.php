@@ -26,10 +26,10 @@
 
         <ul class="list-group list-group-unbordered mb-3">
           <li class="list-group-item">
-            <b>Dynamic QR codes</b> <a class="float-right"><?= count($dynamic_qrcodes) ?></a>
+            <b> QR Dinámicos</b> <a class="float-right"><?= count($dynamic_qrcodes) ?></a>
           </li>
           <li class="list-group-item">
-            <b>Static QR codes</b> <a class="float-right"><?= count($static_qrcodes) ?></a>
+            <b> QR Estáticos</b> <a class="float-right"><?= count($static_qrcodes) ?></a>
           </li>
           <?php if (strlen($profile->facebook)) : ?>
             <li class="list-group-item">
@@ -66,7 +66,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <h3>Dynamic QR Codes</h3>
+            <h3> QR Dinámicos</h3>
           </div>
           <?php foreach ($dynamic_qrcodes as $dcode) : ?>
             <div class="col-md-2">
@@ -89,7 +89,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h3>Static QR Codes</h3>
+            <h3> QR Estáticos</h3>
           </div>
           <?php foreach ($static_qrcodes as $dcode) : ?>
             <div class="col-md-2">

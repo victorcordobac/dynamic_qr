@@ -5,10 +5,10 @@
       <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="10%">Profile Pic</th>
-                <th width="40%">Name</th>
+                <th width="10%">Foto de perfil</th>
+                <th width="40%">Nombre</th>
                 <th width="40%">Email</th>
-                <th width="10%">Actions</th>
+                <th width="10%">Acciones</th>
             </tr>
         </thead>
         <tbody>

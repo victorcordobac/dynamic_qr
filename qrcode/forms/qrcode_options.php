@@ -61,7 +61,7 @@
   <div class="row">    
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="filename">Filename *</label>
+            <label for="filename">Archivo *</label>
             <input type="text" name="filename" value="" placeholder="My first Qrcode" class="form-control error" required="required" id = "filename">
           
         </div>

@@ -48,7 +48,7 @@
                         <li><a class="page-scroll" href="#dynamic-class">Dynamic Qr code class</a></li>
                         <li><a class="page-scroll" href="#static-class">Static Qr code class</a></li>
                         <li><a class="page-scroll" href="#dashboard">Dashboard</a></li>
-                        <li><a class="page-scroll" href="#list-all">List All</a></li>
+                        <li><a class="page-scroll" href="#list-all">Ver Todos</a></li>
                         <li><a class="page-scroll" href="#insertion-dynamic">Insertion of Dynamic Qr code</a></li>
                         <li><a class="page-scroll" href="#insertion-static">Insertion of Static Qr code</a></li>
                         <li><a class="page-scroll" href="#edit">Edit a Qr code</a></li>
@@ -72,7 +72,7 @@
 
         <div class="wrapper">
             <h2> About PHP Dynamic Qr code</h2>
-            <p><b>PHP Dynamic Qr code </b> is a script that allows the generation and saving of dynamic and static QR codes. It has clean, responsive and user-friendly design. It is Based on <a href="https://adminlte.io/" target="_blank">AdminLte </a> the <i>"Best open source admin dashboard & control panel theme. Built on top of Bootstrap" </i> and <a href="https://github.com/chetans9/core-php-admin-panel" target="_blank">Core PHP Admin Panel,</a> a simple Admin Pannel written in core PHP that contains an implementation of general features you might need in your website admin panel like: record management (CRUD), secure authentication, pagination, filters.<br><br>
+            <p><b>PHP Dynamic Qr code </b> is a script that allows the generation and saving of dynamic and  QR Estáticos. It has clean, responsive and user-friendly design. It is Based on <a href="https://adminlte.io/" target="_blank">AdminLte </a> the <i>"Best open source admin dashboard & control panel theme. Built on top of Bootstrap" </i> and <a href="https://github.com/chetans9/core-php-admin-panel" target="_blank">Core PHP Admin Panel,</a> a simple Admin Pannel written in core PHP that contains an implementation of general features you might need in your website admin panel like: record management (CRUD), secure authentication, pagination, filters.<br><br>
             N.B. A <strong>careful reading</strong> of this documentation is recommended to fully understand how the script works.
             </p>
 
@@ -80,7 +80,7 @@
             <p><strong>A Dynamic QR code has a modifiable destination URL.</strong><br> A Short URL is placed into the QR code which then transparently re-directs the user to the intended destination. The destination of a dynamic QR code can be changed at any time and as often as you want – even if your marketing material has already been printed. This will save reprinting costs, effort and enable you to respond to any changes in the campaign as quickly as possible.</p>
 
             <h2> What is a static qr code</h2>
-            <p><strong>A Static QR code has a fixed destination URL.</strong><br> The information encoded in <b>static QR codes are fixed</b>. The destination/data is stored directly in the QR Code graphic (hence QR codes are also getting larger and form a more complex pattern if there is more data to store). Therefore, the stored destination/data cannot be changed. Any typo in an already printed QR code cannot be changed, as with any other printed material. <strong>Through this script you can create 13 different types of static qr code.</strong></p>
+            <p><strong>A Static QR code has a fixed destination URL.</strong><br> The information encoded in <b> QR Estáticos are fixed</b>. The destination/data is stored directly in the QR Code graphic (hence QR codes are also getting larger and form a more complex pattern if there is more data to store). Therefore, the stored destination/data cannot be changed. Any typo in an already printed QR code cannot be changed, as with any other printed material. <strong>Through this script you can create 13 different types of static qr code.</strong></p>
             
         <div id="installation">
             <h2> Installation</h2>
@@ -487,20 +487,20 @@ As specified at the beginning, the frontend part of this script is done with <b>
             
                     <li>Qr code and Admin users</li>
             
-            <p><b>The dashboard page has a separate structure</b>, while the dynamic qr codes, static qr codes and users sections have a <b>very similar structure</b> to each other.<br><br>
+            <p><b>The dashboard page has a separate structure</b>, while the  QR Dinámicos,  QR Estáticos and users sections have a <b>very similar structure</b> to each other.<br><br>
             <b>List all</b> page (the same for all 3 sections)<br>
             ├─ *page_name*.php<br>
             ├─   ├─ includes/flash_messages.php<br>
             ├─   ├─ includes/filters.php<br>
             ├─   ├─ forms/*name*_table.php<br><br>
             The following shows which files are included in the management pages (add, edit, delete) of the 3 sections:<br><br>
-            <b>Dynamic qr codes</b> section<br>
+            <b> QR Dinámicos</b> section<br>
             ├─ add_dynamic.php<br>
             ├─   ├─ forms/add_dynamic_form.php<br>
             ├─ edit_dynamic.php<br>
             ├─   ├─ forms/edit_dynamic_form.php<br>
             ├─ delete_dynamic.php<br><br>
-            <b>Static qr codes</b> section<br>
+            <b> QR Estáticos</b> section<br>
             ├─ add_static.php<br>
             ├─   ├─ forms/add_static_form.php<br>
             ├─   ├─   ├─ forms/static/*type*.php &nbsp; example: text.php<br>
@@ -755,7 +755,7 @@ $data_to_db['created_at'];
 
 /*The type is assigned in the creation phase and can no longer be modified, in fact a check is made on $ _GET['type'] 
 to verify that the function has been called by add() in order to "capture" the type.
-If it is not very clear, review the section of the entry concerning static QR codes                                                         */
+If it is not very clear, review the section of the entry concerning  QR Estáticos                                                         */
 
 if($_GET['type'] != NULL)
     $data_to_db['type'] = htmlspecialchars($_GET['type']);
@@ -989,7 +989,7 @@ in a single string. It is retrieved through the get() function.                 
                 <h2>Dashboard</h2>
                 <p>The dashboard is the main page of the script. In this section there is a counter of the total number of qr code in the database, and in particular also the number of dynamic and static ones. There is also a counter regarding the number of <strong>scans of the dynamic qr code</strong>.<br>
                     The script offers 2 examples of dynamic charts created with chart.js
-The first shows a weekly report of the number of qr codes created (dynamic and static), the second graph offers an overview of the number of scans of dynamic qr codes.
+The first shows a weekly report of the number of qr codes created (dynamic and static), the second graph offers an overview of the number of scans of  QR Dinámicos.
                 </p>
                 <ol>
                     <li>Report of qr code</li>
@@ -1078,8 +1078,8 @@ with values obtained from database.                                             
             </div>   
             
             <div id="list-all">
-                <h2>List All</h2>
-                <p><strong>The structure of the code for the listing process is the same for all types of QR code</strong>. Below there is an example for dynamic qr codes.<br>
+                <h2>Ver Todos</h2>
+                <p><strong>The structure of the code for the listing process is the same for all types of QR code</strong>. Below there is an example for  QR Dinámicos.<br>
                 There is a main page, in this case <strong>dynamic_qrcodes.php</strong>, which contains the code to retrieve the data necessary for the table and an external page called <strong>search_order.php</strong> which implements functions for searching and sorting the qr code.<br>
                 The HTML code includes: the <strong>flash_message.php</strong> file for managing the various messages to be printed,
 the <strong>filters.php</strong> file for managing the search and sorting filters and the <strong>dynamic_table.php</strong> file with the code that creates the entire table.
@@ -1137,8 +1137,8 @@ $total_pages = $db->totalPages;
 <thead>
     <tr>
         <th width="5%">ID</th>
-        <th width="15%">Filename</th>
-        <th width="18%">Unique redirect identifier</th>
+        <th width="15%">Archivo</th>
+        <th width="18%">Identificador</th>
         ...
     </tr>
 </thead>
@@ -1247,7 +1247,7 @@ whose data will be sent and processed by the class with the name (attribute) "fo
             
             <div id="insertion-static">
                 <h2>How does the insertion of a static qr code work?</h2>
-                <p>The main page dedicated to the insertion is <strong>add_static.php</strong> Unlike the previous creation page, the one for static qr codes does not provide a single form HTML-tag but each type of static qr code has its own form. For the input fields there is a secondary page called <strong>add_static_form.php</strong> which contains the menu of the various types of qr code that can be created and for each card (for each type) another file is included with the individual input fields, for example <strong>text.php</strong></p>
+                <p>The main page dedicated to the insertion is <strong>add_static.php</strong> Unlike the previous creation page, the one for  QR Estáticos does not provide a single form HTML-tag but each type of static qr code has its own form. For the input fields there is a secondary page called <strong>add_static_form.php</strong> which contains the menu of the various types of qr code that can be created and for each card (for each type) another file is included with the individual input fields, for example <strong>text.php</strong></p>
                 <ol>
                     <div class="editor ml-20">
                         <div class="editor-title">
@@ -1344,7 +1344,7 @@ type to type. Example for "text" type:                                          
                 <h2>How does the modification of a qr code work?</h2>
                 <p><strong>The modification process is essentially the same for both types of QR code.</strong><br>
 For <strong>dynamic qr code</strong> is possible to change: the file name, the url and is possible to enable or disable the redirect when the qr code is scanned. It is not possible to change the image format of the QR code as well as its unique identifier.<br>
-For <strong>static qr codes</strong> is only possible to change the file name, since by definition a static qr code cannot be changed in its content. The image format of the qr code cannot be changed.<br>
+For <strong> QR Estáticos</strong> is only possible to change the file name, since by definition a static qr code cannot be changed in its content. The image format of the qr code cannot be changed.<br>
 Below there is an example of the modification process for dynamic qr code, which I repeat is the same for both types.<br>
 The main page dedicated to the edit is <strong>edit_dynamic.php</strong> the form HTML-tag is also declared on this page, however the input fields are separated in another page called <strong>edit_dynamic_form.php</strong> for a matter of code reusability.
 </p>
@@ -1411,7 +1411,7 @@ In fact, the value is retrieved from the database only if the edit operation has
                 
                 <div id="delete">
                 <h2>How does the deletion of a qr code work?</h2>
-                <p><strong>The deletion process is essentially the same for both types of QR code.</strong> It is a very simple process, here is an example for <strong>static qr codes</strong>.<br>
+                <p><strong>The deletion process is essentially the same for both types of QR code.</strong> It is a very simple process, here is an example for <strong> QR Estáticos</strong>.<br>
 There is a single <strong>delete_dynamic.php</strong> delete page which is reached through a unique link for each element in the qr code table.
 </p>
                 <ol>

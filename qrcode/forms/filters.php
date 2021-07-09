@@ -48,7 +48,7 @@ if ($order_dir == 'Desc') {
 							
 							<!-- SUBMIT -->
 							<div class="col-5 col-md-3">
-								<input type="submit" value="Go" class="btn btn-primary">
+								<input type="submit" value="Filtrar" class="btn btn-primary">
 							</div>
 							
 						</div><!-- /.row -->

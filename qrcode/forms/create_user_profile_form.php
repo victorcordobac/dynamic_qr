@@ -58,26 +58,26 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h3>User Profile</h3>
+        <h3>Mi Perfil</h3>
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="username">First Name</label>
-            <input type="text" name="first_name" placeholder="First Name" class="form-control" required="" value="<?php echo $filed_value['first_name'] ?>" autocomplete="off">
+            <label for="username">Nombre</label>
+            <input type="text" name="first_name" placeholder="Nombre" class="form-control" required="" value="<?php echo $filed_value['first_name'] ?>" autocomplete="off">
         </div>
     </div>
 
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="username">Last Name</label>
-            <input type="text" name="last_name" placeholder="Last Name" class="form-control" required="" value="<?php echo $filed_value['last_name'] ?>" autocomplete="off">
+            <label for="username">Apellido</label>
+            <input type="text" name="last_name" placeholder="Apellido" class="form-control" required="" value="<?php echo $filed_value['last_name'] ?>" autocomplete="off">
         </div>
     </div>
 
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="username">Mobile No.</label>
-            <input type="text" name="mobile_no" placeholder="Mobile No." class="form-control" required="" value="<?php echo $filed_value['mobile_no'] ?>" autocomplete="off">
+            <label for="username">Teléfono</label>
+            <input type="text" name="mobile_no" placeholder="Teléfono" class="form-control" required="" value="<?php echo $filed_value['mobile_no'] ?>" autocomplete="off">
         </div>
     </div>
 
