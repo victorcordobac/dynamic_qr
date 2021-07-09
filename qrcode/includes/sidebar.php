@@ -1,10 +1,10 @@
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="./index.php" class="brand-link">
+    <a href="./index.php" class="brand-link" style="text-align:center">
       <img src="dist/img/logo_horizontal_blanco_expressionway.png" alt="Logo" class="brand-image"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">QR</span>
+           style="opacity: .8; margin-right:auto; margin-left:auto; text-align:center; float:none">
+      <!--span class="brand-text font-weight-light">QR</span-->
     </a>
 
     <!-- Sidebar -->
@@ -29,7 +29,7 @@
            <a href="./index.php" <?php echo (CURRENT_PAGE == 'index.php') ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
              <i class="nav-icon fas fa-tachometer-alt"></i>
              <p>
-               Dashboard
+               Panel de Control
              </p>
            </a>
          </li>
