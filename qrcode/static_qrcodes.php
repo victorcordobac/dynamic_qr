@@ -19,11 +19,18 @@ $static_qrcode = new Static_Qrcode();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'filename', 'type', 'content', 'qrcode', 'created_at', 'updated_at');
+$select = array('static_qrcodes.id','admin_accounts.user_name', 'filename', 'type', 'content', 'qrcode', 'created_at', 'updated_at');
 
 // Search and order php code
 $search_fields = array('filename', 'type', 'content');
 require_once BASE_PATH . '/includes/search_order.php';
+
+$db->join('admin_accounts', 'admin_accounts.id = static_qrcodes.created_by');
+
+if ($_SESSION['admin_type'] !== 'super') {
+    $db->where('created_by', $_SESSION['user_id']);
+}
+
 
 // Get current page
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 1;

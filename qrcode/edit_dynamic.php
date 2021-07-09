@@ -22,13 +22,13 @@ $operation = htmlspecialchars($_GET['operation'], ENT_QUOTES, 'UTF-8');
 ($operation == 'edit') ? $edit = true : $edit = false;
 $db = getDbInstance();
 
-// Handle update request. As the form's action attribute is set to the same script, but 'POST' method, 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+// Handle update request. As the form's action attribute is set to the same script, but 'POST' method,
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dynamic_qrcode->edit();
+}
 
 // If edit variable is set, we are performing the update operation.
-if ($edit)
-{
+if ($edit) {
     $db->where('id', $dynamic_id);
     // Get data to pre-populate the form.
     $dynamic_qrcode = $db->getOne('dynamic_qrcodes');

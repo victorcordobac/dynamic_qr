@@ -79,10 +79,30 @@
               </li>
             </ul>
           </li>
+          <?php if ($_SESSION['admin_type'] == 'super'): ?>
           <li class="nav-item">
             <a href="./admin_users.php" <?php echo (CURRENT_PAGE == 'admin_users.php' || CURRENT_PAGE == 'add_admin.php' || (substr(CURRENT_PAGE, 0, 14) == 'edit_admin.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
                 <i class="fas fa-users nav-icon"></i>
               <p>Users</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./setting_list.php" <?php echo (CURRENT_PAGE == 'setting_list.php' || CURRENT_PAGE == 'add_setting.php' || (substr(CURRENT_PAGE, 0, 16) == 'edit_setting.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
+                <i class="fas fa-cog nav-icon"></i>
+              <p>Setting</p>
+            </a>
+          </li>
+          <?php endif ?>
+          <li class="nav-item">
+            <a href="./admin_user_profile.php" <?php echo (CURRENT_PAGE == 'admin_user_profile.php' || (substr(CURRENT_PAGE, 0, 12) == 'admin_user_profile.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
+                <i class="nav-icon fa fa-id-card" aria-hidden="true"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="./users_directory.php" <?php echo (CURRENT_PAGE == 'users_directory.php' || (substr(CURRENT_PAGE, 0, 14) == 'user_profile.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
+                <i class="nav-icon fas fa-address-book"></i>
+              <p>Users Directory</p>
             </a>
           </li>
         </ul>

@@ -8,7 +8,8 @@
                 <th width="5%">ID</th>
                 <th width="12%">Filename</th>
                 <th width="7%">Type</th>
-                <th width="55%">Content</th>
+                <th width="40%">Content</th>
+                <th width="15%">Created By</th>
                 <th width="8%">Qr code</th>
                 <th width="23%">Operations</th>
             </tr>
@@ -20,6 +21,7 @@
                 <td><?php echo htmlspecialchars($row['filename']); ?></td>
                 <td><?php echo htmlspecialchars($row['type']); ?></td>
                 <td><?php echo $row['content']; ?></td>
+                <td><?php echo htmlspecialchars($row['user_name']); ?></td>
                 <td>
                     <?php echo '<img src="'.PATH.htmlspecialchars($row['qrcode']).'" width="100" height="100">'; ?>
                 </td>
