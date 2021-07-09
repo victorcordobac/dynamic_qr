@@ -35,7 +35,7 @@ $admin_account = $db->getOne("admin_accounts");
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit admin - Qrcode Generator</title>
+    <title>Edit admin - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

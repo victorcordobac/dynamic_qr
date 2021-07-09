@@ -36,7 +36,7 @@ if ($edit)
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit static - Qrcode Generator</title>
+    <title>Edit static - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

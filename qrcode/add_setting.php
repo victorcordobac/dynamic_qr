@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Add admin - Qrcode Generator</title>
+    <title>Add admin - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

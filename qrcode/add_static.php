@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Add static - Qrcode Generator</title>
+    <title>Add static - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

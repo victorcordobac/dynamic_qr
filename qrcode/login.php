@@ -64,7 +64,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Login - Qrcode Generator</title>
+<title>Login - Expression Way</title>
 <?php include './includes/head.php'; ?>
 
 <body class="login-page" style="min-height: 512.391px;">
@@ -75,7 +75,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 
 		<div class="card">
 			<div class="card-body login-card-body">
-				<p class="login-box-msg">Sign in to start your session</p>
+				<p class="login-box-msg">Accede con tu usuario</p>
 				<?php foreach ($buttons as $btn):?>
 				<a name="" id="" class="btn btn-primary btn-block mb-3" href="auth_login.php?network=<?=$btn->provider?>" role="button"><?=$btn->provider?></a>
 				<?php endforeach ?>

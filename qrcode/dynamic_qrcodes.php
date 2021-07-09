@@ -45,7 +45,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>List dynamic - Qrcode Generator</title>
+    <title>List dynamic - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

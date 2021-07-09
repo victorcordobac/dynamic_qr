@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Update User Profile - Qrcode Generator</title>
+<title>Update User Profile - Expression Way</title>
 
 <head>
     <?php include './includes/head.php'; ?>

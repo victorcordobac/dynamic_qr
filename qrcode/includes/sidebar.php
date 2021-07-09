@@ -2,9 +2,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="./index.php" class="brand-link">
-      <img src="dist/img/Symbol_WhiteBlue.png" alt="Logo" class="brand-image"
+      <img src="dist/img/logo_horizontal_blanco_expressionway.png" alt="Logo" class="brand-image"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Qrcode Generator</span>
+      <span class="brand-text font-weight-light">QR</span>
     </a>
 
     <!-- Sidebar -->

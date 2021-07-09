@@ -41,7 +41,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>List admin - Qrcode Generator</title>
+    <title>List admin - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

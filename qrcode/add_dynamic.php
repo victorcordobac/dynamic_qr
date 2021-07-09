@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Add dynamic - Qrcode Generator</title>
+    <title>Add dynamic - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>

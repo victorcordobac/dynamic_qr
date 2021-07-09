@@ -46,7 +46,7 @@ $static_qrcodes = $db->objectBuilder()->get('static_qrcodes');
 <html lang="en">
 
 <head>
-    <title>List admin - Qrcode Generator</title>
+    <title>List admin - Expression Way</title>
     <?php include './includes/head.php'; ?>
 </head>
 
