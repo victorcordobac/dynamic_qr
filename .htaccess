@@ -1,8 +1,4 @@
-Options +FollowSymlinks
 RewriteEngine on
-
-RewriteCond %{HTTP_HOST} ^expressionway.com$
+RewriteCond %{HTTP_HOST} ^qr.expressionway\.com$
 RewriteRule (.*) http://qr.expressionway.com/$1 [R=301,L]
-
-RewriteCond %{HTTP_HOST} ^(.+)\qr.expressionway\.com$
-RewriteRule ^/(.*)$ /qrcode/%1/$1 [L]
+RewriteRule ^$ qrcode [L]
