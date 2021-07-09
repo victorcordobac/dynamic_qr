@@ -219,7 +219,7 @@ foreach ($createdQrcode_static as $row) {
                             <!-- Created chart -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Qr codes created in the last week</h3>
+                                    <h3 class="card-title">QR creados en la última semana</h3>
 
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -231,7 +231,7 @@ foreach ($createdQrcode_static as $row) {
                                     <div class="d-flex">
                                         <p class="d-flex flex-column">
                                             <span class="text-bold text-lg"><?php echo $dynamic_today + $dynamic_oneday + $dynamic_twoday + $dynamic_threeday + $dynamic_fourday + $dynamic_fiveday + $dynamic_sixday + $static_today + $static_oneday + $static_twoday + $static_threeday + $static_fourday + $static_fiveday + $static_sixday ?></span>
-                                            <span>Total qr code created</span>
+                                            <span>Total de QR creados</span>
                                         </p>
                                     </div>
 
@@ -267,7 +267,7 @@ foreach ($createdQrcode_static as $row) {
                                     <div class="card-header border-0">
                                         <h3 class="card-title">
                                             <i class="fas fa-th mr-1"></i>
-                                            Scan Graph
+                                            Gráfico de escaneos
                                         </h3>
 
                                         <div class="card-tools">
