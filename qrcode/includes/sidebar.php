@@ -1,14 +1,14 @@
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="./index.php" class="brand-link" style="text-align:center">
+    <a href="./index.php" class="brand-link" style="text-align:center; padding:0">
       <img src="dist/img/logo_horizontal_blanco_expressionway.png" alt="Logo" class="brand-image"
-           style="opacity: .8; margin-right:auto; margin-left:auto; text-align:center; float:none">
+           style="opacity: .8; margin-right:auto; margin-left:auto; text-align:center; float:none; max-height:90px">
       <!--span class="brand-text font-weight-light">QR</span-->
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="margin-top: calc(6.5rem + 1px);">
        <!--Sidebar user panel (optional) 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
