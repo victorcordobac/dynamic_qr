@@ -611,6 +611,10 @@ body:not(.layout-fixed) {
 
 .content-header {
   padding: 15px $content-padding-x;
+   /*CARMELO*/
+   background-color: #343a40;
+   margin-bottom: 1.5em;
+   /*CARMELO*/
 
   .text-sm & {
     padding: 10px $content-padding-x;
@@ -619,6 +623,11 @@ body:not(.layout-fixed) {
   h1 {
     font-size: 1.8rem;
     margin: 0;
+    /*Carmelo*/
+    font-weight: bold;
+    color: white!important;
+    text-transform: uppercase;
+    /*Carmelo*/
 
     .text-sm & {
       font-size: 1.5rem;
@@ -706,3 +715,14 @@ body:not(.layout-fixed) {
     }
   }
 }
+
+
+/*AÑADIDOS CARMELO COTÓN*/
+#dynamic_form .card-body fieldset label{
+  background-color: #343a40;
+  color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+/*fin CARMELO*/

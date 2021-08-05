@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  *   AdminLTE v3.1.0
  *     Without Dark mode
@@ -11236,6 +11237,10 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .content-header {
   padding: 15px 0.5rem;
+  /*CARMELO*/
+  background-color: #343a40;
+  margin-bottom: 1.5em;
+  /*CARMELO*/
 }
 
 .text-sm .content-header {
@@ -11245,6 +11250,11 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 .content-header h1 {
   font-size: 1.8rem;
   margin: 0;
+  /*Carmelo*/
+  font-weight: bold;
+  color: white !important;
+  text-transform: uppercase;
+  /*Carmelo*/
 }
 
 .text-sm .content-header h1 {
@@ -11274,6 +11284,16 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   animation-duration: 0s !important;
 }
 
+/*AÑADIDOS CARMELO COTÓN*/
+#dynamic_form .card-body fieldset label {
+  background-color: #343a40;
+  color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+/*fin CARMELO*/
 .main-header {
   border-bottom: 1px solid #dee2e6;
   z-index: 1034;
