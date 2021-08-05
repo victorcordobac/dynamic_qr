@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="display:none">
         <div class="form-group">
             <label for="identifier">Redirect identifier</label>
             <input type="text" name="identifier" value="<?php echo htmlspecialchars($edit ? $dynamic_qrcode['identifier'] : '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Identifier" class="form-control" id="identifier" readonly>

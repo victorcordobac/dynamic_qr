@@ -94,8 +94,8 @@ if ($edit) {
 <?php include './includes/footer.php'; ?>
 
 <!-- DEPENDENCIAS PARA EL BOOTSTRAP BUTTON -->
-<link href="bootstrap-switch.css" rel="stylesheet">
-<script src="bootstrap-switch.js"></script>
+<link href="plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+<script src="plugins/bootstrap-switch/js/bootstrap-switch.js"></script>
 
 <!-- Page script -->
 <script type="text/javascript">
