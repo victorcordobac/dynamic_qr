@@ -11506,6 +11506,11 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .content-header {
   padding: 15px 0.5rem;
+  /*CARMELO*/
+  background-color: #343a40;
+  margin-bottom: 1.5em;
+  /*CARMELO*/
+  
 }
 
 .text-sm .content-header {
@@ -11515,6 +11520,9 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 .content-header h1 {
   font-size: 1.8rem;
   margin: 0;
+  font-weight: bold;
+  color: white!important;
+  text-transform: uppercase;
 }
 
 .text-sm .content-header h1 {
@@ -31219,3 +31227,13 @@ a.text-muted:hover {
   color: #ffffff;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+/*AÑADIDOS CARMELO COTÓN*/
+#dynamic_form .card-body fieldset label{
+  background-color: #343a40;
+  color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+/*fin CARMELO*/
