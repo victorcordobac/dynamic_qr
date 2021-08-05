@@ -14,15 +14,9 @@
 
     <div class="col-sm-4">
         <label for="state">Activado</label>
-        <div class="form-group bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" style="width: 86px;">
-            <div class="bootstrap-switch-container" style="width: 126px; margin-left: -42px;">
-                <span class="bootstrap-switch-handle-on bootstrap-switch-success" style="width: 42px;" value="enable" id="enable">ON</span>
-                <span class="bootstrap-switch-label" style="width: 42px;">&nbsp;</span>
-                <span class="bootstrap-switch-handle-off bootstrap-switch-danger" style="width: 42px;" value="disable" id="disable">OFF</span>
-                <input type="checkbox" name="state
-                
-                " checked="<?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "true": "false" ; ?>" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
-            </div>
+
+        <div class="form-group">
+            <input type="checkbox" name="state" <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?>>
         </div>
     </div>
 
