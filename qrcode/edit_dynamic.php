@@ -44,7 +44,7 @@ if ($edit) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit dynamic - Expression Way</title>
+    <title>Editar QR dinámico - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -96,15 +96,15 @@ if ($edit) {
             <?php if ($history_qr): ?>
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">QR History</h3>
+                    <h3 class="card-title">Historial de cambios</h3>
                 </div>
                 
                 <div class="card-body">
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Created At</th>
-                                <th width="5%">Action</th>
+                                <th>Fecha</th>
+                                <th width="5%">Ver</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +132,7 @@ if ($edit) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">QR History</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Historial</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -141,7 +141,7 @@ if ($edit) {
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

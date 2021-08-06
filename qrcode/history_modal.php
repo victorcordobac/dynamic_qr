@@ -74,5 +74,5 @@ if (is_object($row)) {
 </table>
 <?php
 } else {
-        echo '<h3>No QR Data Found</h3>';
+        echo '<h3>No se encontraron datos</h3>';
     }?>
