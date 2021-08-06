@@ -102,7 +102,7 @@
           <li class="nav-item">
             <a href="./users_directory.php" <?php echo (CURRENT_PAGE == 'users_directory.php' || (substr(CURRENT_PAGE, 0, 14) == 'user_profile.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
                 <i class="nav-icon fas fa-address-book"></i>
-              <p>Todos los Usuarios</p>
+              <p>PERSONAS</p>
             </a>
           </li>
         </ul>

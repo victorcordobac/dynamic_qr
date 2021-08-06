@@ -39,7 +39,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-<title>List admin - Expression Way</title>
+<title>PERSONAS - Expression Way</title>
 
 <head>
     <?php include './includes/head.php'; ?>
@@ -63,7 +63,7 @@ $total_pages = $db->totalPages;
                     <div class="row mb-2">
 
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Todos los Usuarios</h1>
+                            <h1 class="m-0 text-dark">BUSCAR PERSONAS</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">

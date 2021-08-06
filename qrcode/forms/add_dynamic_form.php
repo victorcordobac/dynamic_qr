@@ -78,7 +78,7 @@
     <div class="col-sm-4">
         <div class="form-group">
             <label for="filename">Nombre</label>
-            <input type="text" name="filename" value="" placeholder="My first Qrcode" class="form-control error" required="required" id = "filename">
+            <input type="text" name="filename" value="" placeholder="Camino de Santiago" class="form-control error" required="required" id = "filename">
           
         </div>
     </div>

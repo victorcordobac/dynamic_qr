@@ -39,7 +39,7 @@
     <?php if (strlen($profile->facebook) || strlen($profile->twitter) || strlen($profile->instagram)): ?>
     <div class="card card-primary">
       <div class="card-header">
-        <h4 class="card-title">About Me</h4>
+        <h4 class="card-title">Redes Sociales</h4>
       </div>
       <div class="card-body">
         <ul class="list-group list-group-unbordered mb-3">
@@ -86,7 +86,7 @@
                 <div class="row">
                   <?php if ($default_qr): ?>
                   <div class="col-md-12">
-                    <h3> QR Default</h3>
+                    <h3> QR PRINCIPAL</h3>
                   </div>
                   <div class="col-md-12">
                     <div class="row">
@@ -120,7 +120,7 @@
                   <?php if (count($dynamic_qrcodes) == 0): ?>
                   <div class="col-md-12">
                     <div class="alert alert-info" role="alert">
-                      No dynamic qr found.
+                      No se encontraron QR dinámicos
                     </div>
                   </div>
                   <?php endif ?>
@@ -129,7 +129,7 @@
               <div class="tab-pane fade" id="static_qr" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
                   <div class="col-md-12">
-                    <h3> QR Estáticos</h3>
+                    <!--h3> QR Estáticos</h3-->
                   </div>
                   <?php foreach ($static_qrcodes as $dcode) : ?>
                   <div class="col-md-2">
@@ -144,7 +144,7 @@
                   <?php if (count($static_qrcodes) == 0): ?>
                   <div class="col-md-12">
                     <div class="alert alert-info" role="alert">
-                      No static qr found
+                      No se encontraron QR estáticos
                     </div>
                   </div>
                   <?php endif ?>

@@ -1,4 +1,4 @@
- <div class="col-md-4">
+ <div class="col-md-4" style="margin-bottom: 2em;">
      <label for="">Usado en</label>
      <div class="row" id="append_filed">
          <?php for ($i=0;$i < $num_used_for;$i++): ?>
