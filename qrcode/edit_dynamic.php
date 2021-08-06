@@ -22,22 +22,29 @@ $operation = htmlspecialchars($_GET['operation'], ENT_QUOTES, 'UTF-8');
 ($operation == 'edit') ? $edit = true : $edit = false;
 $db = getDbInstance();
 
-
 // Handle update request. As the form's action attribute is set to the same script, but 'POST' method,
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dynamic_qrcode->edit();
 }
-
+$num_used_for = 1;
 // If edit variable is set, we are performing the update operation.
 if ($edit) {
     $db->where('id', $dynamic_id);
     // Get data to pre-populate the form.
     $dynamic_qrcode = $db->getOne('dynamic_qrcodes');
+    $used_for = null;
+    if (strlen($dynamic_qrcode['used_for'])) {
+        $used_for = explode(',', $dynamic_qrcode['used_for']);
+        $num_used_for = count($used_for);
+    }
+    
+    $db->where('qr_id', $dynamic_id);
+    $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit dynamic - Expression Way</title>
+    <title>Editar QR dinámico - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -86,10 +93,60 @@ if ($edit) {
                     </div>
                 </form>
             </div>
+            <?php if ($history_qr): ?>
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Historial de cambios</h3>
+                </div>
+                
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th width="5%">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($history_qr as $row):?>
+                            <tr>
+                                <td>
+                                    <?=date('d-M-Y h:m:s', strtotime($row->created_at))?>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-remote="<?=base_url()?>/history_modal.php?id=<?=$row->id?>" data-target="#exampleModal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <?php endif ?>
         </div><!--/. container-fluid -->
     </section><!-- /.content -->
   </div><!-- /.content-wrapper -->
-
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Historial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php include BASE_PATH.'/forms/used_for_template.php'; ?>
 <!-- Footer and scripts -->
 <?php include './includes/footer.php'; ?>
 
@@ -103,6 +160,22 @@ if ($edit) {
 $("[name='state']").bootstrapSwitch();
 
 $(document).ready(function(){
+    let i = 1;
+    $('#add_more').on('click',function(){
+        i++;
+        let template_id = $(this).data('template');
+        let append_id = $(this).data('append');
+        let _template = $("#"+template_id).html();
+        $('#'+append_id).append(_template);
+        $('#num_fields').val(i);
+    });
+   $('body').on('click','.remove',function(){
+        $(this).closest('.del-row').remove();
+   });
+   $('#exampleModal').on('show.bs.modal', function (e) {
+    let btn = $(e.relatedTarget);
+    $(this).find('.modal-body').load(btn.data('remote'));
+  });
    $('#dynamic_form').validate({
        rules: {
             filename: {

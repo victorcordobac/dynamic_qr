@@ -6,14 +6,14 @@
 
     <div class="col-6 col-md-3">
         <div class="form-group">
-            <label>Send to *</label>
+            <label>Enviar a</label>
             <input type="email" name="email" value="" placeholder="E-mail" class="form-control">
         </div>
     </div>
     
     <div class="col-6 col-md-3">
         <div class="form-group">
-            <label>Subject </label>
+            <label>Asunto </label>
             <input type="text" name="subject" value="" placeholder="" class="form-control">
         </div>
     </div>
@@ -22,7 +22,7 @@
 
 <div class="col-sm-6">
         <div class="form-group">
-            <label>Message *</label>
+            <label>Mensaje</label>
             <textarea class="form-control" name="message" value="" rows="5" placeholder=""></textarea>
         </div>
     </div>
@@ -30,7 +30,7 @@
 <div class="col-sm-12 mb-2">
     <div class="row">
         <div class="col-6 col-md-3">
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>    
     </div>
 </div>

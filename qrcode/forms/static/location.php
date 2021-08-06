@@ -3,14 +3,14 @@
 <!-- Input forms -->
     <div class="col-sm-4">
         <div class="form-group">
-            <label>Latitude *</label>
+            <label>Latitud</label>
             <input type="text" name="latitude" value="" placeholder="40.7127753" class="form-control">
         </div>
     </div>
     
     <div class="col-sm-4">
         <div class="form-group">
-            <label>Longitude *</label>
+            <label>Longitud</label>
             <input type="text" name="longitude" value="" placeholder="-74.0059728" class="form-control">
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="col-sm-12 mb-2">
     <div class="row">
         <div class="col-6 col-md-3">
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>    
     </div>
 </div>

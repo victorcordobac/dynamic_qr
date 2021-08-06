@@ -21,7 +21,7 @@
         <div class="dropdown-divider"></div>
         <?php if ($_SESSION['admin_type'] == 'super'): ?>
         <a href="setting_list.php" class="dropdown-item">
-          <i class="fa fa-cog"></i> Settings
+          <i class="fa fa-cog"></i> Ajustes
         </a>
         <?php endif; ?>
         <div class="dropdown-divider"></div>

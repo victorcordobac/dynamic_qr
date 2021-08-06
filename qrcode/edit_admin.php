@@ -35,7 +35,7 @@ $admin_account = $db->getOne("admin_accounts");
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit admin - Expression Way</title>
+    <title>Editar usuario - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -56,7 +56,7 @@ $admin_account = $db->getOne("admin_accounts");
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"><?php echo (!$edit) ? 'Add' : 'Update'; ?> User</h1>
+            <h1 class="m-0 text-dark"><?php echo (!$edit) ? 'Añadir' : 'Editar'; ?> Usuario</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -73,7 +73,7 @@ $admin_account = $db->getOne("admin_accounts");
     
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Introduce los datos requeridos</h3>
+                    <h3 class="card-title">EDITAR</h3>
                 </div>
 	            <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
 	                <div class="card-body">

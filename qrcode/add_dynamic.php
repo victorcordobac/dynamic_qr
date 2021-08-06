@@ -16,15 +16,21 @@ require_once BASE_PATH.'/includes/auth_validate.php';
 // Dynamic qrcode class
 require_once BASE_PATH . '/lib/Dynamic_Qrcode/Dynamic_Qrcode.php';
 $dynamic_qrcode = new Dynamic_Qrcode();
-
+$num_used_for = 1;
+$edit = false;
 // Serve POST method, After successful insert, redirect to dynamic_qrcodes.php page.
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $num_used_for = $_POST['num_fields'];
     $dynamic_qrcode->add();
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>Add dynamic - Expression Way</title>
+    <title>Añadir QR dinámico - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -45,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Add qr code</h1>
+            <h1 class="m-0 text-dark">NUEVO QR DINÁMICO</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -61,21 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       <div class="container-fluid">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Introduce los datos requeridos</h3>
+                <h3 class="card-title">Completa los siguientes campos</h3>
             </div>
             <form class="form" action="" method="post" id="dynamic_form" enctype="multipart/form-data">
                 <div class="card-body">
                 <?php include BASE_PATH.'/forms/add_dynamic_form.php'; ?>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="submit" class="btn btn-primary">Crear</button>
                 </div>
             </form>
         </div>
        </div><!--/. container-fluid -->
     </section><!-- /.content -->
   </div><!-- /.content-wrapper -->
-
+<?php include BASE_PATH.'/forms/used_for_template.php'; ?>
 <!-- Footer and scripts -->
 <?php include './includes/footer.php'; ?>
 
@@ -106,6 +112,20 @@ $(document).ready(function(){
     $('.my-colorpicker2').on('colorpickerChange', function(event) {
       $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
     });
+
+    let i = 1;
+    $('#add_more').on('click',function(){
+        i++;
+        let template_id = $(this).data('template');
+        let append_id = $(this).data('append');
+        let _template = $("#"+template_id).html();
+        $('#'+append_id).append(_template);
+        $('#num_fields').val(i);
+    });
+
+    $('body').on('click','.remove',function(){
+        $(this).closest('.del-row').remove();
+   });
 
   })
 </script>

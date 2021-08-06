@@ -43,7 +43,7 @@
 
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Contraseña</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>

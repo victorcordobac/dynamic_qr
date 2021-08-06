@@ -41,7 +41,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>List admin - Expression Way</title>
+    <title>USUARIOS - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -63,13 +63,13 @@ $total_pages = $db->totalPages;
         <div class="row mb-2">
             
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Admin users</h1>
+            <h1 class="m-0 text-dark">USUARIOS</h1>
           </div><!-- /.col -->
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
-                  <a href="add_admin.php" class="btn btn-success"><i class="fa fa-plus"></i> Add new</a>
+                  <a href="add_admin.php" class="btn btn-success"><i class="fa fa-plus"></i> AAñadir Nuevo</a>
                 </li>
             </ol>
           </div><!-- /.col -->

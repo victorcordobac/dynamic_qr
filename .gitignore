@@ -1,4 +1,5 @@
 # System / Log files
+.DS_Store
 *.DS_Store
 *.log
 
@@ -16,5 +17,6 @@ nbproject/private
 .vscode/
 .vs/
 
-# Node / Bower
+# Node
 node_modules/
+qrcode/node_modules/

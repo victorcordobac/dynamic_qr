@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-6 col-md-3">
             <div class="form-group">
-                <label>Title: *</label>
+                <label>Título</label>
                 <input type="text" name="title" value="" placeholder="" class="form-control">
             </div>
         </div>
     
         <div class="col-6 col-md-4">
             <div class="form-group">
-                <label>Date start: *</label>
+                <label>Fecha Inicio</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-clock"></i></span>
@@ -24,7 +24,7 @@
         
         <div class="col-6 col-md-4">
             <div class="form-group">
-                <label>Date end: *</label>
+                <label>Fecha finalización</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-clock"></i></span>
@@ -40,14 +40,14 @@
     <div class="row">
         <div class="col-6 col-md-3">
             <div class="form-group">
-                <label>Location: </label>
+                <label>Localización </label>
                 <input type="text" name="location" value="" placeholder="" class="form-control">
             </div>
         </div>
     
         <div class="col-6 col-md-5">
             <div class="form-group">
-                <label>Event description </label>
+                <label>Descripción del evento </label>
                 <input type="text" name="description" value="" placeholder="" class="form-control">
             </div>
         </div>
@@ -64,7 +64,7 @@
 <div class="col-sm-12 mb-2">
     <div class="row">
         <div class="col-6 col-md-3">
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>    
     </div>
 </div>

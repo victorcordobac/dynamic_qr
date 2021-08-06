@@ -58,7 +58,7 @@ if ($edit)
         <div class="row mb-2">
             
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Editar códios QR</h1>
+            <h1 class="m-0 text-dark">EDITAR QR ESTÁTICO</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -74,7 +74,7 @@ if ($edit)
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Introduce los datos requeridos</h3>
+                    <h3 class="card-title">EDITAR</h3>
                 </div>
                 <form class="form" action="" method="post" id="static_form" enctype="multipart/form-data">
                     <div class="card-body">

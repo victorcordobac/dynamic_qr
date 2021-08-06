@@ -19,7 +19,7 @@ $dynamic_qrcode = new Dynamic_Qrcode();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('dynamic_qrcodes.id','user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at');
+$select = array('dynamic_qrcodes.id','user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at','used_for');
 
 // Search and order php code
 $search_fields = array('filename', 'identifier', 'link');
@@ -45,7 +45,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>List dynamic - Expression Way</title>
+    <title>QR Dinámicos - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -73,7 +73,7 @@ $total_pages = $db->totalPages;
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
-                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Add new</a>
+                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir Nuevo</a>
                 </li>
             </ol>
           </div><!-- /.col -->

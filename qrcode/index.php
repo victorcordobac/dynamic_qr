@@ -16,10 +16,17 @@ require_once 'includes/auth_validate.php';
 
 //Get DB instance. function is defined in config.php
 $db = getDbInstance();
-
+$card_col = 3;
 //Get Dynamic qr code rows
 if ($_SESSION['admin_type'] !== 'super') {
     $db->where('created_by', $_SESSION['user_id']);
+}
+
+$db->where('created_by', $_SESSION['user_id']);
+$default_qr = $db->objectBuilder()->where('is_default', 1)->orderBy('id', 'desc')->getOne('dynamic_qrcodes');
+
+if ($default_qr) {
+    $card_col = 2;
 }
 
 $numQrcode_dynamic = $db->getValue("dynamic_qrcodes", "count(*)");
@@ -163,8 +170,22 @@ foreach ($createdQrcode_static as $row) {
                 <div class="container-fluid">
                     <!-- Info boxes -->
                     <div class="row">
+                        <?php if ($default_qr): ?>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box mb-3 bg-dark">
+                                <span class="info-box-icon">
+                                    <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>" width="60">
+                                </span>
 
-                        <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box-content">
+                                    <span class="info-box-text"><?=$default_qr->filename?></span>
+                                    <span class="info-box-number">Scans: <?=$default_qr->scan?></span>
+                                </div><!-- /.info-box-content -->
+                            </div>
+                        </div><!-- /.col -->
+                        <?php endif; ?>
+
+                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
                             <div class="info-box mb-3 bg-warning">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -175,7 +196,7 @@ foreach ($createdQrcode_static as $row) {
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-sm-6 col-md-3">
+                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
                             <div class="info-box mb-3 bg-success">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -189,7 +210,7 @@ foreach ($createdQrcode_static as $row) {
                         <!-- fix for small devices only -->
                         <div class="clearfix hidden-md-up"></div>
 
-                        <div class="col-12 col-sm-6 col-md-3">
+                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
                             <div class="info-box mb-3 bg-danger">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -201,7 +222,7 @@ foreach ($createdQrcode_static as $row) {
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-sm-6 col-md-3">
+                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
                             <div class="info-box mb-3 bg-info">
                                 <span class="info-box-icon"><i class="fas fa-chart-line"></i></span>
 
@@ -250,11 +271,11 @@ foreach ($createdQrcode_static as $row) {
 
                                     <div class="d-flex flex-row justify-content-end">
                                         <span class="mr-2">
-                                            <i class="fas fa-square text-primary"></i> Dynamic
+                                            <i class="fas fa-square text-primary"></i> Dinámicos
                                         </span>
 
                                         <span>
-                                            <i class="fas fa-square text-gray"></i> Static
+                                            <i class="fas fa-square text-gray"></i> Estáticos
                                         </span>
                                     </div>
                                 </div><!-- /.card-body -->

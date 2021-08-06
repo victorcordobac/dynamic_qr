@@ -61,14 +61,14 @@
   <div class="row">    
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="filename">Nombre *</label>
-            <input type="text" name="filename" value="" placeholder="My first Qrcode" class="form-control error" required="required" id = "filename">
+            <label for="filename">Nombre</label>
+            <input type="text" name="filename" value="" placeholder="Camino de Santiago" class="form-control error" required="required" id = "filename">
           
         </div>
     </div>
     
     <div class="col-6 col-md-1">
-                <label for="format">Format</label>
+                <label for="format">Formato</label>
                 <select name="format" class="form-control">
                     <option value="png">PNG</option>
                     <option value="gif">GIF</option>
