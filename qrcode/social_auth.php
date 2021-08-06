@@ -16,7 +16,7 @@ print_r($providers_arr);
 use Hybridauth\Hybridauth;
 
 $config = [
-    'callback' => base_url().'/social_auth.php',
+    'callback' => 'https://fqr.test/social_auth.php',
     // Providers specifics
     'providers' => $providers_arr,
     'debug_mode' => false,

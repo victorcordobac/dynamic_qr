@@ -19,7 +19,7 @@ $dynamic_qrcode = new Dynamic_Qrcode();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('dynamic_qrcodes.id','user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at','used_for');
+$select = array('dynamic_qrcodes.id','user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at');
 
 // Search and order php code
 $search_fields = array('filename', 'identifier', 'link');
