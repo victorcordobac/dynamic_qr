@@ -76,9 +76,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 		<div class="card">
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">Accede con tu usuario</p>
-				<?php foreach ($buttons as $btn):?>
-				<a name="" id="" class="btn btn-primary btn-block mb-3" href="auth_login.php?network=<?=$btn->provider?>" role="button"><?=$btn->provider?></a>
-				<?php endforeach ?>
+				
 				<form method="POST" action="authenticate.php">
 					<div class="input-group mb-3">
 						<input type="text" name="username" class="form-control" placeholder="Nombre de usuario" required="required">
@@ -114,7 +112,25 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 					</div>
 
 				</form>
-
+				<?php if ($buttons): ?>
+				<div class="social-auth-links text-center mb-3">
+					<p>- OR -</p>
+					<?php foreach ($buttons as $btn):
+                        $css = 'primary';
+                        if ($btn->provider == 'Google') {
+                            $css = 'danger';
+                        }
+                        ?>
+					<a name="" id="" class="btn btn-<?=$css?> btn-block" href="auth_login.php?network=<?=$btn->provider?>" role="button">
+						<i class="fab fa-<?=strtolower($btn->provider)?> mr-2" aria-hidden="true"></i>
+						Sign in using <?=$btn->provider?>
+					</a>
+					<?php endforeach ?>
+				</div>
+				<?php endif; ?>
+				<p class="mb-0">
+					<a href="create_user_profile.php" class="text-center">Register a new membership</a>	
+				</p>
 				<?php if (isset($_SESSION['login_failure'])) : ?>
 					<br>
 					<div class="text-center mb-3">

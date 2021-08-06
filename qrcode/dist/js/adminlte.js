@@ -1,398 +1,13 @@
 /*!
- * AdminLTE v3.1.0 (https://adminlte.io)
- * Copyright 2014-2021 Colorlib <https://colorlib.com>
+ * AdminLTE v3.0.5 (https://adminlte.io)
+ * Copyright 2014-2020 Colorlib <http://colorlib.com>
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.adminlte = {}, global.jQuery));
-}(this, (function (exports, $) { 'use strict';
-
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var $__default = /*#__PURE__*/_interopDefaultLegacy($);
-
-  /**
-   * --------------------------------------------
-   * AdminLTE CardRefresh.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$e = 'CardRefresh';
-  const DATA_KEY$e = 'lte.cardrefresh';
-  const EVENT_KEY$7 = `.${DATA_KEY$e}`;
-  const JQUERY_NO_CONFLICT$e = $__default['default'].fn[NAME$e];
-  const EVENT_LOADED = `loaded${EVENT_KEY$7}`;
-  const EVENT_OVERLAY_ADDED = `overlay.added${EVENT_KEY$7}`;
-  const EVENT_OVERLAY_REMOVED = `overlay.removed${EVENT_KEY$7}`;
-  const CLASS_NAME_CARD$1 = 'card';
-  const SELECTOR_CARD$1 = `.${CLASS_NAME_CARD$1}`;
-  const SELECTOR_DATA_REFRESH = '[data-card-widget="card-refresh"]';
-  const Default$c = {
-    source: '',
-    sourceSelector: '',
-    params: {},
-    trigger: SELECTOR_DATA_REFRESH,
-    content: '.card-body',
-    loadInContent: true,
-    loadOnInit: true,
-    loadErrorTemplate: true,
-    responseType: '',
-    overlayTemplate: '<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>',
-    errorTemplate: '<span class="text-danger"></span>',
-
-    onLoadStart() {},
-
-    onLoadDone(response) {
-      return response;
-    },
-
-    onLoadFail(_jqXHR, _textStatus, _errorThrown) {}
-
-  };
-
-  class CardRefresh {
-    constructor(element, settings) {
-      this._element = element;
-      this._parent = element.parents(SELECTOR_CARD$1).first();
-      this._settings = $__default['default'].extend({}, Default$c, settings);
-      this._overlay = $__default['default'](this._settings.overlayTemplate);
-
-      if (element.hasClass(CLASS_NAME_CARD$1)) {
-        this._parent = element;
-      }
-
-      if (this._settings.source === '') {
-        throw new Error('Source url was not defined. Please specify a url in your CardRefresh source option.');
-      }
-    }
-
-    load() {
-      this._addOverlay();
-
-      this._settings.onLoadStart.call($__default['default'](this));
-
-      $__default['default'].get(this._settings.source, this._settings.params, response => {
-        if (this._settings.loadInContent) {
-          if (this._settings.sourceSelector !== '') {
-            response = $__default['default'](response).find(this._settings.sourceSelector).html();
-          }
-
-          this._parent.find(this._settings.content).html(response);
-        }
-
-        this._settings.onLoadDone.call($__default['default'](this), response);
-
-        this._removeOverlay();
-      }, this._settings.responseType !== '' && this._settings.responseType).fail((jqXHR, textStatus, errorThrown) => {
-        this._removeOverlay();
-
-        if (this._settings.loadErrorTemplate) {
-          const msg = $__default['default'](this._settings.errorTemplate).text(errorThrown);
-
-          this._parent.find(this._settings.content).empty().append(msg);
-        }
-
-        this._settings.onLoadFail.call($__default['default'](this), jqXHR, textStatus, errorThrown);
-      });
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_LOADED));
-    }
-
-    _addOverlay() {
-      this._parent.append(this._overlay);
-
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_OVERLAY_ADDED));
-    }
-
-    _removeOverlay() {
-      this._parent.find(this._overlay).remove();
-
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_OVERLAY_REMOVED));
-    } // Private
-
-
-    _init() {
-      $__default['default'](this).find(this._settings.trigger).on('click', () => {
-        this.load();
-      });
-
-      if (this._settings.loadOnInit) {
-        this.load();
-      }
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      let data = $__default['default'](this).data(DATA_KEY$e);
-
-      const _options = $__default['default'].extend({}, Default$c, $__default['default'](this).data());
-
-      if (!data) {
-        data = new CardRefresh($__default['default'](this), _options);
-        $__default['default'](this).data(DATA_KEY$e, typeof config === 'string' ? data : config);
-      }
-
-      if (typeof config === 'string' && /load/.test(config)) {
-        data[config]();
-      } else {
-        data._init($__default['default'](this));
-      }
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_DATA_REFRESH, function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    CardRefresh._jQueryInterface.call($__default['default'](this), 'load');
-  });
-  $__default['default'](() => {
-    $__default['default'](SELECTOR_DATA_REFRESH).each(function () {
-      CardRefresh._jQueryInterface.call($__default['default'](this));
-    });
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$e] = CardRefresh._jQueryInterface;
-  $__default['default'].fn[NAME$e].Constructor = CardRefresh;
-
-  $__default['default'].fn[NAME$e].noConflict = function () {
-    $__default['default'].fn[NAME$e] = JQUERY_NO_CONFLICT$e;
-    return CardRefresh._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE CardWidget.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$d = 'CardWidget';
-  const DATA_KEY$d = 'lte.cardwidget';
-  const EVENT_KEY$6 = `.${DATA_KEY$d}`;
-  const JQUERY_NO_CONFLICT$d = $__default['default'].fn[NAME$d];
-  const EVENT_EXPANDED$3 = `expanded${EVENT_KEY$6}`;
-  const EVENT_COLLAPSED$4 = `collapsed${EVENT_KEY$6}`;
-  const EVENT_MAXIMIZED = `maximized${EVENT_KEY$6}`;
-  const EVENT_MINIMIZED = `minimized${EVENT_KEY$6}`;
-  const EVENT_REMOVED$1 = `removed${EVENT_KEY$6}`;
-  const CLASS_NAME_CARD = 'card';
-  const CLASS_NAME_COLLAPSED$1 = 'collapsed-card';
-  const CLASS_NAME_COLLAPSING = 'collapsing-card';
-  const CLASS_NAME_EXPANDING = 'expanding-card';
-  const CLASS_NAME_WAS_COLLAPSED = 'was-collapsed';
-  const CLASS_NAME_MAXIMIZED = 'maximized-card';
-  const SELECTOR_DATA_REMOVE = '[data-card-widget="remove"]';
-  const SELECTOR_DATA_COLLAPSE = '[data-card-widget="collapse"]';
-  const SELECTOR_DATA_MAXIMIZE = '[data-card-widget="maximize"]';
-  const SELECTOR_CARD = `.${CLASS_NAME_CARD}`;
-  const SELECTOR_CARD_HEADER = '.card-header';
-  const SELECTOR_CARD_BODY = '.card-body';
-  const SELECTOR_CARD_FOOTER = '.card-footer';
-  const Default$b = {
-    animationSpeed: 'normal',
-    collapseTrigger: SELECTOR_DATA_COLLAPSE,
-    removeTrigger: SELECTOR_DATA_REMOVE,
-    maximizeTrigger: SELECTOR_DATA_MAXIMIZE,
-    collapseIcon: 'fa-minus',
-    expandIcon: 'fa-plus',
-    maximizeIcon: 'fa-expand',
-    minimizeIcon: 'fa-compress'
-  };
-
-  class CardWidget {
-    constructor(element, settings) {
-      this._element = element;
-      this._parent = element.parents(SELECTOR_CARD).first();
-
-      if (element.hasClass(CLASS_NAME_CARD)) {
-        this._parent = element;
-      }
-
-      this._settings = $__default['default'].extend({}, Default$b, settings);
-    }
-
-    collapse() {
-      this._parent.addClass(CLASS_NAME_COLLAPSING).children(`${SELECTOR_CARD_BODY}, ${SELECTOR_CARD_FOOTER}`).slideUp(this._settings.animationSpeed, () => {
-        this._parent.addClass(CLASS_NAME_COLLAPSED$1).removeClass(CLASS_NAME_COLLAPSING);
-      });
-
-      this._parent.find(`> ${SELECTOR_CARD_HEADER} ${this._settings.collapseTrigger} .${this._settings.collapseIcon}`).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
-
-      this._element.trigger($__default['default'].Event(EVENT_COLLAPSED$4), this._parent);
-    }
-
-    expand() {
-      this._parent.addClass(CLASS_NAME_EXPANDING).children(`${SELECTOR_CARD_BODY}, ${SELECTOR_CARD_FOOTER}`).slideDown(this._settings.animationSpeed, () => {
-        this._parent.removeClass(CLASS_NAME_COLLAPSED$1).removeClass(CLASS_NAME_EXPANDING);
-      });
-
-      this._parent.find(`> ${SELECTOR_CARD_HEADER} ${this._settings.collapseTrigger} .${this._settings.expandIcon}`).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
-
-      this._element.trigger($__default['default'].Event(EVENT_EXPANDED$3), this._parent);
-    }
-
-    remove() {
-      this._parent.slideUp();
-
-      this._element.trigger($__default['default'].Event(EVENT_REMOVED$1), this._parent);
-    }
-
-    toggle() {
-      if (this._parent.hasClass(CLASS_NAME_COLLAPSED$1)) {
-        this.expand();
-        return;
-      }
-
-      this.collapse();
-    }
-
-    maximize() {
-      this._parent.find(`${this._settings.maximizeTrigger} .${this._settings.maximizeIcon}`).addClass(this._settings.minimizeIcon).removeClass(this._settings.maximizeIcon);
-
-      this._parent.css({
-        height: this._parent.height(),
-        width: this._parent.width(),
-        transition: 'all .15s'
-      }).delay(150).queue(function () {
-        const $element = $__default['default'](this);
-        $element.addClass(CLASS_NAME_MAXIMIZED);
-        $__default['default']('html').addClass(CLASS_NAME_MAXIMIZED);
-
-        if ($element.hasClass(CLASS_NAME_COLLAPSED$1)) {
-          $element.addClass(CLASS_NAME_WAS_COLLAPSED);
-        }
-
-        $element.dequeue();
-      });
-
-      this._element.trigger($__default['default'].Event(EVENT_MAXIMIZED), this._parent);
-    }
-
-    minimize() {
-      this._parent.find(`${this._settings.maximizeTrigger} .${this._settings.minimizeIcon}`).addClass(this._settings.maximizeIcon).removeClass(this._settings.minimizeIcon);
-
-      this._parent.css('cssText', `height: ${this._parent[0].style.height} !important; width: ${this._parent[0].style.width} !important; transition: all .15s;`).delay(10).queue(function () {
-        const $element = $__default['default'](this);
-        $element.removeClass(CLASS_NAME_MAXIMIZED);
-        $__default['default']('html').removeClass(CLASS_NAME_MAXIMIZED);
-        $element.css({
-          height: 'inherit',
-          width: 'inherit'
-        });
-
-        if ($element.hasClass(CLASS_NAME_WAS_COLLAPSED)) {
-          $element.removeClass(CLASS_NAME_WAS_COLLAPSED);
-        }
-
-        $element.dequeue();
-      });
-
-      this._element.trigger($__default['default'].Event(EVENT_MINIMIZED), this._parent);
-    }
-
-    toggleMaximize() {
-      if (this._parent.hasClass(CLASS_NAME_MAXIMIZED)) {
-        this.minimize();
-        return;
-      }
-
-      this.maximize();
-    } // Private
-
-
-    _init(card) {
-      this._parent = card;
-      $__default['default'](this).find(this._settings.collapseTrigger).click(() => {
-        this.toggle();
-      });
-      $__default['default'](this).find(this._settings.maximizeTrigger).click(() => {
-        this.toggleMaximize();
-      });
-      $__default['default'](this).find(this._settings.removeTrigger).click(() => {
-        this.remove();
-      });
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      let data = $__default['default'](this).data(DATA_KEY$d);
-
-      const _options = $__default['default'].extend({}, Default$b, $__default['default'](this).data());
-
-      if (!data) {
-        data = new CardWidget($__default['default'](this), _options);
-        $__default['default'](this).data(DATA_KEY$d, typeof config === 'string' ? data : config);
-      }
-
-      if (typeof config === 'string' && /collapse|expand|remove|toggle|maximize|minimize|toggleMaximize/.test(config)) {
-        data[config]();
-      } else if (typeof config === 'object') {
-        data._init($__default['default'](this));
-      }
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_DATA_COLLAPSE, function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    CardWidget._jQueryInterface.call($__default['default'](this), 'toggle');
-  });
-  $__default['default'](document).on('click', SELECTOR_DATA_REMOVE, function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    CardWidget._jQueryInterface.call($__default['default'](this), 'remove');
-  });
-  $__default['default'](document).on('click', SELECTOR_DATA_MAXIMIZE, function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    CardWidget._jQueryInterface.call($__default['default'](this), 'toggleMaximize');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$d] = CardWidget._jQueryInterface;
-  $__default['default'].fn[NAME$d].Constructor = CardWidget;
-
-  $__default['default'].fn[NAME$d].noConflict = function () {
-    $__default['default'].fn[NAME$d] = JQUERY_NO_CONFLICT$d;
-    return CardWidget._jQueryInterface;
-  };
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = global || self, factory(global.adminlte = {}));
+}(this, (function (exports) { 'use strict';
 
   /**
    * --------------------------------------------
@@ -400,1172 +15,268 @@
    * License MIT
    * --------------------------------------------
    */
-  /**
-   * Constants
-   * ====================================================
-   */
+  var ControlSidebar = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'ControlSidebar';
+    var DATA_KEY = 'lte.controlsidebar';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      COLLAPSED: "collapsed" + EVENT_KEY,
+      EXPANDED: "expanded" + EVENT_KEY
+    };
+    var Selector = {
+      CONTROL_SIDEBAR: '.control-sidebar',
+      CONTROL_SIDEBAR_CONTENT: '.control-sidebar-content',
+      DATA_TOGGLE: '[data-widget="control-sidebar"]',
+      CONTENT: '.content-wrapper',
+      HEADER: '.main-header',
+      FOOTER: '.main-footer'
+    };
+    var ClassName = {
+      CONTROL_SIDEBAR_ANIMATE: 'control-sidebar-animate',
+      CONTROL_SIDEBAR_OPEN: 'control-sidebar-open',
+      CONTROL_SIDEBAR_SLIDE: 'control-sidebar-slide-open',
+      LAYOUT_FIXED: 'layout-fixed',
+      NAVBAR_FIXED: 'layout-navbar-fixed',
+      NAVBAR_SM_FIXED: 'layout-sm-navbar-fixed',
+      NAVBAR_MD_FIXED: 'layout-md-navbar-fixed',
+      NAVBAR_LG_FIXED: 'layout-lg-navbar-fixed',
+      NAVBAR_XL_FIXED: 'layout-xl-navbar-fixed',
+      FOOTER_FIXED: 'layout-footer-fixed',
+      FOOTER_SM_FIXED: 'layout-sm-footer-fixed',
+      FOOTER_MD_FIXED: 'layout-md-footer-fixed',
+      FOOTER_LG_FIXED: 'layout-lg-footer-fixed',
+      FOOTER_XL_FIXED: 'layout-xl-footer-fixed'
+    };
+    var Default = {
+      controlsidebarSlide: true,
+      scrollbarTheme: 'os-theme-light',
+      scrollbarAutoHide: 'l'
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-  const NAME$c = 'ControlSidebar';
-  const DATA_KEY$c = 'lte.controlsidebar';
-  const EVENT_KEY$5 = `.${DATA_KEY$c}`;
-  const JQUERY_NO_CONFLICT$c = $__default['default'].fn[NAME$c];
-  const EVENT_COLLAPSED$3 = `collapsed${EVENT_KEY$5}`;
-  const EVENT_EXPANDED$2 = `expanded${EVENT_KEY$5}`;
-  const SELECTOR_CONTROL_SIDEBAR = '.control-sidebar';
-  const SELECTOR_CONTROL_SIDEBAR_CONTENT$1 = '.control-sidebar-content';
-  const SELECTOR_DATA_TOGGLE$4 = '[data-widget="control-sidebar"]';
-  const SELECTOR_HEADER$1 = '.main-header';
-  const SELECTOR_FOOTER$1 = '.main-footer';
-  const CLASS_NAME_CONTROL_SIDEBAR_ANIMATE = 'control-sidebar-animate';
-  const CLASS_NAME_CONTROL_SIDEBAR_OPEN$1 = 'control-sidebar-open';
-  const CLASS_NAME_CONTROL_SIDEBAR_SLIDE = 'control-sidebar-slide-open';
-  const CLASS_NAME_LAYOUT_FIXED$1 = 'layout-fixed';
-  const CLASS_NAME_NAVBAR_FIXED = 'layout-navbar-fixed';
-  const CLASS_NAME_NAVBAR_SM_FIXED = 'layout-sm-navbar-fixed';
-  const CLASS_NAME_NAVBAR_MD_FIXED = 'layout-md-navbar-fixed';
-  const CLASS_NAME_NAVBAR_LG_FIXED = 'layout-lg-navbar-fixed';
-  const CLASS_NAME_NAVBAR_XL_FIXED = 'layout-xl-navbar-fixed';
-  const CLASS_NAME_FOOTER_FIXED = 'layout-footer-fixed';
-  const CLASS_NAME_FOOTER_SM_FIXED = 'layout-sm-footer-fixed';
-  const CLASS_NAME_FOOTER_MD_FIXED = 'layout-md-footer-fixed';
-  const CLASS_NAME_FOOTER_LG_FIXED = 'layout-lg-footer-fixed';
-  const CLASS_NAME_FOOTER_XL_FIXED = 'layout-xl-footer-fixed';
-  const Default$a = {
-    controlsidebarSlide: true,
-    scrollbarTheme: 'os-theme-light',
-    scrollbarAutoHide: 'l',
-    target: SELECTOR_CONTROL_SIDEBAR
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
+    var ControlSidebar = /*#__PURE__*/function () {
+      function ControlSidebar(element, config) {
+        this._element = element;
+        this._config = config;
 
-  class ControlSidebar {
-    constructor(element, config) {
-      this._element = element;
-      this._config = config;
-    } // Public
+        this._init();
+      } // Public
 
 
-    collapse() {
-      const $body = $__default['default']('body');
-      const $html = $__default['default']('html');
-      const {
-        target
-      } = this._config; // Show the control sidebar
+      var _proto = ControlSidebar.prototype;
 
-      if (this._config.controlsidebarSlide) {
-        $html.addClass(CLASS_NAME_CONTROL_SIDEBAR_ANIMATE);
-        $body.removeClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE).delay(300).queue(function () {
-          $__default['default'](target).hide();
-          $html.removeClass(CLASS_NAME_CONTROL_SIDEBAR_ANIMATE);
-          $__default['default'](this).dequeue();
-        });
-      } else {
-        $body.removeClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN$1);
-      }
-
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_COLLAPSED$3));
-    }
-
-    show() {
-      const $body = $__default['default']('body');
-      const $html = $__default['default']('html'); // Collapse the control sidebar
-
-      if (this._config.controlsidebarSlide) {
-        $html.addClass(CLASS_NAME_CONTROL_SIDEBAR_ANIMATE);
-        $__default['default'](this._config.target).show().delay(10).queue(function () {
-          $body.addClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE).delay(300).queue(function () {
-            $html.removeClass(CLASS_NAME_CONTROL_SIDEBAR_ANIMATE);
-            $__default['default'](this).dequeue();
+      _proto.collapse = function collapse() {
+        // Show the control sidebar
+        if (this._config.controlsidebarSlide) {
+          $('html').addClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
+          $('body').removeClass(ClassName.CONTROL_SIDEBAR_SLIDE).delay(300).queue(function () {
+            $(Selector.CONTROL_SIDEBAR).hide();
+            $('html').removeClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
+            $(this).dequeue();
           });
-          $__default['default'](this).dequeue();
-        });
-      } else {
-        $body.addClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN$1);
-      }
+        } else {
+          $('body').removeClass(ClassName.CONTROL_SIDEBAR_OPEN);
+        }
 
-      this._fixHeight();
+        var collapsedEvent = $.Event(Event.COLLAPSED);
+        $(this._element).trigger(collapsedEvent);
+      };
 
-      this._fixScrollHeight();
+      _proto.show = function show() {
+        // Collapse the control sidebar
+        if (this._config.controlsidebarSlide) {
+          $('html').addClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
+          $(Selector.CONTROL_SIDEBAR).show().delay(10).queue(function () {
+            $('body').addClass(ClassName.CONTROL_SIDEBAR_SLIDE).delay(300).queue(function () {
+              $('html').removeClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
+              $(this).dequeue();
+            });
+            $(this).dequeue();
+          });
+        } else {
+          $('body').addClass(ClassName.CONTROL_SIDEBAR_OPEN);
+        }
 
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_EXPANDED$2));
-    }
+        var expandedEvent = $.Event(Event.EXPANDED);
+        $(this._element).trigger(expandedEvent);
+      };
 
-    toggle() {
-      const $body = $__default['default']('body');
-      const shouldClose = $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN$1) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE);
+      _proto.toggle = function toggle() {
+        var shouldClose = $('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE);
 
-      if (shouldClose) {
-        // Close the control sidebar
-        this.collapse();
-      } else {
-        // Open the control sidebar
-        this.show();
-      }
-    } // Private
+        if (shouldClose) {
+          // Close the control sidebar
+          this.collapse();
+        } else {
+          // Open the control sidebar
+          this.show();
+        }
+      } // Private
+      ;
 
+      _proto._init = function _init() {
+        var _this = this;
 
-    _init() {
-      const $body = $__default['default']('body');
-      const shouldNotHideAll = $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN$1) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE);
-
-      if (shouldNotHideAll) {
-        $__default['default'](SELECTOR_CONTROL_SIDEBAR).not(this._config.target).hide();
-        $__default['default'](this._config.target).css('display', 'block');
-      } else {
-        $__default['default'](SELECTOR_CONTROL_SIDEBAR).hide();
-      }
-
-      this._fixHeight();
-
-      this._fixScrollHeight();
-
-      $__default['default'](window).resize(() => {
         this._fixHeight();
 
         this._fixScrollHeight();
-      });
-      $__default['default'](window).scroll(() => {
-        const $body = $__default['default']('body');
-        const shouldFixHeight = $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN$1) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE);
 
-        if (shouldFixHeight) {
-          this._fixScrollHeight();
-        }
-      });
-    }
+        $(window).resize(function () {
+          _this._fixHeight();
 
-    _isNavbarFixed() {
-      const $body = $__default['default']('body');
-      return $body.hasClass(CLASS_NAME_NAVBAR_FIXED) || $body.hasClass(CLASS_NAME_NAVBAR_SM_FIXED) || $body.hasClass(CLASS_NAME_NAVBAR_MD_FIXED) || $body.hasClass(CLASS_NAME_NAVBAR_LG_FIXED) || $body.hasClass(CLASS_NAME_NAVBAR_XL_FIXED);
-    }
-
-    _isFooterFixed() {
-      const $body = $__default['default']('body');
-      return $body.hasClass(CLASS_NAME_FOOTER_FIXED) || $body.hasClass(CLASS_NAME_FOOTER_SM_FIXED) || $body.hasClass(CLASS_NAME_FOOTER_MD_FIXED) || $body.hasClass(CLASS_NAME_FOOTER_LG_FIXED) || $body.hasClass(CLASS_NAME_FOOTER_XL_FIXED);
-    }
-
-    _fixScrollHeight() {
-      const $body = $__default['default']('body');
-      const $controlSidebar = $__default['default'](this._config.target);
-
-      if (!$body.hasClass(CLASS_NAME_LAYOUT_FIXED$1)) {
-        return;
-      }
-
-      const heights = {
-        scroll: $__default['default'](document).height(),
-        window: $__default['default'](window).height(),
-        header: $__default['default'](SELECTOR_HEADER$1).outerHeight(),
-        footer: $__default['default'](SELECTOR_FOOTER$1).outerHeight()
-      };
-      const positions = {
-        bottom: Math.abs(heights.window + $__default['default'](window).scrollTop() - heights.scroll),
-        top: $__default['default'](window).scrollTop()
-      };
-      const navbarFixed = this._isNavbarFixed() && $__default['default'](SELECTOR_HEADER$1).css('position') === 'fixed';
-      const footerFixed = this._isFooterFixed() && $__default['default'](SELECTOR_FOOTER$1).css('position') === 'fixed';
-      const $controlsidebarContent = $__default['default'](`${this._config.target}, ${this._config.target} ${SELECTOR_CONTROL_SIDEBAR_CONTENT$1}`);
-
-      if (positions.top === 0 && positions.bottom === 0) {
-        $controlSidebar.css({
-          bottom: heights.footer,
-          top: heights.header
+          _this._fixScrollHeight();
         });
-        $controlsidebarContent.css('height', heights.window - (heights.header + heights.footer));
-      } else if (positions.bottom <= heights.footer) {
-        if (footerFixed === false) {
-          const top = heights.header - positions.top;
-          $controlSidebar.css('bottom', heights.footer - positions.bottom).css('top', top >= 0 ? top : 0);
-          $controlsidebarContent.css('height', heights.window - (heights.footer - positions.bottom));
-        } else {
-          $controlSidebar.css('bottom', heights.footer);
-        }
-      } else if (positions.top <= heights.header) {
-        if (navbarFixed === false) {
-          $controlSidebar.css('top', heights.header - positions.top);
-          $controlsidebarContent.css('height', heights.window - (heights.header - positions.top));
-        } else {
-          $controlSidebar.css('top', heights.header);
-        }
-      } else if (navbarFixed === false) {
-        $controlSidebar.css('top', 0);
-        $controlsidebarContent.css('height', heights.window);
-      } else {
-        $controlSidebar.css('top', heights.header);
-      }
-
-      if (footerFixed && navbarFixed) {
-        $controlsidebarContent.css('height', '100%');
-        $controlSidebar.css('height', '');
-      } else if (footerFixed || navbarFixed) {
-        $controlsidebarContent.css('height', '100%');
-        $controlsidebarContent.css('height', '');
-      }
-    }
-
-    _fixHeight() {
-      const $body = $__default['default']('body');
-      const $controlSidebar = $__default['default'](`${this._config.target} ${SELECTOR_CONTROL_SIDEBAR_CONTENT$1}`);
-
-      if (!$body.hasClass(CLASS_NAME_LAYOUT_FIXED$1)) {
-        $controlSidebar.attr('style', '');
-        return;
-      }
-
-      const heights = {
-        window: $__default['default'](window).height(),
-        header: $__default['default'](SELECTOR_HEADER$1).outerHeight(),
-        footer: $__default['default'](SELECTOR_FOOTER$1).outerHeight()
-      };
-      let sidebarHeight = heights.window - heights.header;
-
-      if (this._isFooterFixed() && $__default['default'](SELECTOR_FOOTER$1).css('position') === 'fixed') {
-        sidebarHeight = heights.window - heights.header - heights.footer;
-      }
-
-      $controlSidebar.css('height', sidebarHeight);
-
-      if (typeof $__default['default'].fn.overlayScrollbars !== 'undefined') {
-        $controlSidebar.overlayScrollbars({
-          className: this._config.scrollbarTheme,
-          sizeAutoCapable: true,
-          scrollbars: {
-            autoHide: this._config.scrollbarAutoHide,
-            clickScrolling: true
+        $(window).scroll(function () {
+          if ($('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE)) {
+            _this._fixScrollHeight();
           }
         });
-      }
-    } // Static
-
-
-    static _jQueryInterface(operation) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$c);
-
-        const _options = $__default['default'].extend({}, Default$a, $__default['default'](this).data());
-
-        if (!data) {
-          data = new ControlSidebar(this, _options);
-          $__default['default'](this).data(DATA_KEY$c, data);
-        }
-
-        if (data[operation] === 'undefined') {
-          throw new Error(`${operation} is not a function`);
-        }
-
-        data[operation]();
-      });
-    }
-
-  }
-  /**
-   *
-   * Data Api implementation
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_DATA_TOGGLE$4, function (event) {
-    event.preventDefault();
-
-    ControlSidebar._jQueryInterface.call($__default['default'](this), 'toggle');
-  });
-  $__default['default'](document).ready(() => {
-    ControlSidebar._jQueryInterface.call($__default['default'](SELECTOR_DATA_TOGGLE$4), '_init');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$c] = ControlSidebar._jQueryInterface;
-  $__default['default'].fn[NAME$c].Constructor = ControlSidebar;
-
-  $__default['default'].fn[NAME$c].noConflict = function () {
-    $__default['default'].fn[NAME$c] = JQUERY_NO_CONFLICT$c;
-    return ControlSidebar._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE DirectChat.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$b = 'DirectChat';
-  const DATA_KEY$b = 'lte.directchat';
-  const EVENT_KEY$4 = `.${DATA_KEY$b}`;
-  const JQUERY_NO_CONFLICT$b = $__default['default'].fn[NAME$b];
-  const EVENT_TOGGLED = `toggled${EVENT_KEY$4}`;
-  const SELECTOR_DATA_TOGGLE$3 = '[data-widget="chat-pane-toggle"]';
-  const SELECTOR_DIRECT_CHAT = '.direct-chat';
-  const CLASS_NAME_DIRECT_CHAT_OPEN = 'direct-chat-contacts-open';
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class DirectChat {
-    constructor(element) {
-      this._element = element;
-    }
-
-    toggle() {
-      $__default['default'](this._element).parents(SELECTOR_DIRECT_CHAT).first().toggleClass(CLASS_NAME_DIRECT_CHAT_OPEN);
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_TOGGLED));
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$b);
-
-        if (!data) {
-          data = new DirectChat($__default['default'](this));
-          $__default['default'](this).data(DATA_KEY$b, data);
-        }
-
-        data[config]();
-      });
-    }
-
-  }
-  /**
-   *
-   * Data Api implementation
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_DATA_TOGGLE$3, function (event) {
-    if (event) {
-      event.preventDefault();
-    }
-
-    DirectChat._jQueryInterface.call($__default['default'](this), 'toggle');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$b] = DirectChat._jQueryInterface;
-  $__default['default'].fn[NAME$b].Constructor = DirectChat;
-
-  $__default['default'].fn[NAME$b].noConflict = function () {
-    $__default['default'].fn[NAME$b] = JQUERY_NO_CONFLICT$b;
-    return DirectChat._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE Dropdown.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$a = 'Dropdown';
-  const DATA_KEY$a = 'lte.dropdown';
-  const JQUERY_NO_CONFLICT$a = $__default['default'].fn[NAME$a];
-  const SELECTOR_NAVBAR = '.navbar';
-  const SELECTOR_DROPDOWN_MENU = '.dropdown-menu';
-  const SELECTOR_DROPDOWN_MENU_ACTIVE = '.dropdown-menu.show';
-  const SELECTOR_DROPDOWN_TOGGLE = '[data-toggle="dropdown"]';
-  const CLASS_NAME_DROPDOWN_RIGHT = 'dropdown-menu-right';
-  const CLASS_NAME_DROPDOWN_SUBMENU = 'dropdown-submenu'; // TODO: this is unused; should be removed along with the extend?
-
-  const Default$9 = {};
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class Dropdown {
-    constructor(element, config) {
-      this._config = config;
-      this._element = element;
-    } // Public
-
-
-    toggleSubmenu() {
-      this._element.siblings().show().toggleClass('show');
-
-      if (!this._element.next().hasClass('show')) {
-        this._element.parents(SELECTOR_DROPDOWN_MENU).first().find('.show').removeClass('show').hide();
-      }
-
-      this._element.parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', () => {
-        $__default['default']('.dropdown-submenu .show').removeClass('show').hide();
-      });
-    }
-
-    fixPosition() {
-      const $element = $__default['default'](SELECTOR_DROPDOWN_MENU_ACTIVE);
-
-      if ($element.length === 0) {
-        return;
-      }
-
-      if ($element.hasClass(CLASS_NAME_DROPDOWN_RIGHT)) {
-        $element.css({
-          left: 'inherit',
-          right: 0
-        });
-      } else {
-        $element.css({
-          left: 0,
-          right: 'inherit'
-        });
-      }
-
-      const offset = $element.offset();
-      const width = $element.width();
-      const visiblePart = $__default['default'](window).width() - offset.left;
-
-      if (offset.left < 0) {
-        $element.css({
-          left: 'inherit',
-          right: offset.left - 5
-        });
-      } else if (visiblePart < width) {
-        $element.css({
-          left: 'inherit',
-          right: 0
-        });
-      }
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$a);
-
-        const _config = $__default['default'].extend({}, Default$9, $__default['default'](this).data());
-
-        if (!data) {
-          data = new Dropdown($__default['default'](this), _config);
-          $__default['default'](this).data(DATA_KEY$a, data);
-        }
-
-        if (config === 'toggleSubmenu' || config === 'fixPosition') {
-          data[config]();
-        }
-      });
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](`${SELECTOR_DROPDOWN_MENU} ${SELECTOR_DROPDOWN_TOGGLE}`).on('click', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    Dropdown._jQueryInterface.call($__default['default'](this), 'toggleSubmenu');
-  });
-  $__default['default'](`${SELECTOR_NAVBAR} ${SELECTOR_DROPDOWN_TOGGLE}`).on('click', event => {
-    event.preventDefault();
-
-    if ($__default['default'](event.target).parent().hasClass(CLASS_NAME_DROPDOWN_SUBMENU)) {
-      return;
-    }
-
-    setTimeout(function () {
-      Dropdown._jQueryInterface.call($__default['default'](this), 'fixPosition');
-    }, 1);
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$a] = Dropdown._jQueryInterface;
-  $__default['default'].fn[NAME$a].Constructor = Dropdown;
-
-  $__default['default'].fn[NAME$a].noConflict = function () {
-    $__default['default'].fn[NAME$a] = JQUERY_NO_CONFLICT$a;
-    return Dropdown._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE ExpandableTable.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-    * Constants
-    * ====================================================
-    */
-
-  const NAME$9 = 'ExpandableTable';
-  const DATA_KEY$9 = 'lte.expandableTable';
-  const EVENT_KEY$3 = `.${DATA_KEY$9}`;
-  const JQUERY_NO_CONFLICT$9 = $__default['default'].fn[NAME$9];
-  const EVENT_EXPANDED$1 = `expanded${EVENT_KEY$3}`;
-  const EVENT_COLLAPSED$2 = `collapsed${EVENT_KEY$3}`;
-  const SELECTOR_TABLE = '.expandable-table';
-  const SELECTOR_EXPANDABLE_BODY = '.expandable-body';
-  const SELECTOR_DATA_TOGGLE$2 = '[data-widget="expandable-table"]';
-  const SELECTOR_ARIA_ATTR = 'aria-expanded';
-  /**
-    * Class Definition
-    * ====================================================
-    */
-
-  class ExpandableTable {
-    constructor(element, options) {
-      this._options = options;
-      this._element = element;
-    } // Public
-
-
-    init() {
-      $__default['default'](SELECTOR_DATA_TOGGLE$2).each((_, $header) => {
-        const $type = $__default['default']($header).attr(SELECTOR_ARIA_ATTR);
-        const $body = $__default['default']($header).next(SELECTOR_EXPANDABLE_BODY).children().first().children();
-
-        if ($type === 'true') {
-          $body.show();
-        } else if ($type === 'false') {
-          $body.hide();
-          $body.parent().parent().addClass('d-none');
-        }
-      });
-    }
-
-    toggleRow() {
-      const $element = this._element;
-      const time = 500;
-      const $type = $element.attr(SELECTOR_ARIA_ATTR);
-      const $body = $element.next(SELECTOR_EXPANDABLE_BODY).children().first().children();
-      $body.stop();
-
-      if ($type === 'true') {
-        $body.slideUp(time, () => {
-          $element.next(SELECTOR_EXPANDABLE_BODY).addClass('d-none');
-        });
-        $element.attr(SELECTOR_ARIA_ATTR, 'false');
-        $element.trigger($__default['default'].Event(EVENT_COLLAPSED$2));
-      } else if ($type === 'false') {
-        $element.next(SELECTOR_EXPANDABLE_BODY).removeClass('d-none');
-        $body.slideDown(time);
-        $element.attr(SELECTOR_ARIA_ATTR, 'true');
-        $element.trigger($__default['default'].Event(EVENT_EXPANDED$1));
-      }
-    } // Static
-
-
-    static _jQueryInterface(operation) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$9);
-
-        if (!data) {
-          data = new ExpandableTable($__default['default'](this));
-          $__default['default'](this).data(DATA_KEY$9, data);
-        }
-
-        if (typeof operation === 'string' && /init|toggleRow/.test(operation)) {
-          data[operation]();
-        }
-      });
-    }
-
-  }
-  /**
-    * Data API
-    * ====================================================
-    */
-
-
-  $__default['default'](SELECTOR_TABLE).ready(function () {
-    ExpandableTable._jQueryInterface.call($__default['default'](this), 'init');
-  });
-  $__default['default'](document).on('click', SELECTOR_DATA_TOGGLE$2, function () {
-    ExpandableTable._jQueryInterface.call($__default['default'](this), 'toggleRow');
-  });
-  /**
-    * jQuery API
-    * ====================================================
-    */
-
-  $__default['default'].fn[NAME$9] = ExpandableTable._jQueryInterface;
-  $__default['default'].fn[NAME$9].Constructor = ExpandableTable;
-
-  $__default['default'].fn[NAME$9].noConflict = function () {
-    $__default['default'].fn[NAME$9] = JQUERY_NO_CONFLICT$9;
-    return ExpandableTable._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE Fullscreen.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$8 = 'Fullscreen';
-  const DATA_KEY$8 = 'lte.fullscreen';
-  const JQUERY_NO_CONFLICT$8 = $__default['default'].fn[NAME$8];
-  const SELECTOR_DATA_WIDGET$2 = '[data-widget="fullscreen"]';
-  const SELECTOR_ICON = `${SELECTOR_DATA_WIDGET$2} i`;
-  const EVENT_FULLSCREEN_CHANGE = 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange';
-  const Default$8 = {
-    minimizeIcon: 'fa-compress-arrows-alt',
-    maximizeIcon: 'fa-expand-arrows-alt'
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class Fullscreen {
-    constructor(_element, _options) {
-      this.element = _element;
-      this.options = $__default['default'].extend({}, Default$8, _options);
-    } // Public
-
-
-    toggle() {
-      if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-        this.windowed();
-      } else {
-        this.fullscreen();
-      }
-    }
-
-    toggleIcon() {
-      if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-        $__default['default'](SELECTOR_ICON).removeClass(this.options.maximizeIcon).addClass(this.options.minimizeIcon);
-      } else {
-        $__default['default'](SELECTOR_ICON).removeClass(this.options.minimizeIcon).addClass(this.options.maximizeIcon);
-      }
-    }
-
-    fullscreen() {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      }
-    }
-
-    windowed() {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      let data = $__default['default'](this).data(DATA_KEY$8);
-
-      if (!data) {
-        data = $__default['default'](this).data();
-      }
-
-      const _options = $__default['default'].extend({}, Default$8, typeof config === 'object' ? config : data);
-
-      const plugin = new Fullscreen($__default['default'](this), _options);
-      $__default['default'](this).data(DATA_KEY$8, typeof config === 'object' ? config : data);
-
-      if (typeof config === 'string' && /toggle|toggleIcon|fullscreen|windowed/.test(config)) {
-        plugin[config]();
-      } else {
-        plugin.init();
-      }
-    }
-
-  }
-  /**
-    * Data API
-    * ====================================================
-    */
-
-
-  $__default['default'](document).on('click', SELECTOR_DATA_WIDGET$2, function () {
-    Fullscreen._jQueryInterface.call($__default['default'](this), 'toggle');
-  });
-  $__default['default'](document).on(EVENT_FULLSCREEN_CHANGE, () => {
-    Fullscreen._jQueryInterface.call($__default['default'](SELECTOR_DATA_WIDGET$2), 'toggleIcon');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$8] = Fullscreen._jQueryInterface;
-  $__default['default'].fn[NAME$8].Constructor = Fullscreen;
-
-  $__default['default'].fn[NAME$8].noConflict = function () {
-    $__default['default'].fn[NAME$8] = JQUERY_NO_CONFLICT$8;
-    return Fullscreen._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE IFrame.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$7 = 'IFrame';
-  const DATA_KEY$7 = 'lte.iframe';
-  const JQUERY_NO_CONFLICT$7 = $__default['default'].fn[NAME$7];
-  const SELECTOR_DATA_TOGGLE$1 = '[data-widget="iframe"]';
-  const SELECTOR_DATA_TOGGLE_CLOSE = '[data-widget="iframe-close"]';
-  const SELECTOR_DATA_TOGGLE_SCROLL_LEFT = '[data-widget="iframe-scrollleft"]';
-  const SELECTOR_DATA_TOGGLE_SCROLL_RIGHT = '[data-widget="iframe-scrollright"]';
-  const SELECTOR_DATA_TOGGLE_FULLSCREEN = '[data-widget="iframe-fullscreen"]';
-  const SELECTOR_CONTENT_WRAPPER = '.content-wrapper';
-  const SELECTOR_CONTENT_IFRAME = `${SELECTOR_CONTENT_WRAPPER} iframe`;
-  const SELECTOR_TAB_NAV = `${SELECTOR_CONTENT_WRAPPER}.iframe-mode .nav`;
-  const SELECTOR_TAB_NAVBAR_NAV = `${SELECTOR_CONTENT_WRAPPER}.iframe-mode .navbar-nav`;
-  const SELECTOR_TAB_NAVBAR_NAV_ITEM = `${SELECTOR_TAB_NAVBAR_NAV} .nav-item`;
-  const SELECTOR_TAB_NAVBAR_NAV_LINK = `${SELECTOR_TAB_NAVBAR_NAV} .nav-link`;
-  const SELECTOR_TAB_CONTENT = `${SELECTOR_CONTENT_WRAPPER}.iframe-mode .tab-content`;
-  const SELECTOR_TAB_EMPTY = `${SELECTOR_TAB_CONTENT} .tab-empty`;
-  const SELECTOR_TAB_LOADING = `${SELECTOR_TAB_CONTENT} .tab-loading`;
-  const SELECTOR_TAB_PANE = `${SELECTOR_TAB_CONTENT} .tab-pane`;
-  const SELECTOR_SIDEBAR_MENU_ITEM = '.main-sidebar .nav-item > a.nav-link';
-  const SELECTOR_SIDEBAR_SEARCH_ITEM = '.sidebar-search-results .list-group-item';
-  const SELECTOR_HEADER_MENU_ITEM = '.main-header .nav-item a.nav-link';
-  const SELECTOR_HEADER_DROPDOWN_ITEM = '.main-header a.dropdown-item';
-  const CLASS_NAME_IFRAME_MODE$1 = 'iframe-mode';
-  const CLASS_NAME_FULLSCREEN_MODE = 'iframe-mode-fullscreen';
-  const Default$7 = {
-    onTabClick(item) {
-      return item;
-    },
-
-    onTabChanged(item) {
-      return item;
-    },
-
-    onTabCreated(item) {
-      return item;
-    },
-
-    autoIframeMode: true,
-    autoItemActive: true,
-    autoShowNewTab: true,
-    autoDarkMode: false,
-    allowDuplicates: false,
-    loadingScreen: true,
-    useNavbarItems: true,
-    scrollOffset: 40,
-    scrollBehaviorSwap: false,
-    iconMaximize: 'fa-expand',
-    iconMinimize: 'fa-compress'
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class IFrame {
-    constructor(element, config) {
-      this._config = config;
-      this._element = element;
-
-      this._init();
-    } // Public
-
-
-    onTabClick(item) {
-      this._config.onTabClick(item);
-    }
-
-    onTabChanged(item) {
-      this._config.onTabChanged(item);
-    }
-
-    onTabCreated(item) {
-      this._config.onTabCreated(item);
-    }
-
-    createTab(title, link, uniqueName, autoOpen) {
-      let tabId = `panel-${uniqueName}`;
-      let navId = `tab-${uniqueName}`;
-
-      if (this._config.allowDuplicates) {
-        tabId += `-${Math.floor(Math.random() * 1000)}`;
-        navId += `-${Math.floor(Math.random() * 1000)}`;
-      }
-
-      const newNavItem = `<li class="nav-item" role="presentation"><a href="#" class="btn-iframe-close" data-widget="iframe-close" data-type="only-this"><i class="fas fa-times"></i></a><a class="nav-link" data-toggle="row" id="${navId}" href="#${tabId}" role="tab" aria-controls="${tabId}" aria-selected="false">${title}</a></li>`;
-      $__default['default'](SELECTOR_TAB_NAVBAR_NAV).append(unescape(escape(newNavItem)));
-      const newTabItem = `<div class="tab-pane fade" id="${tabId}" role="tabpanel" aria-labelledby="${navId}"><iframe src="${link}"></iframe></div>`;
-      $__default['default'](SELECTOR_TAB_CONTENT).append(unescape(escape(newTabItem)));
-
-      if (autoOpen) {
-        if (this._config.loadingScreen) {
-          const $loadingScreen = $__default['default'](SELECTOR_TAB_LOADING);
-          $loadingScreen.fadeIn();
-          $__default['default'](`${tabId} iframe`).ready(() => {
-            if (typeof this._config.loadingScreen === 'number') {
-              this.switchTab(`#${navId}`);
-              setTimeout(() => {
-                $loadingScreen.fadeOut();
-              }, this._config.loadingScreen);
-            } else {
-              this.switchTab(`#${navId}`);
-              $loadingScreen.fadeOut();
+      };
+
+      _proto._fixScrollHeight = function _fixScrollHeight() {
+        var heights = {
+          scroll: $(document).height(),
+          window: $(window).height(),
+          header: $(Selector.HEADER).outerHeight(),
+          footer: $(Selector.FOOTER).outerHeight()
+        };
+        var positions = {
+          bottom: Math.abs(heights.window + $(window).scrollTop() - heights.scroll),
+          top: $(window).scrollTop()
+        };
+        var navbarFixed = false;
+        var footerFixed = false;
+
+        if ($('body').hasClass(ClassName.LAYOUT_FIXED)) {
+          if ($('body').hasClass(ClassName.NAVBAR_FIXED) || $('body').hasClass(ClassName.NAVBAR_SM_FIXED) || $('body').hasClass(ClassName.NAVBAR_MD_FIXED) || $('body').hasClass(ClassName.NAVBAR_LG_FIXED) || $('body').hasClass(ClassName.NAVBAR_XL_FIXED)) {
+            if ($(Selector.HEADER).css("position") === "fixed") {
+              navbarFixed = true;
             }
-          });
-        } else {
-          this.switchTab(`#${navId}`);
+          }
+
+          if ($('body').hasClass(ClassName.FOOTER_FIXED) || $('body').hasClass(ClassName.FOOTER_SM_FIXED) || $('body').hasClass(ClassName.FOOTER_MD_FIXED) || $('body').hasClass(ClassName.FOOTER_LG_FIXED) || $('body').hasClass(ClassName.FOOTER_XL_FIXED)) {
+            if ($(Selector.FOOTER).css("position") === "fixed") {
+              footerFixed = true;
+            }
+          }
+
+          if (positions.top === 0 && positions.bottom === 0) {
+            $(Selector.CONTROL_SIDEBAR).css('bottom', heights.footer);
+            $(Selector.CONTROL_SIDEBAR).css('top', heights.header);
+            $(Selector.CONTROL_SIDEBAR + ', ' + Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', heights.window - (heights.header + heights.footer));
+          } else if (positions.bottom <= heights.footer) {
+            if (footerFixed === false) {
+              $(Selector.CONTROL_SIDEBAR).css('bottom', heights.footer - positions.bottom);
+              $(Selector.CONTROL_SIDEBAR + ', ' + Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', heights.window - (heights.footer - positions.bottom));
+            } else {
+              $(Selector.CONTROL_SIDEBAR).css('bottom', heights.footer);
+            }
+          } else if (positions.top <= heights.header) {
+            if (navbarFixed === false) {
+              $(Selector.CONTROL_SIDEBAR).css('top', heights.header - positions.top);
+              $(Selector.CONTROL_SIDEBAR + ', ' + Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', heights.window - (heights.header - positions.top));
+            } else {
+              $(Selector.CONTROL_SIDEBAR).css('top', heights.header);
+            }
+          } else {
+            if (navbarFixed === false) {
+              $(Selector.CONTROL_SIDEBAR).css('top', 0);
+              $(Selector.CONTROL_SIDEBAR + ', ' + Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', heights.window);
+            } else {
+              $(Selector.CONTROL_SIDEBAR).css('top', heights.header);
+            }
+          }
         }
-      }
+      };
 
-      this.onTabCreated($__default['default'](`#${navId}`));
-    }
+      _proto._fixHeight = function _fixHeight() {
+        var heights = {
+          window: $(window).height(),
+          header: $(Selector.HEADER).outerHeight(),
+          footer: $(Selector.FOOTER).outerHeight()
+        };
 
-    openTabSidebar(item, autoOpen = this._config.autoShowNewTab) {
-      let $item = $__default['default'](item).clone();
+        if ($('body').hasClass(ClassName.LAYOUT_FIXED)) {
+          var sidebarHeight = heights.window - heights.header;
 
-      if ($item.attr('href') === undefined) {
-        $item = $__default['default'](item).parent('a').clone();
-      }
+          if ($('body').hasClass(ClassName.FOOTER_FIXED) || $('body').hasClass(ClassName.FOOTER_SM_FIXED) || $('body').hasClass(ClassName.FOOTER_MD_FIXED) || $('body').hasClass(ClassName.FOOTER_LG_FIXED) || $('body').hasClass(ClassName.FOOTER_XL_FIXED)) {
+            if ($(Selector.FOOTER).css("position") === "fixed") {
+              sidebarHeight = heights.window - heights.header - heights.footer;
+            }
+          }
 
-      $item.find('.right, .search-path').remove();
-      let title = $item.find('p').text();
+          $(Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', sidebarHeight);
 
-      if (title === '') {
-        title = $item.text();
-      }
-
-      const link = $item.attr('href');
-
-      if (link === '#' || link === '' || link === undefined) {
-        return;
-      }
-
-      const uniqueName = link.replace('./', '').replace(/["#&'./:=?[\]]/gi, '-').replace(/(--)/gi, '');
-      const navId = `tab-${uniqueName}`;
-
-      if (!this._config.allowDuplicates && $__default['default'](`#${navId}`).length > 0) {
-        return this.switchTab(`#${navId}`);
-      }
-
-      if (!this._config.allowDuplicates && $__default['default'](`#${navId}`).length === 0 || this._config.allowDuplicates) {
-        this.createTab(title, link, uniqueName, autoOpen);
-      }
-    }
-
-    switchTab(item) {
-      const $item = $__default['default'](item);
-      const tabId = $item.attr('href');
-      $__default['default'](SELECTOR_TAB_EMPTY).hide();
-      $__default['default'](`${SELECTOR_TAB_NAVBAR_NAV} .active`).tab('dispose').removeClass('active');
-
-      this._fixHeight();
-
-      $item.tab('show');
-      $item.parents('li').addClass('active');
-      this.onTabChanged($item);
-
-      if (this._config.autoItemActive) {
-        this._setItemActive($__default['default'](`${tabId} iframe`).attr('src'));
-      }
-    }
-
-    removeActiveTab(type, element) {
-      if (type == 'all') {
-        $__default['default'](SELECTOR_TAB_NAVBAR_NAV_ITEM).remove();
-        $__default['default'](SELECTOR_TAB_PANE).remove();
-        $__default['default'](SELECTOR_TAB_EMPTY).show();
-      } else if (type == 'all-other') {
-        $__default['default'](`${SELECTOR_TAB_NAVBAR_NAV_ITEM}:not(.active)`).remove();
-        $__default['default'](`${SELECTOR_TAB_PANE}:not(.active)`).remove();
-      } else if (type == 'only-this') {
-        const $navClose = $__default['default'](element);
-        const $navItem = $navClose.parent('.nav-item');
-        const $navItemParent = $navItem.parent();
-        const navItemIndex = $navItem.index();
-        const tabId = $navClose.siblings('.nav-link').attr('aria-controls');
-        $navItem.remove();
-        $__default['default'](`#${tabId}`).remove();
-
-        if ($__default['default'](SELECTOR_TAB_CONTENT).children().length == $__default['default'](`${SELECTOR_TAB_EMPTY}, ${SELECTOR_TAB_LOADING}`).length) {
-          $__default['default'](SELECTOR_TAB_EMPTY).show();
-        } else {
-          const prevNavItemIndex = navItemIndex - 1;
-          this.switchTab($navItemParent.children().eq(prevNavItemIndex).find('a.nav-link'));
+          if (typeof $.fn.overlayScrollbars !== 'undefined') {
+            $(Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).overlayScrollbars({
+              className: this._config.scrollbarTheme,
+              sizeAutoCapable: true,
+              scrollbars: {
+                autoHide: this._config.scrollbarAutoHide,
+                clickScrolling: true
+              }
+            });
+          }
         }
-      } else {
-        const $navItem = $__default['default'](`${SELECTOR_TAB_NAVBAR_NAV_ITEM}.active`);
-        const $navItemParent = $navItem.parent();
-        const navItemIndex = $navItem.index();
-        $navItem.remove();
-        $__default['default'](`${SELECTOR_TAB_PANE}.active`).remove();
+      } // Static
+      ;
 
-        if ($__default['default'](SELECTOR_TAB_CONTENT).children().length == $__default['default'](`${SELECTOR_TAB_EMPTY}, ${SELECTOR_TAB_LOADING}`).length) {
-          $__default['default'](SELECTOR_TAB_EMPTY).show();
-        } else {
-          const prevNavItemIndex = navItemIndex - 1;
-          this.switchTab($navItemParent.children().eq(prevNavItemIndex).find('a.nav-link'));
-        }
-      }
-    }
+      ControlSidebar._jQueryInterface = function _jQueryInterface(operation) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
 
-    toggleFullscreen() {
-      if ($__default['default']('body').hasClass(CLASS_NAME_FULLSCREEN_MODE)) {
-        $__default['default'](`${SELECTOR_DATA_TOGGLE_FULLSCREEN} i`).removeClass(this._config.iconMinimize).addClass(this._config.iconMaximize);
-        $__default['default']('body').removeClass(CLASS_NAME_FULLSCREEN_MODE);
-        $__default['default'](`${SELECTOR_TAB_EMPTY}, ${SELECTOR_TAB_LOADING}`).height('100%');
-        $__default['default'](SELECTOR_CONTENT_WRAPPER).height('100%');
-        $__default['default'](SELECTOR_CONTENT_IFRAME).height('100%');
-      } else {
-        $__default['default'](`${SELECTOR_DATA_TOGGLE_FULLSCREEN} i`).removeClass(this._config.iconMaximize).addClass(this._config.iconMinimize);
-        $__default['default']('body').addClass(CLASS_NAME_FULLSCREEN_MODE);
-      }
+          var _options = $.extend({}, Default, $(this).data());
 
-      $__default['default'](window).trigger('resize');
+          if (!data) {
+            data = new ControlSidebar(this, _options);
+            $(this).data(DATA_KEY, data);
+          }
 
-      this._fixHeight(true);
-    } // Private
+          if (data[operation] === 'undefined') {
+            throw new Error(operation + " is not a function");
+          }
 
-
-    _init() {
-      if ($__default['default'](SELECTOR_TAB_CONTENT).children().length > 2) {
-        const $el = $__default['default'](`${SELECTOR_TAB_PANE}:first-child`);
-        $el.show();
-
-        this._setItemActive($el.find('iframe').attr('src'));
-      }
-
-      this._setupListeners();
-
-      this._fixHeight(true);
-    }
-
-    _initFrameElement() {
-      if (window.frameElement && this._config.autoIframeMode) {
-        const $body = $__default['default']('body');
-        $body.addClass(CLASS_NAME_IFRAME_MODE$1);
-
-        if (this._config.autoDarkMode) {
-          $body.addClass('dark-mode');
-        }
-      }
-    }
-
-    _navScroll(offset) {
-      const leftPos = $__default['default'](SELECTOR_TAB_NAVBAR_NAV).scrollLeft();
-      $__default['default'](SELECTOR_TAB_NAVBAR_NAV).animate({
-        scrollLeft: leftPos + offset
-      }, 250, 'linear');
-    }
-
-    _setupListeners() {
-      $__default['default'](window).on('resize', () => {
-        setTimeout(() => {
-          this._fixHeight();
-        }, 1);
-      });
-
-      if ($__default['default']('body').hasClass(CLASS_NAME_IFRAME_MODE$1)) {
-        $__default['default'](document).on('click', `${SELECTOR_SIDEBAR_MENU_ITEM}, ${SELECTOR_SIDEBAR_SEARCH_ITEM}`, e => {
-          e.preventDefault();
-          this.openTabSidebar(e.target);
+          data[operation]();
         });
+      };
 
-        if (this._config.useNavbarItems) {
-          $__default['default'](document).on('click', `${SELECTOR_HEADER_MENU_ITEM}, ${SELECTOR_HEADER_DROPDOWN_ITEM}`, e => {
-            e.preventDefault();
-            this.openTabSidebar(e.target);
-          });
-        }
-      }
-
-      $__default['default'](document).on('click', SELECTOR_TAB_NAVBAR_NAV_LINK, e => {
-        e.preventDefault();
-        this.onTabClick(e.target);
-        this.switchTab(e.target);
-      });
-      $__default['default'](document).on('click', SELECTOR_TAB_NAVBAR_NAV_LINK, e => {
-        e.preventDefault();
-        this.onTabClick(e.target);
-        this.switchTab(e.target);
-      });
-      $__default['default'](document).on('click', SELECTOR_DATA_TOGGLE_CLOSE, e => {
-        e.preventDefault();
-        let {
-          target
-        } = e;
-
-        if (target.nodeName == 'I') {
-          target = e.target.offsetParent;
-        }
-
-        this.removeActiveTab(target.attributes['data-type'] ? target.attributes['data-type'].nodeValue : null, target);
-      });
-      $__default['default'](document).on('click', SELECTOR_DATA_TOGGLE_FULLSCREEN, e => {
-        e.preventDefault();
-        this.toggleFullscreen();
-      });
-      let mousedown = false;
-      let mousedownInterval = null;
-      $__default['default'](document).on('mousedown', SELECTOR_DATA_TOGGLE_SCROLL_LEFT, e => {
-        e.preventDefault();
-        clearInterval(mousedownInterval);
-        let {
-          scrollOffset
-        } = this._config;
-
-        if (!this._config.scrollBehaviorSwap) {
-          scrollOffset = -scrollOffset;
-        }
-
-        mousedown = true;
-
-        this._navScroll(scrollOffset);
-
-        mousedownInterval = setInterval(() => {
-          this._navScroll(scrollOffset);
-        }, 250);
-      });
-      $__default['default'](document).on('mousedown', SELECTOR_DATA_TOGGLE_SCROLL_RIGHT, e => {
-        e.preventDefault();
-        clearInterval(mousedownInterval);
-        let {
-          scrollOffset
-        } = this._config;
-
-        if (this._config.scrollBehaviorSwap) {
-          scrollOffset = -scrollOffset;
-        }
-
-        mousedown = true;
-
-        this._navScroll(scrollOffset);
-
-        mousedownInterval = setInterval(() => {
-          this._navScroll(scrollOffset);
-        }, 250);
-      });
-      $__default['default'](document).on('mouseup', () => {
-        if (mousedown) {
-          mousedown = false;
-          clearInterval(mousedownInterval);
-          mousedownInterval = null;
-        }
-      });
-    }
-
-    _setItemActive(href) {
-      $__default['default'](`${SELECTOR_SIDEBAR_MENU_ITEM}, ${SELECTOR_HEADER_DROPDOWN_ITEM}`).removeClass('active');
-      $__default['default'](SELECTOR_HEADER_MENU_ITEM).parent().removeClass('active');
-      const $headerMenuItem = $__default['default'](`${SELECTOR_HEADER_MENU_ITEM}[href$="${href}"]`);
-      const $headerDropdownItem = $__default['default'](`${SELECTOR_HEADER_DROPDOWN_ITEM}[href$="${href}"]`);
-      const $sidebarMenuItem = $__default['default'](`${SELECTOR_SIDEBAR_MENU_ITEM}[href$="${href}"]`);
-      $headerMenuItem.each((i, e) => {
-        $__default['default'](e).parent().addClass('active');
-      });
-      $headerDropdownItem.each((i, e) => {
-        $__default['default'](e).addClass('active');
-      });
-      $sidebarMenuItem.each((i, e) => {
-        $__default['default'](e).addClass('active');
-        $__default['default'](e).parents('.nav-treeview').prevAll('.nav-link').addClass('active');
-      });
-    }
-
-    _fixHeight(tabEmpty = false) {
-      if ($__default['default']('body').hasClass(CLASS_NAME_FULLSCREEN_MODE)) {
-        const windowHeight = $__default['default'](window).height();
-        const navbarHeight = $__default['default'](SELECTOR_TAB_NAV).outerHeight();
-        $__default['default'](`${SELECTOR_TAB_EMPTY}, ${SELECTOR_TAB_LOADING}, ${SELECTOR_CONTENT_IFRAME}`).height(windowHeight - navbarHeight);
-        $__default['default'](SELECTOR_CONTENT_WRAPPER).height(windowHeight);
-      } else {
-        const contentWrapperHeight = parseFloat($__default['default'](SELECTOR_CONTENT_WRAPPER).css('height'));
-        const navbarHeight = $__default['default'](SELECTOR_TAB_NAV).outerHeight();
-
-        if (tabEmpty == true) {
-          setTimeout(() => {
-            $__default['default'](`${SELECTOR_TAB_EMPTY}, ${SELECTOR_TAB_LOADING}`).height(contentWrapperHeight - navbarHeight);
-          }, 50);
-        } else {
-          $__default['default'](SELECTOR_CONTENT_IFRAME).height(contentWrapperHeight - navbarHeight);
-        }
-      }
-    } // Static
+      return ControlSidebar;
+    }();
+    /**
+     *
+     * Data Api implementation
+     * ====================================================
+     */
 
 
-    static _jQueryInterface(config) {
-      if ($__default['default'](SELECTOR_DATA_TOGGLE$1).length > 0) {
-        let data = $__default['default'](this).data(DATA_KEY$7);
+    $(document).on('click', Selector.DATA_TOGGLE, function (event) {
+      event.preventDefault();
 
-        if (!data) {
-          data = $__default['default'](this).data();
-        }
+      ControlSidebar._jQueryInterface.call($(this), 'toggle');
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
 
-        const _options = $__default['default'].extend({}, Default$7, typeof config === 'object' ? config : data);
+    $.fn[NAME] = ControlSidebar._jQueryInterface;
+    $.fn[NAME].Constructor = ControlSidebar;
 
-        localStorage.setItem('AdminLTE:IFrame:Options', JSON.stringify(_options));
-        const plugin = new IFrame($__default['default'](this), _options);
-        $__default['default'](this).data(DATA_KEY$7, typeof config === 'object' ? config : data);
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return ControlSidebar._jQueryInterface;
+    };
 
-        if (typeof config === 'string' && /createTab|openTabSidebar|switchTab|removeActiveTab/.test(config)) {
-          plugin[config]();
-        }
-      } else {
-        new IFrame($__default['default'](this), JSON.parse(localStorage.getItem('AdminLTE:IFrame:Options')))._initFrameElement();
-      }
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](window).on('load', () => {
-    IFrame._jQueryInterface.call($__default['default'](SELECTOR_DATA_TOGGLE$1));
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$7] = IFrame._jQueryInterface;
-  $__default['default'].fn[NAME$7].Constructor = IFrame;
-
-  $__default['default'].fn[NAME$7].noConflict = function () {
-    $__default['default'].fn[NAME$7] = JQUERY_NO_CONFLICT$7;
-    return IFrame._jQueryInterface;
-  };
+    return ControlSidebar;
+  }(jQuery);
 
   /**
    * --------------------------------------------
@@ -1573,238 +284,240 @@
    * License MIT
    * --------------------------------------------
    */
-  /**
-   * Constants
-   * ====================================================
-   */
+  var Layout = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'Layout';
+    var DATA_KEY = 'lte.layout';
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Selector = {
+      HEADER: '.main-header',
+      MAIN_SIDEBAR: '.main-sidebar',
+      SIDEBAR: '.main-sidebar .sidebar',
+      CONTENT: '.content-wrapper',
+      BRAND: '.brand-link',
+      CONTENT_HEADER: '.content-header',
+      WRAPPER: '.wrapper',
+      CONTROL_SIDEBAR: '.control-sidebar',
+      CONTROL_SIDEBAR_CONTENT: '.control-sidebar-content',
+      CONTROL_SIDEBAR_BTN: '[data-widget="control-sidebar"]',
+      LAYOUT_FIXED: '.layout-fixed',
+      FOOTER: '.main-footer',
+      PUSHMENU_BTN: '[data-widget="pushmenu"]',
+      LOGIN_BOX: '.login-box',
+      REGISTER_BOX: '.register-box'
+    };
+    var ClassName = {
+      HOLD: 'hold-transition',
+      SIDEBAR: 'main-sidebar',
+      CONTENT_FIXED: 'content-fixed',
+      SIDEBAR_FOCUSED: 'sidebar-focused',
+      LAYOUT_FIXED: 'layout-fixed',
+      NAVBAR_FIXED: 'layout-navbar-fixed',
+      FOOTER_FIXED: 'layout-footer-fixed',
+      LOGIN_PAGE: 'login-page',
+      REGISTER_PAGE: 'register-page',
+      CONTROL_SIDEBAR_SLIDE_OPEN: 'control-sidebar-slide-open',
+      CONTROL_SIDEBAR_OPEN: 'control-sidebar-open'
+    };
+    var Default = {
+      scrollbarTheme: 'os-theme-light',
+      scrollbarAutoHide: 'l',
+      panelAutoHeight: true,
+      loginRegisterAutoHeight: true
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-  const NAME$6 = 'Layout';
-  const DATA_KEY$6 = 'lte.layout';
-  const JQUERY_NO_CONFLICT$6 = $__default['default'].fn[NAME$6];
-  const SELECTOR_HEADER = '.main-header';
-  const SELECTOR_MAIN_SIDEBAR = '.main-sidebar';
-  const SELECTOR_SIDEBAR$1 = '.main-sidebar .sidebar';
-  const SELECTOR_CONTENT = '.content-wrapper';
-  const SELECTOR_CONTROL_SIDEBAR_CONTENT = '.control-sidebar-content';
-  const SELECTOR_CONTROL_SIDEBAR_BTN = '[data-widget="control-sidebar"]';
-  const SELECTOR_FOOTER = '.main-footer';
-  const SELECTOR_PUSHMENU_BTN = '[data-widget="pushmenu"]';
-  const SELECTOR_LOGIN_BOX = '.login-box';
-  const SELECTOR_REGISTER_BOX = '.register-box';
-  const SELECTOR_PRELOADER = '.preloader';
-  const CLASS_NAME_SIDEBAR_COLLAPSED$1 = 'sidebar-collapse';
-  const CLASS_NAME_SIDEBAR_FOCUSED = 'sidebar-focused';
-  const CLASS_NAME_LAYOUT_FIXED = 'layout-fixed';
-  const CLASS_NAME_CONTROL_SIDEBAR_SLIDE_OPEN = 'control-sidebar-slide-open';
-  const CLASS_NAME_CONTROL_SIDEBAR_OPEN = 'control-sidebar-open';
-  const CLASS_NAME_IFRAME_MODE = 'iframe-mode';
-  const Default$6 = {
-    scrollbarTheme: 'os-theme-light',
-    scrollbarAutoHide: 'l',
-    panelAutoHeight: true,
-    panelAutoHeightMode: 'min-height',
-    preloadDuration: 200,
-    loginRegisterAutoHeight: true
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
+    var Layout = /*#__PURE__*/function () {
+      function Layout(element, config) {
+        this._config = config;
+        this._element = element;
 
-  class Layout {
-    constructor(element, config) {
-      this._config = config;
-      this._element = element;
-    } // Public
+        this._init();
+      } // Public
 
 
-    fixLayoutHeight(extra = null) {
-      const $body = $__default['default']('body');
-      let controlSidebar = 0;
+      var _proto = Layout.prototype;
 
-      if ($body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_SLIDE_OPEN) || $body.hasClass(CLASS_NAME_CONTROL_SIDEBAR_OPEN) || extra === 'control_sidebar') {
-        controlSidebar = $__default['default'](SELECTOR_CONTROL_SIDEBAR_CONTENT).outerHeight();
-      }
+      _proto.fixLayoutHeight = function fixLayoutHeight(extra) {
+        if (extra === void 0) {
+          extra = null;
+        }
 
-      const heights = {
-        window: $__default['default'](window).height(),
-        header: $__default['default'](SELECTOR_HEADER).length > 0 && !$__default['default']('body').hasClass('layout-navbar-fixed') ? $__default['default'](SELECTOR_HEADER).outerHeight() : 0,
-        footer: $__default['default'](SELECTOR_FOOTER).length > 0 ? $__default['default'](SELECTOR_FOOTER).outerHeight() : 0,
-        sidebar: $__default['default'](SELECTOR_SIDEBAR$1).length > 0 ? $__default['default'](SELECTOR_SIDEBAR$1).height() : 0,
-        controlSidebar
+        var control_sidebar = 0;
+
+        if ($('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || extra == 'control_sidebar') {
+          control_sidebar = $(Selector.CONTROL_SIDEBAR_CONTENT).height();
+        }
+
+        var heights = {
+          window: $(window).height(),
+          header: $(Selector.HEADER).length !== 0 ? $(Selector.HEADER).outerHeight() : 0,
+          footer: $(Selector.FOOTER).length !== 0 ? $(Selector.FOOTER).outerHeight() : 0,
+          sidebar: $(Selector.SIDEBAR).length !== 0 ? $(Selector.SIDEBAR).height() : 0,
+          control_sidebar: control_sidebar
+        };
+
+        var max = this._max(heights);
+
+        var offset = this._config.panelAutoHeight;
+
+        if (offset === true) {
+          offset = 0;
+        }
+
+        if (offset !== false) {
+          if (max == heights.control_sidebar) {
+            $(Selector.CONTENT).css('min-height', max + offset);
+          } else if (max == heights.window) {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
+          } else {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header);
+          }
+
+          if (this._isFooterFixed()) {
+            $(Selector.CONTENT).css('min-height', parseFloat($(Selector.CONTENT).css('min-height')) + heights.footer);
+          }
+        }
+
+        if ($('body').hasClass(ClassName.LAYOUT_FIXED)) {
+          if (offset !== false) {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
+          }
+
+          if (typeof $.fn.overlayScrollbars !== 'undefined') {
+            $(Selector.SIDEBAR).overlayScrollbars({
+              className: this._config.scrollbarTheme,
+              sizeAutoCapable: true,
+              scrollbars: {
+                autoHide: this._config.scrollbarAutoHide,
+                clickScrolling: true
+              }
+            });
+          }
+        }
       };
 
-      const max = this._max(heights);
+      _proto.fixLoginRegisterHeight = function fixLoginRegisterHeight() {
+        if ($(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).length === 0) {
+          $('body, html').css('height', 'auto');
+        } else if ($(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).length !== 0) {
+          var box_height = $(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).height();
 
-      let offset = this._config.panelAutoHeight;
+          if ($('body').css('min-height') !== box_height) {
+            $('body').css('min-height', box_height);
+          }
+        }
+      } // Private
+      ;
 
-      if (offset === true) {
-        offset = 0;
-      }
+      _proto._init = function _init() {
+        var _this = this;
 
-      const $contentSelector = $__default['default'](SELECTOR_CONTENT);
+        // Activate layout height watcher
+        this.fixLayoutHeight();
 
-      if (offset !== false) {
-        if (max === heights.controlSidebar) {
-          $contentSelector.css(this._config.panelAutoHeightMode, max + offset);
-        } else if (max === heights.window) {
-          $contentSelector.css(this._config.panelAutoHeightMode, max + offset - (heights.footer == 0 ? 0 : heights.header - heights.footer));
-        } else {
-          $contentSelector.css(this._config.panelAutoHeightMode, max + offset - (heights.footer == 0 ? 0 : heights.header));
+        if (this._config.loginRegisterAutoHeight === true) {
+          this.fixLoginRegisterHeight();
+        } else if (Number.isInteger(this._config.loginRegisterAutoHeight)) {
+          setInterval(this.fixLoginRegisterHeight, this._config.loginRegisterAutoHeight);
         }
 
-        if (this._isFooterFixed()) {
-          $contentSelector.css(this._config.panelAutoHeightMode, parseFloat($contentSelector.css(this._config.panelAutoHeightMode)) + heights.footer);
-        }
-      }
+        $(Selector.SIDEBAR).on('collapsed.lte.treeview expanded.lte.treeview', function () {
+          _this.fixLayoutHeight();
+        });
+        $(Selector.PUSHMENU_BTN).on('collapsed.lte.pushmenu shown.lte.pushmenu', function () {
+          _this.fixLayoutHeight();
+        });
+        $(Selector.CONTROL_SIDEBAR_BTN).on('collapsed.lte.controlsidebar', function () {
+          _this.fixLayoutHeight();
+        }).on('expanded.lte.controlsidebar', function () {
+          _this.fixLayoutHeight('control_sidebar');
+        });
+        $(window).resize(function () {
+          _this.fixLayoutHeight();
+        });
+        setTimeout(function () {
+          $('body.hold-transition').removeClass('hold-transition');
+        }, 50);
+      };
 
-      if (!$body.hasClass(CLASS_NAME_LAYOUT_FIXED)) {
-        return;
-      }
-
-      if (typeof $__default['default'].fn.overlayScrollbars !== 'undefined') {
-        $__default['default'](SELECTOR_SIDEBAR$1).overlayScrollbars({
-          className: this._config.scrollbarTheme,
-          sizeAutoCapable: true,
-          scrollbars: {
-            autoHide: this._config.scrollbarAutoHide,
-            clickScrolling: true
+      _proto._max = function _max(numbers) {
+        // Calculate the maximum number in a list
+        var max = 0;
+        Object.keys(numbers).forEach(function (key) {
+          if (numbers[key] > max) {
+            max = numbers[key];
           }
         });
-      } else {
-        $__default['default'](SELECTOR_SIDEBAR$1).css('overflow-y', 'auto');
-      }
-    }
+        return max;
+      };
 
-    fixLoginRegisterHeight() {
-      const $body = $__default['default']('body');
-      const $selector = $__default['default'](`${SELECTOR_LOGIN_BOX}, ${SELECTOR_REGISTER_BOX}`);
+      _proto._isFooterFixed = function _isFooterFixed() {
+        return $('.main-footer').css('position') === 'fixed';
+      } // Static
+      ;
 
-      if ($body.hasClass(CLASS_NAME_IFRAME_MODE)) {
-        $body.css('height', '100%');
-        $__default['default']('.wrapper').css('height', '100%');
-        $__default['default']('html').css('height', '100%');
-      } else if ($selector.length === 0) {
-        $body.css('height', 'auto');
-        $__default['default']('html').css('height', 'auto');
-      } else {
-        const boxHeight = $selector.height();
-
-        if ($body.css(this._config.panelAutoHeightMode) !== boxHeight) {
-          $body.css(this._config.panelAutoHeightMode, boxHeight);
-        }
-      }
-    } // Private
-
-
-    _init() {
-      // Activate layout height watcher
-      this.fixLayoutHeight();
-
-      if (this._config.loginRegisterAutoHeight === true) {
-        this.fixLoginRegisterHeight();
-      } else if (this._config.loginRegisterAutoHeight === parseInt(this._config.loginRegisterAutoHeight, 10)) {
-        setInterval(this.fixLoginRegisterHeight, this._config.loginRegisterAutoHeight);
-      }
-
-      $__default['default'](SELECTOR_SIDEBAR$1).on('collapsed.lte.treeview expanded.lte.treeview', () => {
-        this.fixLayoutHeight();
-      });
-      $__default['default'](SELECTOR_MAIN_SIDEBAR).on('mouseenter mouseleave', () => {
-        if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED$1)) {
-          this.fixLayoutHeight();
-        }
-      });
-      $__default['default'](SELECTOR_PUSHMENU_BTN).on('collapsed.lte.pushmenu shown.lte.pushmenu', () => {
-        setTimeout(() => {
-          this.fixLayoutHeight();
-        }, 300);
-      });
-      $__default['default'](SELECTOR_CONTROL_SIDEBAR_BTN).on('collapsed.lte.controlsidebar', () => {
-        this.fixLayoutHeight();
-      }).on('expanded.lte.controlsidebar', () => {
-        this.fixLayoutHeight('control_sidebar');
-      });
-      $__default['default'](window).resize(() => {
-        this.fixLayoutHeight();
-      });
-      setTimeout(() => {
-        $__default['default']('body.hold-transition').removeClass('hold-transition');
-      }, 50);
-      setTimeout(() => {
-        const $preloader = $__default['default'](SELECTOR_PRELOADER);
-
-        if ($preloader) {
-          $preloader.css('height', 0);
-          setTimeout(() => {
-            $preloader.children().hide();
-          }, 200);
-        }
-      }, this._config.preloadDuration);
-    }
-
-    _max(numbers) {
-      // Calculate the maximum number in a list
-      let max = 0;
-      Object.keys(numbers).forEach(key => {
-        if (numbers[key] > max) {
-          max = numbers[key];
-        }
-      });
-      return max;
-    }
-
-    _isFooterFixed() {
-      return $__default['default'](SELECTOR_FOOTER).css('position') === 'fixed';
-    } // Static
-
-
-    static _jQueryInterface(config = '') {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$6);
-
-        const _options = $__default['default'].extend({}, Default$6, $__default['default'](this).data());
-
-        if (!data) {
-          data = new Layout($__default['default'](this), _options);
-          $__default['default'](this).data(DATA_KEY$6, data);
+      Layout._jQueryInterface = function _jQueryInterface(config) {
+        if (config === void 0) {
+          config = '';
         }
 
-        if (config === 'init' || config === '') {
-          data._init();
-        } else if (config === 'fixLayoutHeight' || config === 'fixLoginRegisterHeight') {
-          data[config]();
-        }
-      });
-    }
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
 
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
+          var _options = $.extend({}, Default, $(this).data());
+
+          if (!data) {
+            data = new Layout($(this), _options);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (config === 'init' || config === '') {
+            data['_init']();
+          } else if (config === 'fixLayoutHeight' || config === 'fixLoginRegisterHeight') {
+            data[config]();
+          }
+        });
+      };
+
+      return Layout;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
 
 
-  $__default['default'](window).on('load', () => {
-    Layout._jQueryInterface.call($__default['default']('body'));
-  });
-  $__default['default'](`${SELECTOR_SIDEBAR$1} a`).on('focusin', () => {
-    $__default['default'](SELECTOR_MAIN_SIDEBAR).addClass(CLASS_NAME_SIDEBAR_FOCUSED);
-  }).on('focusout', () => {
-    $__default['default'](SELECTOR_MAIN_SIDEBAR).removeClass(CLASS_NAME_SIDEBAR_FOCUSED);
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
+    $(window).on('load', function () {
+      Layout._jQueryInterface.call($('body'));
+    });
+    $(Selector.SIDEBAR + ' a').on('focusin', function () {
+      $(Selector.MAIN_SIDEBAR).addClass(ClassName.SIDEBAR_FOCUSED);
+    });
+    $(Selector.SIDEBAR + ' a').on('focusout', function () {
+      $(Selector.MAIN_SIDEBAR).removeClass(ClassName.SIDEBAR_FOCUSED);
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
 
-  $__default['default'].fn[NAME$6] = Layout._jQueryInterface;
-  $__default['default'].fn[NAME$6].Constructor = Layout;
+    $.fn[NAME] = Layout._jQueryInterface;
+    $.fn[NAME].Constructor = Layout;
 
-  $__default['default'].fn[NAME$6].noConflict = function () {
-    $__default['default'].fn[NAME$6] = JQUERY_NO_CONFLICT$6;
-    return Layout._jQueryInterface;
-  };
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Layout._jQueryInterface;
+    };
+
+    return Layout;
+  }(jQuery);
 
   /**
    * --------------------------------------------
@@ -1812,901 +525,222 @@
    * License MIT
    * --------------------------------------------
    */
-  /**
-   * Constants
-   * ====================================================
-   */
+  var PushMenu = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'PushMenu';
+    var DATA_KEY = 'lte.pushmenu';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      COLLAPSED: "collapsed" + EVENT_KEY,
+      SHOWN: "shown" + EVENT_KEY
+    };
+    var Default = {
+      autoCollapseSize: 992,
+      enableRemember: false,
+      noTransitionAfterReload: true
+    };
+    var Selector = {
+      TOGGLE_BUTTON: '[data-widget="pushmenu"]',
+      SIDEBAR_MINI: '.sidebar-mini',
+      SIDEBAR_COLLAPSED: '.sidebar-collapse',
+      BODY: 'body',
+      OVERLAY: '#sidebar-overlay',
+      WRAPPER: '.wrapper'
+    };
+    var ClassName = {
+      COLLAPSED: 'sidebar-collapse',
+      OPEN: 'sidebar-open',
+      CLOSED: 'sidebar-closed'
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-  const NAME$5 = 'PushMenu';
-  const DATA_KEY$5 = 'lte.pushmenu';
-  const EVENT_KEY$2 = `.${DATA_KEY$5}`;
-  const JQUERY_NO_CONFLICT$5 = $__default['default'].fn[NAME$5];
-  const EVENT_COLLAPSED$1 = `collapsed${EVENT_KEY$2}`;
-  const EVENT_SHOWN = `shown${EVENT_KEY$2}`;
-  const SELECTOR_TOGGLE_BUTTON$1 = '[data-widget="pushmenu"]';
-  const SELECTOR_BODY = 'body';
-  const SELECTOR_OVERLAY = '#sidebar-overlay';
-  const SELECTOR_WRAPPER = '.wrapper';
-  const CLASS_NAME_COLLAPSED = 'sidebar-collapse';
-  const CLASS_NAME_OPEN$3 = 'sidebar-open';
-  const CLASS_NAME_IS_OPENING$1 = 'sidebar-is-opening';
-  const CLASS_NAME_CLOSED = 'sidebar-closed';
-  const Default$5 = {
-    autoCollapseSize: 992,
-    enableRemember: false,
-    noTransitionAfterReload: true
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
+    var PushMenu = /*#__PURE__*/function () {
+      function PushMenu(element, options) {
+        this._element = element;
+        this._options = $.extend({}, Default, options);
 
-  class PushMenu {
-    constructor(element, options) {
-      this._element = element;
-      this._options = $__default['default'].extend({}, Default$5, options);
-
-      if ($__default['default'](SELECTOR_OVERLAY).length === 0) {
-        this._addOverlay();
-      }
-
-      this._init();
-    } // Public
-
-
-    expand() {
-      const $bodySelector = $__default['default'](SELECTOR_BODY);
-
-      if (this._options.autoCollapseSize && $__default['default'](window).width() <= this._options.autoCollapseSize) {
-        $bodySelector.addClass(CLASS_NAME_OPEN$3);
-      }
-
-      $bodySelector.addClass(CLASS_NAME_IS_OPENING$1).removeClass(`${CLASS_NAME_COLLAPSED} ${CLASS_NAME_CLOSED}`).delay(50).queue(function () {
-        $bodySelector.removeClass(CLASS_NAME_IS_OPENING$1);
-        $__default['default'](this).dequeue();
-      });
-
-      if (this._options.enableRemember) {
-        localStorage.setItem(`remember${EVENT_KEY$2}`, CLASS_NAME_OPEN$3);
-      }
-
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_SHOWN));
-    }
-
-    collapse() {
-      const $bodySelector = $__default['default'](SELECTOR_BODY);
-
-      if (this._options.autoCollapseSize && $__default['default'](window).width() <= this._options.autoCollapseSize) {
-        $bodySelector.removeClass(CLASS_NAME_OPEN$3).addClass(CLASS_NAME_CLOSED);
-      }
-
-      $bodySelector.addClass(CLASS_NAME_COLLAPSED);
-
-      if (this._options.enableRemember) {
-        localStorage.setItem(`remember${EVENT_KEY$2}`, CLASS_NAME_COLLAPSED);
-      }
-
-      $__default['default'](this._element).trigger($__default['default'].Event(EVENT_COLLAPSED$1));
-    }
-
-    toggle() {
-      if ($__default['default'](SELECTOR_BODY).hasClass(CLASS_NAME_COLLAPSED)) {
-        this.expand();
-      } else {
-        this.collapse();
-      }
-    }
-
-    autoCollapse(resize = false) {
-      if (!this._options.autoCollapseSize) {
-        return;
-      }
-
-      const $bodySelector = $__default['default'](SELECTOR_BODY);
-
-      if ($__default['default'](window).width() <= this._options.autoCollapseSize) {
-        if (!$bodySelector.hasClass(CLASS_NAME_OPEN$3)) {
-          this.collapse();
+        if (!$(Selector.OVERLAY).length) {
+          this._addOverlay();
         }
-      } else if (resize === true) {
-        if ($bodySelector.hasClass(CLASS_NAME_OPEN$3)) {
-          $bodySelector.removeClass(CLASS_NAME_OPEN$3);
-        } else if ($bodySelector.hasClass(CLASS_NAME_CLOSED)) {
+
+        this._init();
+      } // Public
+
+
+      var _proto = PushMenu.prototype;
+
+      _proto.expand = function expand() {
+        if (this._options.autoCollapseSize) {
+          if ($(window).width() <= this._options.autoCollapseSize) {
+            $(Selector.BODY).addClass(ClassName.OPEN);
+          }
+        }
+
+        $(Selector.BODY).removeClass(ClassName.COLLAPSED).removeClass(ClassName.CLOSED);
+
+        if (this._options.enableRemember) {
+          localStorage.setItem("remember" + EVENT_KEY, ClassName.OPEN);
+        }
+
+        var shownEvent = $.Event(Event.SHOWN);
+        $(this._element).trigger(shownEvent);
+      };
+
+      _proto.collapse = function collapse() {
+        if (this._options.autoCollapseSize) {
+          if ($(window).width() <= this._options.autoCollapseSize) {
+            $(Selector.BODY).removeClass(ClassName.OPEN).addClass(ClassName.CLOSED);
+          }
+        }
+
+        $(Selector.BODY).addClass(ClassName.COLLAPSED);
+
+        if (this._options.enableRemember) {
+          localStorage.setItem("remember" + EVENT_KEY, ClassName.COLLAPSED);
+        }
+
+        var collapsedEvent = $.Event(Event.COLLAPSED);
+        $(this._element).trigger(collapsedEvent);
+      };
+
+      _proto.toggle = function toggle() {
+        if (!$(Selector.BODY).hasClass(ClassName.COLLAPSED)) {
+          this.collapse();
+        } else {
           this.expand();
         }
-      }
-    }
+      };
 
-    remember() {
-      if (!this._options.enableRemember) {
-        return;
-      }
-
-      const $body = $__default['default']('body');
-      const toggleState = localStorage.getItem(`remember${EVENT_KEY$2}`);
-
-      if (toggleState === CLASS_NAME_COLLAPSED) {
-        if (this._options.noTransitionAfterReload) {
-          $body.addClass('hold-transition').addClass(CLASS_NAME_COLLAPSED).delay(50).queue(function () {
-            $__default['default'](this).removeClass('hold-transition');
-            $__default['default'](this).dequeue();
-          });
-        } else {
-          $body.addClass(CLASS_NAME_COLLAPSED);
+      _proto.autoCollapse = function autoCollapse(resize) {
+        if (resize === void 0) {
+          resize = false;
         }
-      } else if (this._options.noTransitionAfterReload) {
-        $body.addClass('hold-transition').removeClass(CLASS_NAME_COLLAPSED).delay(50).queue(function () {
-          $__default['default'](this).removeClass('hold-transition');
-          $__default['default'](this).dequeue();
+
+        if (this._options.autoCollapseSize) {
+          if ($(window).width() <= this._options.autoCollapseSize) {
+            if (!$(Selector.BODY).hasClass(ClassName.OPEN)) {
+              this.collapse();
+            }
+          } else if (resize == true) {
+            if ($(Selector.BODY).hasClass(ClassName.OPEN)) {
+              $(Selector.BODY).removeClass(ClassName.OPEN);
+            } else if ($(Selector.BODY).hasClass(ClassName.CLOSED)) {
+              this.expand();
+            }
+          }
+        }
+      };
+
+      _proto.remember = function remember() {
+        if (this._options.enableRemember) {
+          var toggleState = localStorage.getItem("remember" + EVENT_KEY);
+
+          if (toggleState == ClassName.COLLAPSED) {
+            if (this._options.noTransitionAfterReload) {
+              $("body").addClass('hold-transition').addClass(ClassName.COLLAPSED).delay(50).queue(function () {
+                $(this).removeClass('hold-transition');
+                $(this).dequeue();
+              });
+            } else {
+              $("body").addClass(ClassName.COLLAPSED);
+            }
+          } else {
+            if (this._options.noTransitionAfterReload) {
+              $("body").addClass('hold-transition').removeClass(ClassName.COLLAPSED).delay(50).queue(function () {
+                $(this).removeClass('hold-transition');
+                $(this).dequeue();
+              });
+            } else {
+              $("body").removeClass(ClassName.COLLAPSED);
+            }
+          }
+        }
+      } // Private
+      ;
+
+      _proto._init = function _init() {
+        var _this = this;
+
+        this.remember();
+        this.autoCollapse();
+        $(window).resize(function () {
+          _this.autoCollapse(true);
         });
-      } else {
-        $body.removeClass(CLASS_NAME_COLLAPSED);
-      }
-    } // Private
+      };
 
+      _proto._addOverlay = function _addOverlay() {
+        var _this2 = this;
 
-    _init() {
-      this.remember();
-      this.autoCollapse();
-      $__default['default'](window).resize(() => {
-        this.autoCollapse(true);
-      });
-    }
-
-    _addOverlay() {
-      const overlay = $__default['default']('<div />', {
-        id: 'sidebar-overlay'
-      });
-      overlay.on('click', () => {
-        this.collapse();
-      });
-      $__default['default'](SELECTOR_WRAPPER).append(overlay);
-    } // Static
-
-
-    static _jQueryInterface(operation) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$5);
-
-        const _options = $__default['default'].extend({}, Default$5, $__default['default'](this).data());
-
-        if (!data) {
-          data = new PushMenu(this, _options);
-          $__default['default'](this).data(DATA_KEY$5, data);
-        }
-
-        if (typeof operation === 'string' && /collapse|expand|toggle/.test(operation)) {
-          data[operation]();
-        }
-      });
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_TOGGLE_BUTTON$1, event => {
-    event.preventDefault();
-    let button = event.currentTarget;
-
-    if ($__default['default'](button).data('widget') !== 'pushmenu') {
-      button = $__default['default'](button).closest(SELECTOR_TOGGLE_BUTTON$1);
-    }
-
-    PushMenu._jQueryInterface.call($__default['default'](button), 'toggle');
-  });
-  $__default['default'](window).on('load', () => {
-    PushMenu._jQueryInterface.call($__default['default'](SELECTOR_TOGGLE_BUTTON$1));
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$5] = PushMenu._jQueryInterface;
-  $__default['default'].fn[NAME$5].Constructor = PushMenu;
-
-  $__default['default'].fn[NAME$5].noConflict = function () {
-    $__default['default'].fn[NAME$5] = JQUERY_NO_CONFLICT$5;
-    return PushMenu._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE SidebarSearch.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$4 = 'SidebarSearch';
-  const DATA_KEY$4 = 'lte.sidebar-search';
-  const JQUERY_NO_CONFLICT$4 = $__default['default'].fn[NAME$4];
-  const CLASS_NAME_OPEN$2 = 'sidebar-search-open';
-  const CLASS_NAME_ICON_SEARCH = 'fa-search';
-  const CLASS_NAME_ICON_CLOSE = 'fa-times';
-  const CLASS_NAME_HEADER = 'nav-header';
-  const CLASS_NAME_SEARCH_RESULTS = 'sidebar-search-results';
-  const CLASS_NAME_LIST_GROUP = 'list-group';
-  const SELECTOR_DATA_WIDGET$1 = '[data-widget="sidebar-search"]';
-  const SELECTOR_SIDEBAR = '.main-sidebar .nav-sidebar';
-  const SELECTOR_NAV_LINK = '.nav-link';
-  const SELECTOR_NAV_TREEVIEW = '.nav-treeview';
-  const SELECTOR_SEARCH_INPUT$1 = `${SELECTOR_DATA_WIDGET$1} .form-control`;
-  const SELECTOR_SEARCH_BUTTON = `${SELECTOR_DATA_WIDGET$1} .btn`;
-  const SELECTOR_SEARCH_ICON = `${SELECTOR_SEARCH_BUTTON} i`;
-  const SELECTOR_SEARCH_LIST_GROUP = `.${CLASS_NAME_LIST_GROUP}`;
-  const SELECTOR_SEARCH_RESULTS = `.${CLASS_NAME_SEARCH_RESULTS}`;
-  const SELECTOR_SEARCH_RESULTS_GROUP = `${SELECTOR_SEARCH_RESULTS} .${CLASS_NAME_LIST_GROUP}`;
-  const Default$4 = {
-    arrowSign: '->',
-    minLength: 3,
-    maxResults: 7,
-    highlightName: true,
-    highlightPath: false,
-    highlightClass: 'text-light',
-    notFoundText: 'No element found!'
-  };
-  const SearchItems = [];
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class SidebarSearch {
-    constructor(_element, _options) {
-      this.element = _element;
-      this.options = $__default['default'].extend({}, Default$4, _options);
-      this.items = [];
-    } // Public
-
-
-    init() {
-      if ($__default['default'](SELECTOR_DATA_WIDGET$1).length === 0) {
-        return;
-      }
-
-      if ($__default['default'](SELECTOR_DATA_WIDGET$1).next(SELECTOR_SEARCH_RESULTS).length === 0) {
-        $__default['default'](SELECTOR_DATA_WIDGET$1).after($__default['default']('<div />', {
-          class: CLASS_NAME_SEARCH_RESULTS
-        }));
-      }
-
-      if ($__default['default'](SELECTOR_SEARCH_RESULTS).children(SELECTOR_SEARCH_LIST_GROUP).length === 0) {
-        $__default['default'](SELECTOR_SEARCH_RESULTS).append($__default['default']('<div />', {
-          class: CLASS_NAME_LIST_GROUP
-        }));
-      }
-
-      this._addNotFound();
-
-      $__default['default'](SELECTOR_SIDEBAR).children().each((i, child) => {
-        this._parseItem(child);
-      });
-    }
-
-    search() {
-      const searchValue = $__default['default'](SELECTOR_SEARCH_INPUT$1).val().toLowerCase();
-
-      if (searchValue.length < this.options.minLength) {
-        $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).empty();
-
-        this._addNotFound();
-
-        this.close();
-        return;
-      }
-
-      const searchResults = SearchItems.filter(item => item.name.toLowerCase().includes(searchValue));
-      const endResults = $__default['default'](searchResults.slice(0, this.options.maxResults));
-      $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).empty();
-
-      if (endResults.length === 0) {
-        this._addNotFound();
-      } else {
-        endResults.each((i, result) => {
-          $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).append(this._renderItem(escape(result.name), encodeURI(result.link), result.path));
+        var overlay = $('<div />', {
+          id: 'sidebar-overlay'
         });
-      }
-
-      this.open();
-    }
-
-    open() {
-      $__default['default'](SELECTOR_DATA_WIDGET$1).parent().addClass(CLASS_NAME_OPEN$2);
-      $__default['default'](SELECTOR_SEARCH_ICON).removeClass(CLASS_NAME_ICON_SEARCH).addClass(CLASS_NAME_ICON_CLOSE);
-    }
-
-    close() {
-      $__default['default'](SELECTOR_DATA_WIDGET$1).parent().removeClass(CLASS_NAME_OPEN$2);
-      $__default['default'](SELECTOR_SEARCH_ICON).removeClass(CLASS_NAME_ICON_CLOSE).addClass(CLASS_NAME_ICON_SEARCH);
-    }
-
-    toggle() {
-      if ($__default['default'](SELECTOR_DATA_WIDGET$1).parent().hasClass(CLASS_NAME_OPEN$2)) {
-        this.close();
-      } else {
-        this.open();
-      }
-    } // Private
-
-
-    _parseItem(item, path = []) {
-      if ($__default['default'](item).hasClass(CLASS_NAME_HEADER)) {
-        return;
-      }
-
-      const itemObject = {};
-      const navLink = $__default['default'](item).clone().find(`> ${SELECTOR_NAV_LINK}`);
-      const navTreeview = $__default['default'](item).clone().find(`> ${SELECTOR_NAV_TREEVIEW}`);
-      const link = navLink.attr('href');
-      const name = navLink.find('p').children().remove().end().text();
-      itemObject.name = this._trimText(name);
-      itemObject.link = link;
-      itemObject.path = path;
-
-      if (navTreeview.length === 0) {
-        SearchItems.push(itemObject);
-      } else {
-        const newPath = itemObject.path.concat([itemObject.name]);
-        navTreeview.children().each((i, child) => {
-          this._parseItem(child, newPath);
+        overlay.on('click', function () {
+          _this2.collapse();
         });
-      }
-    }
-
-    _trimText(text) {
-      return $.trim(text.replace(/(\r\n|\n|\r)/gm, ' '));
-    }
-
-    _renderItem(name, link, path) {
-      path = path.join(` ${this.options.arrowSign} `);
-      name = unescape(name);
-      link = decodeURI(link);
-
-      if (this.options.highlightName || this.options.highlightPath) {
-        const searchValue = $__default['default'](SELECTOR_SEARCH_INPUT$1).val().toLowerCase();
-        const regExp = new RegExp(searchValue, 'gi');
-
-        if (this.options.highlightName) {
-          name = name.replace(regExp, str => {
-            return `<strong class="${this.options.highlightClass}">${str}</strong>`;
-          });
-        }
-
-        if (this.options.highlightPath) {
-          path = path.replace(regExp, str => {
-            return `<strong class="${this.options.highlightClass}">${str}</strong>`;
-          });
-        }
-      }
-
-      const groupItemElement = $__default['default']('<a/>', {
-        href: link,
-        class: 'list-group-item'
-      });
-      const searchTitleElement = $__default['default']('<div/>', {
-        class: 'search-title'
-      }).html(name);
-      const searchPathElement = $__default['default']('<div/>', {
-        class: 'search-path'
-      }).html(path);
-      groupItemElement.append(searchTitleElement).append(searchPathElement);
-      return groupItemElement;
-    }
-
-    _addNotFound() {
-      $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).append(this._renderItem(this.options.notFoundText, '#', []));
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      let data = $__default['default'](this).data(DATA_KEY$4);
-
-      if (!data) {
-        data = $__default['default'](this).data();
-      }
-
-      const _options = $__default['default'].extend({}, Default$4, typeof config === 'object' ? config : data);
-
-      const plugin = new SidebarSearch($__default['default'](this), _options);
-      $__default['default'](this).data(DATA_KEY$4, typeof config === 'object' ? config : data);
-
-      if (typeof config === 'string' && /init|toggle|close|open|search/.test(config)) {
-        plugin[config]();
-      } else {
-        plugin.init();
-      }
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_SEARCH_BUTTON, event => {
-    event.preventDefault();
-
-    SidebarSearch._jQueryInterface.call($__default['default'](SELECTOR_DATA_WIDGET$1), 'toggle');
-  });
-  $__default['default'](document).on('keyup', SELECTOR_SEARCH_INPUT$1, event => {
-    if (event.keyCode == 38) {
-      event.preventDefault();
-      $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).children().last().focus();
-      return;
-    }
-
-    if (event.keyCode == 40) {
-      event.preventDefault();
-      $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).children().first().focus();
-      return;
-    }
-
-    setTimeout(() => {
-      SidebarSearch._jQueryInterface.call($__default['default'](SELECTOR_DATA_WIDGET$1), 'search');
-    }, 100);
-  });
-  $__default['default'](document).on('keydown', SELECTOR_SEARCH_RESULTS_GROUP, event => {
-    const $focused = $__default['default'](':focus');
-
-    if (event.keyCode == 38) {
-      event.preventDefault();
-
-      if ($focused.is(':first-child')) {
-        $focused.siblings().last().focus();
-      } else {
-        $focused.prev().focus();
-      }
-    }
-
-    if (event.keyCode == 40) {
-      event.preventDefault();
-
-      if ($focused.is(':last-child')) {
-        $focused.siblings().first().focus();
-      } else {
-        $focused.next().focus();
-      }
-    }
-  });
-  $__default['default'](window).on('load', () => {
-    SidebarSearch._jQueryInterface.call($__default['default'](SELECTOR_DATA_WIDGET$1), 'init');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$4] = SidebarSearch._jQueryInterface;
-  $__default['default'].fn[NAME$4].Constructor = SidebarSearch;
-
-  $__default['default'].fn[NAME$4].noConflict = function () {
-    $__default['default'].fn[NAME$4] = JQUERY_NO_CONFLICT$4;
-    return SidebarSearch._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE NavbarSearch.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$3 = 'NavbarSearch';
-  const DATA_KEY$3 = 'lte.navbar-search';
-  const JQUERY_NO_CONFLICT$3 = $__default['default'].fn[NAME$3];
-  const SELECTOR_TOGGLE_BUTTON = '[data-widget="navbar-search"]';
-  const SELECTOR_SEARCH_BLOCK = '.navbar-search-block';
-  const SELECTOR_SEARCH_INPUT = '.form-control';
-  const CLASS_NAME_OPEN$1 = 'navbar-search-open';
-  const Default$3 = {
-    resetOnClose: true,
-    target: SELECTOR_SEARCH_BLOCK
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class NavbarSearch {
-    constructor(_element, _options) {
-      this._element = _element;
-      this._config = $__default['default'].extend({}, Default$3, _options);
-    } // Public
-
-
-    open() {
-      $__default['default'](this._config.target).css('display', 'flex').hide().fadeIn().addClass(CLASS_NAME_OPEN$1);
-      $__default['default'](`${this._config.target} ${SELECTOR_SEARCH_INPUT}`).focus();
-    }
-
-    close() {
-      $__default['default'](this._config.target).fadeOut().removeClass(CLASS_NAME_OPEN$1);
-
-      if (this._config.resetOnClose) {
-        $__default['default'](`${this._config.target} ${SELECTOR_SEARCH_INPUT}`).val('');
-      }
-    }
-
-    toggle() {
-      if ($__default['default'](this._config.target).hasClass(CLASS_NAME_OPEN$1)) {
-        this.close();
-      } else {
-        this.open();
-      }
-    } // Static
-
-
-    static _jQueryInterface(options) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$3);
-
-        const _options = $__default['default'].extend({}, Default$3, $__default['default'](this).data());
-
-        if (!data) {
-          data = new NavbarSearch(this, _options);
-          $__default['default'](this).data(DATA_KEY$3, data);
-        }
-
-        if (!/toggle|close|open/.test(options)) {
-          throw new Error(`Undefined method ${options}`);
-        }
-
-        data[options]();
-      });
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](document).on('click', SELECTOR_TOGGLE_BUTTON, event => {
-    event.preventDefault();
-    let button = $__default['default'](event.currentTarget);
-
-    if (button.data('widget') !== 'navbar-search') {
-      button = button.closest(SELECTOR_TOGGLE_BUTTON);
-    }
-
-    NavbarSearch._jQueryInterface.call(button, 'toggle');
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$3] = NavbarSearch._jQueryInterface;
-  $__default['default'].fn[NAME$3].Constructor = NavbarSearch;
-
-  $__default['default'].fn[NAME$3].noConflict = function () {
-    $__default['default'].fn[NAME$3] = JQUERY_NO_CONFLICT$3;
-    return NavbarSearch._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE Toasts.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$2 = 'Toasts';
-  const DATA_KEY$2 = 'lte.toasts';
-  const EVENT_KEY$1 = `.${DATA_KEY$2}`;
-  const JQUERY_NO_CONFLICT$2 = $__default['default'].fn[NAME$2];
-  const EVENT_INIT = `init${EVENT_KEY$1}`;
-  const EVENT_CREATED = `created${EVENT_KEY$1}`;
-  const EVENT_REMOVED = `removed${EVENT_KEY$1}`;
-  const SELECTOR_CONTAINER_TOP_RIGHT = '#toastsContainerTopRight';
-  const SELECTOR_CONTAINER_TOP_LEFT = '#toastsContainerTopLeft';
-  const SELECTOR_CONTAINER_BOTTOM_RIGHT = '#toastsContainerBottomRight';
-  const SELECTOR_CONTAINER_BOTTOM_LEFT = '#toastsContainerBottomLeft';
-  const CLASS_NAME_TOP_RIGHT = 'toasts-top-right';
-  const CLASS_NAME_TOP_LEFT = 'toasts-top-left';
-  const CLASS_NAME_BOTTOM_RIGHT = 'toasts-bottom-right';
-  const CLASS_NAME_BOTTOM_LEFT = 'toasts-bottom-left';
-  const POSITION_TOP_RIGHT = 'topRight';
-  const POSITION_TOP_LEFT = 'topLeft';
-  const POSITION_BOTTOM_RIGHT = 'bottomRight';
-  const POSITION_BOTTOM_LEFT = 'bottomLeft';
-  const Default$2 = {
-    position: POSITION_TOP_RIGHT,
-    fixed: true,
-    autohide: false,
-    autoremove: true,
-    delay: 1000,
-    fade: true,
-    icon: null,
-    image: null,
-    imageAlt: null,
-    imageHeight: '25px',
-    title: null,
-    subtitle: null,
-    close: true,
-    body: null,
-    class: null
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class Toasts {
-    constructor(element, config) {
-      this._config = config;
-
-      this._prepareContainer();
-
-      $__default['default']('body').trigger($__default['default'].Event(EVENT_INIT));
-    } // Public
-
-
-    create() {
-      const toast = $__default['default']('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"/>');
-      toast.data('autohide', this._config.autohide);
-      toast.data('animation', this._config.fade);
-
-      if (this._config.class) {
-        toast.addClass(this._config.class);
-      }
-
-      if (this._config.delay && this._config.delay != 500) {
-        toast.data('delay', this._config.delay);
-      }
-
-      const toastHeader = $__default['default']('<div class="toast-header">');
-
-      if (this._config.image != null) {
-        const toastImage = $__default['default']('<img />').addClass('rounded mr-2').attr('src', this._config.image).attr('alt', this._config.imageAlt);
-
-        if (this._config.imageHeight != null) {
-          toastImage.height(this._config.imageHeight).width('auto');
-        }
-
-        toastHeader.append(toastImage);
-      }
-
-      if (this._config.icon != null) {
-        toastHeader.append($__default['default']('<i />').addClass('mr-2').addClass(this._config.icon));
-      }
-
-      if (this._config.title != null) {
-        toastHeader.append($__default['default']('<strong />').addClass('mr-auto').html(this._config.title));
-      }
-
-      if (this._config.subtitle != null) {
-        toastHeader.append($__default['default']('<small />').html(this._config.subtitle));
-      }
-
-      if (this._config.close == true) {
-        const toastClose = $__default['default']('<button data-dismiss="toast" />').attr('type', 'button').addClass('ml-2 mb-1 close').attr('aria-label', 'Close').append('<span aria-hidden="true">&times;</span>');
-
-        if (this._config.title == null) {
-          toastClose.toggleClass('ml-2 ml-auto');
-        }
-
-        toastHeader.append(toastClose);
-      }
-
-      toast.append(toastHeader);
-
-      if (this._config.body != null) {
-        toast.append($__default['default']('<div class="toast-body" />').html(this._config.body));
-      }
-
-      $__default['default'](this._getContainerId()).prepend(toast);
-      const $body = $__default['default']('body');
-      $body.trigger($__default['default'].Event(EVENT_CREATED));
-      toast.toast('show');
-
-      if (this._config.autoremove) {
-        toast.on('hidden.bs.toast', function () {
-          $__default['default'](this).delay(200).remove();
-          $body.trigger($__default['default'].Event(EVENT_REMOVED));
+        $(Selector.WRAPPER).append(overlay);
+      } // Static
+      ;
+
+      PushMenu._jQueryInterface = function _jQueryInterface(operation) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          var _options = $.extend({}, Default, $(this).data());
+
+          if (!data) {
+            data = new PushMenu(this, _options);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (typeof operation === 'string' && operation.match(/collapse|expand|toggle/)) {
+            data[operation]();
+          }
         });
-      }
-    } // Static
+      };
+
+      return PushMenu;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
 
 
-    _getContainerId() {
-      if (this._config.position == POSITION_TOP_RIGHT) {
-        return SELECTOR_CONTAINER_TOP_RIGHT;
-      }
+    $(document).on('click', Selector.TOGGLE_BUTTON, function (event) {
+      event.preventDefault();
+      var button = event.currentTarget;
 
-      if (this._config.position == POSITION_TOP_LEFT) {
-        return SELECTOR_CONTAINER_TOP_LEFT;
-      }
-
-      if (this._config.position == POSITION_BOTTOM_RIGHT) {
-        return SELECTOR_CONTAINER_BOTTOM_RIGHT;
-      }
-
-      if (this._config.position == POSITION_BOTTOM_LEFT) {
-        return SELECTOR_CONTAINER_BOTTOM_LEFT;
-      }
-    }
-
-    _prepareContainer() {
-      if ($__default['default'](this._getContainerId()).length === 0) {
-        const container = $__default['default']('<div />').attr('id', this._getContainerId().replace('#', ''));
-
-        if (this._config.position == POSITION_TOP_RIGHT) {
-          container.addClass(CLASS_NAME_TOP_RIGHT);
-        } else if (this._config.position == POSITION_TOP_LEFT) {
-          container.addClass(CLASS_NAME_TOP_LEFT);
-        } else if (this._config.position == POSITION_BOTTOM_RIGHT) {
-          container.addClass(CLASS_NAME_BOTTOM_RIGHT);
-        } else if (this._config.position == POSITION_BOTTOM_LEFT) {
-          container.addClass(CLASS_NAME_BOTTOM_LEFT);
-        }
-
-        $__default['default']('body').append(container);
+      if ($(button).data('widget') !== 'pushmenu') {
+        button = $(button).closest(Selector.TOGGLE_BUTTON);
       }
 
-      if (this._config.fixed) {
-        $__default['default'](this._getContainerId()).addClass('fixed');
-      } else {
-        $__default['default'](this._getContainerId()).removeClass('fixed');
-      }
-    } // Static
+      PushMenu._jQueryInterface.call($(button), 'toggle');
+    });
+    $(window).on('load', function () {
+      PushMenu._jQueryInterface.call($(Selector.TOGGLE_BUTTON));
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
 
+    $.fn[NAME] = PushMenu._jQueryInterface;
+    $.fn[NAME].Constructor = PushMenu;
 
-    static _jQueryInterface(option, config) {
-      return this.each(function () {
-        const _options = $__default['default'].extend({}, Default$2, config);
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return PushMenu._jQueryInterface;
+    };
 
-        const toast = new Toasts($__default['default'](this), _options);
-
-        if (option === 'create') {
-          toast[option]();
-        }
-      });
-    }
-
-  }
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-
-  $__default['default'].fn[NAME$2] = Toasts._jQueryInterface;
-  $__default['default'].fn[NAME$2].Constructor = Toasts;
-
-  $__default['default'].fn[NAME$2].noConflict = function () {
-    $__default['default'].fn[NAME$2] = JQUERY_NO_CONFLICT$2;
-    return Toasts._jQueryInterface;
-  };
-
-  /**
-   * --------------------------------------------
-   * AdminLTE TodoList.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  const NAME$1 = 'TodoList';
-  const DATA_KEY$1 = 'lte.todolist';
-  const JQUERY_NO_CONFLICT$1 = $__default['default'].fn[NAME$1];
-  const SELECTOR_DATA_TOGGLE = '[data-widget="todo-list"]';
-  const CLASS_NAME_TODO_LIST_DONE = 'done';
-  const Default$1 = {
-    onCheck(item) {
-      return item;
-    },
-
-    onUnCheck(item) {
-      return item;
-    }
-
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class TodoList {
-    constructor(element, config) {
-      this._config = config;
-      this._element = element;
-
-      this._init();
-    } // Public
-
-
-    toggle(item) {
-      item.parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
-
-      if (!$__default['default'](item).prop('checked')) {
-        this.unCheck($__default['default'](item));
-        return;
-      }
-
-      this.check(item);
-    }
-
-    check(item) {
-      this._config.onCheck.call(item);
-    }
-
-    unCheck(item) {
-      this._config.onUnCheck.call(item);
-    } // Private
-
-
-    _init() {
-      const $toggleSelector = this._element;
-      $toggleSelector.find('input:checkbox:checked').parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
-      $toggleSelector.on('change', 'input:checkbox', event => {
-        this.toggle($__default['default'](event.target));
-      });
-    } // Static
-
-
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY$1);
-
-        if (!data) {
-          data = $__default['default'](this).data();
-        }
-
-        const _options = $__default['default'].extend({}, Default$1, typeof config === 'object' ? config : data);
-
-        const plugin = new TodoList($__default['default'](this), _options);
-        $__default['default'](this).data(DATA_KEY$1, typeof config === 'object' ? config : data);
-
-        if (config === 'init') {
-          plugin[config]();
-        }
-      });
-    }
-
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default['default'](window).on('load', () => {
-    TodoList._jQueryInterface.call($__default['default'](SELECTOR_DATA_TOGGLE));
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default['default'].fn[NAME$1] = TodoList._jQueryInterface;
-  $__default['default'].fn[NAME$1].Constructor = TodoList;
-
-  $__default['default'].fn[NAME$1].noConflict = function () {
-    $__default['default'].fn[NAME$1] = JQUERY_NO_CONFLICT$1;
-    return TodoList._jQueryInterface;
-  };
+    return PushMenu;
+  }(jQuery);
 
   /**
    * --------------------------------------------
@@ -2714,176 +748,1144 @@
    * License MIT
    * --------------------------------------------
    */
-  /**
-   * Constants
-   * ====================================================
-   */
+  var Treeview = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'Treeview';
+    var DATA_KEY = 'lte.treeview';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      SELECTED: "selected" + EVENT_KEY,
+      EXPANDED: "expanded" + EVENT_KEY,
+      COLLAPSED: "collapsed" + EVENT_KEY,
+      LOAD_DATA_API: "load" + EVENT_KEY
+    };
+    var Selector = {
+      LI: '.nav-item',
+      LINK: '.nav-link',
+      TREEVIEW_MENU: '.nav-treeview',
+      OPEN: '.menu-open',
+      DATA_WIDGET: '[data-widget="treeview"]'
+    };
+    var ClassName = {
+      LI: 'nav-item',
+      LINK: 'nav-link',
+      TREEVIEW_MENU: 'nav-treeview',
+      OPEN: 'menu-open',
+      SIDEBAR_COLLAPSED: 'sidebar-collapse'
+    };
+    var Default = {
+      trigger: Selector.DATA_WIDGET + " " + Selector.LINK,
+      animationSpeed: 300,
+      accordion: true,
+      expandSidebar: false,
+      sidebarButtonSelector: '[data-widget="pushmenu"]'
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-  const NAME = 'Treeview';
-  const DATA_KEY = 'lte.treeview';
-  const EVENT_KEY = `.${DATA_KEY}`;
-  const JQUERY_NO_CONFLICT = $__default['default'].fn[NAME];
-  const EVENT_EXPANDED = `expanded${EVENT_KEY}`;
-  const EVENT_COLLAPSED = `collapsed${EVENT_KEY}`;
-  const EVENT_LOAD_DATA_API = `load${EVENT_KEY}`;
-  const SELECTOR_LI = '.nav-item';
-  const SELECTOR_LINK = '.nav-link';
-  const SELECTOR_TREEVIEW_MENU = '.nav-treeview';
-  const SELECTOR_OPEN = '.menu-open';
-  const SELECTOR_DATA_WIDGET = '[data-widget="treeview"]';
-  const CLASS_NAME_OPEN = 'menu-open';
-  const CLASS_NAME_IS_OPENING = 'menu-is-opening';
-  const CLASS_NAME_SIDEBAR_COLLAPSED = 'sidebar-collapse';
-  const Default = {
-    trigger: `${SELECTOR_DATA_WIDGET} ${SELECTOR_LINK}`,
-    animationSpeed: 300,
-    accordion: true,
-    expandSidebar: false,
-    sidebarButtonSelector: '[data-widget="pushmenu"]'
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  class Treeview {
-    constructor(element, config) {
-      this._config = config;
-      this._element = element;
-    } // Public
+    var Treeview = /*#__PURE__*/function () {
+      function Treeview(element, config) {
+        this._config = config;
+        this._element = element;
+      } // Public
 
 
-    init() {
-      $__default['default'](`${SELECTOR_LI}${SELECTOR_OPEN} ${SELECTOR_TREEVIEW_MENU}${SELECTOR_OPEN}`).css('display', 'block');
+      var _proto = Treeview.prototype;
 
-      this._setupListeners();
-    }
+      _proto.init = function init() {
+        this._setupListeners();
+      };
 
-    expand(treeviewMenu, parentLi) {
-      const expandedEvent = $__default['default'].Event(EVENT_EXPANDED);
+      _proto.expand = function expand(treeviewMenu, parentLi) {
+        var _this = this;
 
-      if (this._config.accordion) {
-        const openMenuLi = parentLi.siblings(SELECTOR_OPEN).first();
-        const openTreeview = openMenuLi.find(SELECTOR_TREEVIEW_MENU).first();
-        this.collapse(openTreeview, openMenuLi);
-      }
+        var expandedEvent = $.Event(Event.EXPANDED);
 
-      parentLi.addClass(CLASS_NAME_IS_OPENING);
-      treeviewMenu.stop().slideDown(this._config.animationSpeed, () => {
-        parentLi.addClass(CLASS_NAME_OPEN);
-        $__default['default'](this._element).trigger(expandedEvent);
-      });
-
-      if (this._config.expandSidebar) {
-        this._expandSidebar();
-      }
-    }
-
-    collapse(treeviewMenu, parentLi) {
-      const collapsedEvent = $__default['default'].Event(EVENT_COLLAPSED);
-      parentLi.removeClass(`${CLASS_NAME_IS_OPENING} ${CLASS_NAME_OPEN}`);
-      treeviewMenu.stop().slideUp(this._config.animationSpeed, () => {
-        $__default['default'](this._element).trigger(collapsedEvent);
-        treeviewMenu.find(`${SELECTOR_OPEN} > ${SELECTOR_TREEVIEW_MENU}`).slideUp();
-        treeviewMenu.find(SELECTOR_OPEN).removeClass(`${CLASS_NAME_IS_OPENING} ${CLASS_NAME_OPEN}`);
-      });
-    }
-
-    toggle(event) {
-      const $relativeTarget = $__default['default'](event.currentTarget);
-      const $parent = $relativeTarget.parent();
-      let treeviewMenu = $parent.find(`> ${SELECTOR_TREEVIEW_MENU}`);
-
-      if (!treeviewMenu.is(SELECTOR_TREEVIEW_MENU)) {
-        if (!$parent.is(SELECTOR_LI)) {
-          treeviewMenu = $parent.parent().find(`> ${SELECTOR_TREEVIEW_MENU}`);
+        if (this._config.accordion) {
+          var openMenuLi = parentLi.siblings(Selector.OPEN).first();
+          var openTreeview = openMenuLi.find(Selector.TREEVIEW_MENU).first();
+          this.collapse(openTreeview, openMenuLi);
         }
 
-        if (!treeviewMenu.is(SELECTOR_TREEVIEW_MENU)) {
+        treeviewMenu.stop().slideDown(this._config.animationSpeed, function () {
+          parentLi.addClass(ClassName.OPEN);
+          $(_this._element).trigger(expandedEvent);
+        });
+
+        if (this._config.expandSidebar) {
+          this._expandSidebar();
+        }
+      };
+
+      _proto.collapse = function collapse(treeviewMenu, parentLi) {
+        var _this2 = this;
+
+        var collapsedEvent = $.Event(Event.COLLAPSED);
+        treeviewMenu.stop().slideUp(this._config.animationSpeed, function () {
+          parentLi.removeClass(ClassName.OPEN);
+          $(_this2._element).trigger(collapsedEvent);
+          treeviewMenu.find(Selector.OPEN + " > " + Selector.TREEVIEW_MENU).slideUp();
+          treeviewMenu.find(Selector.OPEN).removeClass(ClassName.OPEN);
+        });
+      };
+
+      _proto.toggle = function toggle(event) {
+        var $relativeTarget = $(event.currentTarget);
+        var $parent = $relativeTarget.parent();
+        var treeviewMenu = $parent.find('> ' + Selector.TREEVIEW_MENU);
+
+        if (!treeviewMenu.is(Selector.TREEVIEW_MENU)) {
+          if (!$parent.is(Selector.LI)) {
+            treeviewMenu = $parent.parent().find('> ' + Selector.TREEVIEW_MENU);
+          }
+
+          if (!treeviewMenu.is(Selector.TREEVIEW_MENU)) {
+            return;
+          }
+        }
+
+        event.preventDefault();
+        var parentLi = $relativeTarget.parents(Selector.LI).first();
+        var isOpen = parentLi.hasClass(ClassName.OPEN);
+
+        if (isOpen) {
+          this.collapse($(treeviewMenu), parentLi);
+        } else {
+          this.expand($(treeviewMenu), parentLi);
+        }
+      } // Private
+      ;
+
+      _proto._setupListeners = function _setupListeners() {
+        var _this3 = this;
+
+        $(document).on('click', this._config.trigger, function (event) {
+          _this3.toggle(event);
+        });
+      };
+
+      _proto._expandSidebar = function _expandSidebar() {
+        if ($('body').hasClass(ClassName.SIDEBAR_COLLAPSED)) {
+          $(this._config.sidebarButtonSelector).PushMenu('expand');
+        }
+      } // Static
+      ;
+
+      Treeview._jQueryInterface = function _jQueryInterface(config) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          var _options = $.extend({}, Default, $(this).data());
+
+          if (!data) {
+            data = new Treeview($(this), _options);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (config === 'init') {
+            data[config]();
+          }
+        });
+      };
+
+      return Treeview;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
+
+
+    $(window).on(Event.LOAD_DATA_API, function () {
+      $(Selector.DATA_WIDGET).each(function () {
+        Treeview._jQueryInterface.call($(this), 'init');
+      });
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = Treeview._jQueryInterface;
+    $.fn[NAME].Constructor = Treeview;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Treeview._jQueryInterface;
+    };
+
+    return Treeview;
+  }(jQuery);
+
+  /**
+   * --------------------------------------------
+   * AdminLTE DirectChat.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var DirectChat = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'DirectChat';
+    var DATA_KEY = 'lte.directchat';
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      TOGGLED: "toggled{EVENT_KEY}"
+    };
+    var Selector = {
+      DATA_TOGGLE: '[data-widget="chat-pane-toggle"]',
+      DIRECT_CHAT: '.direct-chat'
+    };
+    var ClassName = {
+      DIRECT_CHAT_OPEN: 'direct-chat-contacts-open'
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
+
+    var DirectChat = /*#__PURE__*/function () {
+      function DirectChat(element, config) {
+        this._element = element;
+      }
+
+      var _proto = DirectChat.prototype;
+
+      _proto.toggle = function toggle() {
+        $(this._element).parents(Selector.DIRECT_CHAT).first().toggleClass(ClassName.DIRECT_CHAT_OPEN);
+        var toggledEvent = $.Event(Event.TOGGLED);
+        $(this._element).trigger(toggledEvent);
+      } // Static
+      ;
+
+      DirectChat._jQueryInterface = function _jQueryInterface(config) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          if (!data) {
+            data = new DirectChat($(this));
+            $(this).data(DATA_KEY, data);
+          }
+
+          data[config]();
+        });
+      };
+
+      return DirectChat;
+    }();
+    /**
+     *
+     * Data Api implementation
+     * ====================================================
+     */
+
+
+    $(document).on('click', Selector.DATA_TOGGLE, function (event) {
+      if (event) event.preventDefault();
+
+      DirectChat._jQueryInterface.call($(this), 'toggle');
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = DirectChat._jQueryInterface;
+    $.fn[NAME].Constructor = DirectChat;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return DirectChat._jQueryInterface;
+    };
+
+    return DirectChat;
+  }(jQuery);
+
+  /**
+   * --------------------------------------------
+   * AdminLTE TodoList.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var TodoList = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'TodoList';
+    var DATA_KEY = 'lte.todolist';
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Selector = {
+      DATA_TOGGLE: '[data-widget="todo-list"]'
+    };
+    var ClassName = {
+      TODO_LIST_DONE: 'done'
+    };
+    var Default = {
+      onCheck: function onCheck(item) {
+        return item;
+      },
+      onUnCheck: function onUnCheck(item) {
+        return item;
+      }
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
+
+    var TodoList = /*#__PURE__*/function () {
+      function TodoList(element, config) {
+        this._config = config;
+        this._element = element;
+
+        this._init();
+      } // Public
+
+
+      var _proto = TodoList.prototype;
+
+      _proto.toggle = function toggle(item) {
+        item.parents('li').toggleClass(ClassName.TODO_LIST_DONE);
+
+        if (!$(item).prop('checked')) {
+          this.unCheck($(item));
           return;
         }
+
+        this.check(item);
+      };
+
+      _proto.check = function check(item) {
+        this._config.onCheck.call(item);
+      };
+
+      _proto.unCheck = function unCheck(item) {
+        this._config.onUnCheck.call(item);
+      } // Private
+      ;
+
+      _proto._init = function _init() {
+        var that = this;
+        $(Selector.DATA_TOGGLE).find('input:checkbox:checked').parents('li').toggleClass(ClassName.TODO_LIST_DONE);
+        $(Selector.DATA_TOGGLE).on('change', 'input:checkbox', function (event) {
+          that.toggle($(event.target));
+        });
+      } // Static
+      ;
+
+      TodoList._jQueryInterface = function _jQueryInterface(config) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          var _options = $.extend({}, Default, $(this).data());
+
+          if (!data) {
+            data = new TodoList($(this), _options);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (config === 'init') {
+            data[config]();
+          }
+        });
+      };
+
+      return TodoList;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
+
+
+    $(window).on('load', function () {
+      TodoList._jQueryInterface.call($(Selector.DATA_TOGGLE));
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = TodoList._jQueryInterface;
+    $.fn[NAME].Constructor = TodoList;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return TodoList._jQueryInterface;
+    };
+
+    return TodoList;
+  }(jQuery);
+
+  /**
+   * --------------------------------------------
+   * AdminLTE CardWidget.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var CardWidget = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'CardWidget';
+    var DATA_KEY = 'lte.cardwidget';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      EXPANDED: "expanded" + EVENT_KEY,
+      COLLAPSED: "collapsed" + EVENT_KEY,
+      MAXIMIZED: "maximized" + EVENT_KEY,
+      MINIMIZED: "minimized" + EVENT_KEY,
+      REMOVED: "removed" + EVENT_KEY
+    };
+    var ClassName = {
+      CARD: 'card',
+      COLLAPSED: 'collapsed-card',
+      COLLAPSING: 'collapsing-card',
+      EXPANDING: 'expanding-card',
+      WAS_COLLAPSED: 'was-collapsed',
+      MAXIMIZED: 'maximized-card'
+    };
+    var Selector = {
+      DATA_REMOVE: '[data-card-widget="remove"]',
+      DATA_COLLAPSE: '[data-card-widget="collapse"]',
+      DATA_MAXIMIZE: '[data-card-widget="maximize"]',
+      CARD: "." + ClassName.CARD,
+      CARD_HEADER: '.card-header',
+      CARD_BODY: '.card-body',
+      CARD_FOOTER: '.card-footer',
+      COLLAPSED: "." + ClassName.COLLAPSED
+    };
+    var Default = {
+      animationSpeed: 'normal',
+      collapseTrigger: Selector.DATA_COLLAPSE,
+      removeTrigger: Selector.DATA_REMOVE,
+      maximizeTrigger: Selector.DATA_MAXIMIZE,
+      collapseIcon: 'fa-minus',
+      expandIcon: 'fa-plus',
+      maximizeIcon: 'fa-expand',
+      minimizeIcon: 'fa-compress'
+    };
+
+    var CardWidget = /*#__PURE__*/function () {
+      function CardWidget(element, settings) {
+        this._element = element;
+        this._parent = element.parents(Selector.CARD).first();
+
+        if (element.hasClass(ClassName.CARD)) {
+          this._parent = element;
+        }
+
+        this._settings = $.extend({}, Default, settings);
       }
 
-      event.preventDefault();
-      const parentLi = $relativeTarget.parents(SELECTOR_LI).first();
-      const isOpen = parentLi.hasClass(CLASS_NAME_OPEN);
+      var _proto = CardWidget.prototype;
 
-      if (isOpen) {
-        this.collapse($__default['default'](treeviewMenu), parentLi);
-      } else {
-        this.expand($__default['default'](treeviewMenu), parentLi);
-      }
-    } // Private
+      _proto.collapse = function collapse() {
+        var _this = this;
 
+        this._parent.addClass(ClassName.COLLAPSING).children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideUp(this._settings.animationSpeed, function () {
+          _this._parent.addClass(ClassName.COLLAPSED).removeClass(ClassName.COLLAPSING);
+        });
 
-    _setupListeners() {
-      const elementId = this._element.attr('id') !== undefined ? `#${this._element.attr('id')}` : '';
-      $__default['default'](document).on('click', `${elementId}${this._config.trigger}`, event => {
-        this.toggle(event);
-      });
-    }
+        this._parent.find('> ' + Selector.CARD_HEADER + ' ' + this._settings.collapseTrigger + ' .' + this._settings.collapseIcon).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
 
-    _expandSidebar() {
-      if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED)) {
-        $__default['default'](this._config.sidebarButtonSelector).PushMenu('expand');
-      }
-    } // Static
+        var collapsed = $.Event(Event.COLLAPSED);
 
+        this._element.trigger(collapsed, this._parent);
+      };
 
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        let data = $__default['default'](this).data(DATA_KEY);
+      _proto.expand = function expand() {
+        var _this2 = this;
 
-        const _options = $__default['default'].extend({}, Default, $__default['default'](this).data());
+        this._parent.addClass(ClassName.EXPANDING).children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideDown(this._settings.animationSpeed, function () {
+          _this2._parent.removeClass(ClassName.COLLAPSED).removeClass(ClassName.EXPANDING);
+        });
+
+        this._parent.find('> ' + Selector.CARD_HEADER + ' ' + this._settings.collapseTrigger + ' .' + this._settings.expandIcon).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
+
+        var expanded = $.Event(Event.EXPANDED);
+
+        this._element.trigger(expanded, this._parent);
+      };
+
+      _proto.remove = function remove() {
+        this._parent.slideUp();
+
+        var removed = $.Event(Event.REMOVED);
+
+        this._element.trigger(removed, this._parent);
+      };
+
+      _proto.toggle = function toggle() {
+        if (this._parent.hasClass(ClassName.COLLAPSED)) {
+          this.expand();
+          return;
+        }
+
+        this.collapse();
+      };
+
+      _proto.maximize = function maximize() {
+        this._parent.find(this._settings.maximizeTrigger + ' .' + this._settings.maximizeIcon).addClass(this._settings.minimizeIcon).removeClass(this._settings.maximizeIcon);
+
+        this._parent.css({
+          'height': this._parent.height(),
+          'width': this._parent.width(),
+          'transition': 'all .15s'
+        }).delay(150).queue(function () {
+          $(this).addClass(ClassName.MAXIMIZED);
+          $('html').addClass(ClassName.MAXIMIZED);
+
+          if ($(this).hasClass(ClassName.COLLAPSED)) {
+            $(this).addClass(ClassName.WAS_COLLAPSED);
+          }
+
+          $(this).dequeue();
+        });
+
+        var maximized = $.Event(Event.MAXIMIZED);
+
+        this._element.trigger(maximized, this._parent);
+      };
+
+      _proto.minimize = function minimize() {
+        this._parent.find(this._settings.maximizeTrigger + ' .' + this._settings.minimizeIcon).addClass(this._settings.maximizeIcon).removeClass(this._settings.minimizeIcon);
+
+        this._parent.css('cssText', 'height:' + this._parent[0].style.height + ' !important;' + 'width:' + this._parent[0].style.width + ' !important; transition: all .15s;').delay(10).queue(function () {
+          $(this).removeClass(ClassName.MAXIMIZED);
+          $('html').removeClass(ClassName.MAXIMIZED);
+          $(this).css({
+            'height': 'inherit',
+            'width': 'inherit'
+          });
+
+          if ($(this).hasClass(ClassName.WAS_COLLAPSED)) {
+            $(this).removeClass(ClassName.WAS_COLLAPSED);
+          }
+
+          $(this).dequeue();
+        });
+
+        var MINIMIZED = $.Event(Event.MINIMIZED);
+
+        this._element.trigger(MINIMIZED, this._parent);
+      };
+
+      _proto.toggleMaximize = function toggleMaximize() {
+        if (this._parent.hasClass(ClassName.MAXIMIZED)) {
+          this.minimize();
+          return;
+        }
+
+        this.maximize();
+      } // Private
+      ;
+
+      _proto._init = function _init(card) {
+        var _this3 = this;
+
+        this._parent = card;
+        $(this).find(this._settings.collapseTrigger).click(function () {
+          _this3.toggle();
+        });
+        $(this).find(this._settings.maximizeTrigger).click(function () {
+          _this3.toggleMaximize();
+        });
+        $(this).find(this._settings.removeTrigger).click(function () {
+          _this3.remove();
+        });
+      } // Static
+      ;
+
+      CardWidget._jQueryInterface = function _jQueryInterface(config) {
+        var data = $(this).data(DATA_KEY);
+
+        var _options = $.extend({}, Default, $(this).data());
 
         if (!data) {
-          data = new Treeview($__default['default'](this), _options);
-          $__default['default'](this).data(DATA_KEY, data);
+          data = new CardWidget($(this), _options);
+          $(this).data(DATA_KEY, typeof config === 'string' ? data : config);
         }
 
-        if (config === 'init') {
+        if (typeof config === 'string' && config.match(/collapse|expand|remove|toggle|maximize|minimize|toggleMaximize/)) {
           data[config]();
+        } else if (typeof config === 'object') {
+          data._init($(this));
         }
-      });
-    }
+      };
 
-  }
-  /**
-   * Data API
-   * ====================================================
-   */
+      return CardWidget;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
 
 
-  $__default['default'](window).on(EVENT_LOAD_DATA_API, () => {
-    $__default['default'](SELECTOR_DATA_WIDGET).each(function () {
-      Treeview._jQueryInterface.call($__default['default'](this), 'init');
+    $(document).on('click', Selector.DATA_COLLAPSE, function (event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      CardWidget._jQueryInterface.call($(this), 'toggle');
     });
-  });
+    $(document).on('click', Selector.DATA_REMOVE, function (event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      CardWidget._jQueryInterface.call($(this), 'remove');
+    });
+    $(document).on('click', Selector.DATA_MAXIMIZE, function (event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      CardWidget._jQueryInterface.call($(this), 'toggleMaximize');
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = CardWidget._jQueryInterface;
+    $.fn[NAME].Constructor = CardWidget;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return CardWidget._jQueryInterface;
+    };
+
+    return CardWidget;
+  }(jQuery);
+
   /**
-   * jQuery API
-   * ====================================================
+   * --------------------------------------------
+   * AdminLTE CardRefresh.js
+   * License MIT
+   * --------------------------------------------
    */
+  var CardRefresh = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'CardRefresh';
+    var DATA_KEY = 'lte.cardrefresh';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      LOADED: "loaded" + EVENT_KEY,
+      OVERLAY_ADDED: "overlay.added" + EVENT_KEY,
+      OVERLAY_REMOVED: "overlay.removed" + EVENT_KEY
+    };
+    var ClassName = {
+      CARD: 'card'
+    };
+    var Selector = {
+      CARD: "." + ClassName.CARD,
+      DATA_REFRESH: '[data-card-widget="card-refresh"]'
+    };
+    var Default = {
+      source: '',
+      sourceSelector: '',
+      params: {},
+      trigger: Selector.DATA_REFRESH,
+      content: '.card-body',
+      loadInContent: true,
+      loadOnInit: true,
+      responseType: '',
+      overlayTemplate: '<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>',
+      onLoadStart: function onLoadStart() {},
+      onLoadDone: function onLoadDone(response) {
+        return response;
+      }
+    };
 
-  $__default['default'].fn[NAME] = Treeview._jQueryInterface;
-  $__default['default'].fn[NAME].Constructor = Treeview;
+    var CardRefresh = /*#__PURE__*/function () {
+      function CardRefresh(element, settings) {
+        this._element = element;
+        this._parent = element.parents(Selector.CARD).first();
+        this._settings = $.extend({}, Default, settings);
+        this._overlay = $(this._settings.overlayTemplate);
 
-  $__default['default'].fn[NAME].noConflict = function () {
-    $__default['default'].fn[NAME] = JQUERY_NO_CONFLICT;
-    return Treeview._jQueryInterface;
-  };
+        if (element.hasClass(ClassName.CARD)) {
+          this._parent = element;
+        }
+
+        if (this._settings.source === '') {
+          throw new Error('Source url was not defined. Please specify a url in your CardRefresh source option.');
+        }
+      }
+
+      var _proto = CardRefresh.prototype;
+
+      _proto.load = function load() {
+        this._addOverlay();
+
+        this._settings.onLoadStart.call($(this));
+
+        $.get(this._settings.source, this._settings.params, function (response) {
+          if (this._settings.loadInContent) {
+            if (this._settings.sourceSelector != '') {
+              response = $(response).find(this._settings.sourceSelector).html();
+            }
+
+            this._parent.find(this._settings.content).html(response);
+          }
+
+          this._settings.onLoadDone.call($(this), response);
+
+          this._removeOverlay();
+        }.bind(this), this._settings.responseType !== '' && this._settings.responseType);
+        var loadedEvent = $.Event(Event.LOADED);
+        $(this._element).trigger(loadedEvent);
+      };
+
+      _proto._addOverlay = function _addOverlay() {
+        this._parent.append(this._overlay);
+
+        var overlayAddedEvent = $.Event(Event.OVERLAY_ADDED);
+        $(this._element).trigger(overlayAddedEvent);
+      };
+
+      _proto._removeOverlay = function _removeOverlay() {
+        this._parent.find(this._overlay).remove();
+
+        var overlayRemovedEvent = $.Event(Event.OVERLAY_REMOVED);
+        $(this._element).trigger(overlayRemovedEvent);
+      };
+
+      // Private
+      _proto._init = function _init(card) {
+        var _this = this;
+
+        $(this).find(this._settings.trigger).on('click', function () {
+          _this.load();
+        });
+
+        if (this._settings.loadOnInit) {
+          this.load();
+        }
+      } // Static
+      ;
+
+      CardRefresh._jQueryInterface = function _jQueryInterface(config) {
+        var data = $(this).data(DATA_KEY);
+
+        var _options = $.extend({}, Default, $(this).data());
+
+        if (!data) {
+          data = new CardRefresh($(this), _options);
+          $(this).data(DATA_KEY, typeof config === 'string' ? data : config);
+        }
+
+        if (typeof config === 'string' && config.match(/load/)) {
+          data[config]();
+        } else {
+          data._init($(this));
+        }
+      };
+
+      return CardRefresh;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
+
+
+    $(document).on('click', Selector.DATA_REFRESH, function (event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      CardRefresh._jQueryInterface.call($(this), 'load');
+    });
+    $(document).ready(function () {
+      $(Selector.DATA_REFRESH).each(function () {
+        CardRefresh._jQueryInterface.call($(this));
+      });
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = CardRefresh._jQueryInterface;
+    $.fn[NAME].Constructor = CardRefresh;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return CardRefresh._jQueryInterface;
+    };
+
+    return CardRefresh;
+  }(jQuery);
+
+  /**
+   * --------------------------------------------
+   * AdminLTE Dropdown.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var Dropdown = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'Dropdown';
+    var DATA_KEY = 'lte.dropdown';
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Selector = {
+      NAVBAR: '.navbar',
+      DROPDOWN_MENU: '.dropdown-menu',
+      DROPDOWN_MENU_ACTIVE: '.dropdown-menu.show',
+      DROPDOWN_TOGGLE: '[data-toggle="dropdown"]'
+    };
+    var ClassName = {
+      DROPDOWN_HOVER: 'dropdown-hover',
+      DROPDOWN_RIGHT: 'dropdown-menu-right'
+    };
+    var Default = {};
+    /**
+     * Class Definition
+     * ====================================================
+     */
+
+    var Dropdown = /*#__PURE__*/function () {
+      function Dropdown(element, config) {
+        this._config = config;
+        this._element = element;
+      } // Public
+
+
+      var _proto = Dropdown.prototype;
+
+      _proto.toggleSubmenu = function toggleSubmenu() {
+        this._element.siblings().show().toggleClass("show");
+
+        if (!this._element.next().hasClass('show')) {
+          this._element.parents('.dropdown-menu').first().find('.show').removeClass("show").hide();
+        }
+
+        this._element.parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+          $('.dropdown-submenu .show').removeClass("show").hide();
+        });
+      };
+
+      _proto.fixPosition = function fixPosition() {
+        var elm = $(Selector.DROPDOWN_MENU_ACTIVE);
+
+        if (elm.length !== 0) {
+          if (elm.hasClass(ClassName.DROPDOWN_RIGHT)) {
+            elm.css('left', 'inherit');
+            elm.css('right', 0);
+          } else {
+            elm.css('left', 0);
+            elm.css('right', 'inherit');
+          }
+
+          var offset = elm.offset();
+          var width = elm.width();
+          var windowWidth = $(window).width();
+          var visiblePart = windowWidth - offset.left;
+
+          if (offset.left < 0) {
+            elm.css('left', 'inherit');
+            elm.css('right', offset.left - 5);
+          } else {
+            if (visiblePart < width) {
+              elm.css('left', 'inherit');
+              elm.css('right', 0);
+            }
+          }
+        }
+      } // Static
+      ;
+
+      Dropdown._jQueryInterface = function _jQueryInterface(config) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          var _config = $.extend({}, Default, $(this).data());
+
+          if (!data) {
+            data = new Dropdown($(this), _config);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (config === 'toggleSubmenu' || config == 'fixPosition') {
+            data[config]();
+          }
+        });
+      };
+
+      return Dropdown;
+    }();
+    /**
+     * Data API
+     * ====================================================
+     */
+
+
+    $(Selector.DROPDOWN_MENU + ' ' + Selector.DROPDOWN_TOGGLE).on("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      Dropdown._jQueryInterface.call($(this), 'toggleSubmenu');
+    });
+    $(Selector.NAVBAR + ' ' + Selector.DROPDOWN_TOGGLE).on("click", function (event) {
+      event.preventDefault();
+      setTimeout(function () {
+        Dropdown._jQueryInterface.call($(this), 'fixPosition');
+      }, 1);
+    });
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+    $.fn[NAME] = Dropdown._jQueryInterface;
+    $.fn[NAME].Constructor = Dropdown;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Dropdown._jQueryInterface;
+    };
+
+    return Dropdown;
+  }(jQuery);
+
+  /**
+   * --------------------------------------------
+   * AdminLTE Toasts.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var Toasts = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'Toasts';
+    var DATA_KEY = 'lte.toasts';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      INIT: "init" + EVENT_KEY,
+      CREATED: "created" + EVENT_KEY,
+      REMOVED: "removed" + EVENT_KEY
+    };
+    var Selector = {
+      BODY: 'toast-body',
+      CONTAINER_TOP_RIGHT: '#toastsContainerTopRight',
+      CONTAINER_TOP_LEFT: '#toastsContainerTopLeft',
+      CONTAINER_BOTTOM_RIGHT: '#toastsContainerBottomRight',
+      CONTAINER_BOTTOM_LEFT: '#toastsContainerBottomLeft'
+    };
+    var ClassName = {
+      TOP_RIGHT: 'toasts-top-right',
+      TOP_LEFT: 'toasts-top-left',
+      BOTTOM_RIGHT: 'toasts-bottom-right',
+      BOTTOM_LEFT: 'toasts-bottom-left',
+      FADE: 'fade'
+    };
+    var Position = {
+      TOP_RIGHT: 'topRight',
+      TOP_LEFT: 'topLeft',
+      BOTTOM_RIGHT: 'bottomRight',
+      BOTTOM_LEFT: 'bottomLeft'
+    };
+    var Default = {
+      position: Position.TOP_RIGHT,
+      fixed: true,
+      autohide: false,
+      autoremove: true,
+      delay: 1000,
+      fade: true,
+      icon: null,
+      image: null,
+      imageAlt: null,
+      imageHeight: '25px',
+      title: null,
+      subtitle: null,
+      close: true,
+      body: null,
+      class: null
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
+
+    var Toasts = /*#__PURE__*/function () {
+      function Toasts(element, config) {
+        this._config = config;
+
+        this._prepareContainer();
+
+        var initEvent = $.Event(Event.INIT);
+        $('body').trigger(initEvent);
+      } // Public
+
+
+      var _proto = Toasts.prototype;
+
+      _proto.create = function create() {
+        var toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"/>');
+        toast.data('autohide', this._config.autohide);
+        toast.data('animation', this._config.fade);
+
+        if (this._config.class) {
+          toast.addClass(this._config.class);
+        }
+
+        if (this._config.delay && this._config.delay != 500) {
+          toast.data('delay', this._config.delay);
+        }
+
+        var toast_header = $('<div class="toast-header">');
+
+        if (this._config.image != null) {
+          var toast_image = $('<img />').addClass('rounded mr-2').attr('src', this._config.image).attr('alt', this._config.imageAlt);
+
+          if (this._config.imageHeight != null) {
+            toast_image.height(this._config.imageHeight).width('auto');
+          }
+
+          toast_header.append(toast_image);
+        }
+
+        if (this._config.icon != null) {
+          toast_header.append($('<i />').addClass('mr-2').addClass(this._config.icon));
+        }
+
+        if (this._config.title != null) {
+          toast_header.append($('<strong />').addClass('mr-auto').html(this._config.title));
+        }
+
+        if (this._config.subtitle != null) {
+          toast_header.append($('<small />').html(this._config.subtitle));
+        }
+
+        if (this._config.close == true) {
+          var toast_close = $('<button data-dismiss="toast" />').attr('type', 'button').addClass('ml-2 mb-1 close').attr('aria-label', 'Close').append('<span aria-hidden="true">&times;</span>');
+
+          if (this._config.title == null) {
+            toast_close.toggleClass('ml-2 ml-auto');
+          }
+
+          toast_header.append(toast_close);
+        }
+
+        toast.append(toast_header);
+
+        if (this._config.body != null) {
+          toast.append($('<div class="toast-body" />').html(this._config.body));
+        }
+
+        $(this._getContainerId()).prepend(toast);
+        var createdEvent = $.Event(Event.CREATED);
+        $('body').trigger(createdEvent);
+        toast.toast('show');
+
+        if (this._config.autoremove) {
+          toast.on('hidden.bs.toast', function () {
+            $(this).delay(200).remove();
+            var removedEvent = $.Event(Event.REMOVED);
+            $('body').trigger(removedEvent);
+          });
+        }
+      } // Static
+      ;
+
+      _proto._getContainerId = function _getContainerId() {
+        if (this._config.position == Position.TOP_RIGHT) {
+          return Selector.CONTAINER_TOP_RIGHT;
+        } else if (this._config.position == Position.TOP_LEFT) {
+          return Selector.CONTAINER_TOP_LEFT;
+        } else if (this._config.position == Position.BOTTOM_RIGHT) {
+          return Selector.CONTAINER_BOTTOM_RIGHT;
+        } else if (this._config.position == Position.BOTTOM_LEFT) {
+          return Selector.CONTAINER_BOTTOM_LEFT;
+        }
+      };
+
+      _proto._prepareContainer = function _prepareContainer() {
+        if ($(this._getContainerId()).length === 0) {
+          var container = $('<div />').attr('id', this._getContainerId().replace('#', ''));
+
+          if (this._config.position == Position.TOP_RIGHT) {
+            container.addClass(ClassName.TOP_RIGHT);
+          } else if (this._config.position == Position.TOP_LEFT) {
+            container.addClass(ClassName.TOP_LEFT);
+          } else if (this._config.position == Position.BOTTOM_RIGHT) {
+            container.addClass(ClassName.BOTTOM_RIGHT);
+          } else if (this._config.position == Position.BOTTOM_LEFT) {
+            container.addClass(ClassName.BOTTOM_LEFT);
+          }
+
+          $('body').append(container);
+        }
+
+        if (this._config.fixed) {
+          $(this._getContainerId()).addClass('fixed');
+        } else {
+          $(this._getContainerId()).removeClass('fixed');
+        }
+      } // Static
+      ;
+
+      Toasts._jQueryInterface = function _jQueryInterface(option, config) {
+        return this.each(function () {
+          var _options = $.extend({}, Default, config);
+
+          var toast = new Toasts($(this), _options);
+
+          if (option === 'create') {
+            toast[option]();
+          }
+        });
+      };
+
+      return Toasts;
+    }();
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+
+    $.fn[NAME] = Toasts._jQueryInterface;
+    $.fn[NAME].Constructor = Toasts;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Toasts._jQueryInterface;
+    };
+
+    return Toasts;
+  }(jQuery);
 
   exports.CardRefresh = CardRefresh;
   exports.CardWidget = CardWidget;
   exports.ControlSidebar = ControlSidebar;
   exports.DirectChat = DirectChat;
   exports.Dropdown = Dropdown;
-  exports.ExpandableTable = ExpandableTable;
-  exports.Fullscreen = Fullscreen;
-  exports.IFrame = IFrame;
   exports.Layout = Layout;
-  exports.NavbarSearch = NavbarSearch;
   exports.PushMenu = PushMenu;
-  exports.SidebarSearch = SidebarSearch;
   exports.Toasts = Toasts;
   exports.TodoList = TodoList;
   exports.Treeview = Treeview;

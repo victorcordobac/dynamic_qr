@@ -2,12 +2,14 @@
 session_start();
 require_once 'config/config.php';
 
+$profile_data = new stdClass;
 
+if (key_exists('temp_user_id', $_SESSION)) {
+    $db = getDbInstance();
+    $db->where('id', $_SESSION['temp_user_id']);
+    $profile_data = $db->objectBuilder()->getOne('temp_accounts');
+}
 
-
-$db = getDbInstance();
-$db->where('id', $_SESSION['temp_user_id']);
-$profile_data = $db->objectBuilder()->getOne('temp_accounts');
 
 $edit = false;
 
@@ -52,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Flash messages -->
         <?php include BASE_PATH.'/includes/flash_messages.php'; ?>
     
-            <div class="card card-primary">
+            <div class="card card-primary mb-5">
                 <div class="card-header">
                     <h3 class="card-title">Introduce los datos requeridos</h3>
                 </div>

@@ -22,7 +22,7 @@
       -->
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
          <li class="nav-item">
@@ -50,7 +50,7 @@
               </li>
               <li class="nav-item">
                 <a href="./add_dynamic.php" <?php echo (CURRENT_PAGE == 'add_dynamic.php') ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-plus nav-icon"></i>
                   <p>Añadir nuevo</p>
                 </a>
               </li>
@@ -73,7 +73,7 @@
               </li>
               <li class="nav-item">
                 <a href="./add_static.php" <?php echo (CURRENT_PAGE == 'add_static.php') ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-plus nav-icon"></i>
                   <p>Añadir nuevo</p>
                 </a>
               </li>
