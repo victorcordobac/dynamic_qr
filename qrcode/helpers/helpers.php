@@ -142,35 +142,3 @@ function base_url()
         $_SERVER['SERVER_NAME']
     );
 }
-
-if (!function_exists('dump')) {
-    function dump($var, $label = 'Dump', $echo = true)
-    {
-        // Store dump in variable
-        ob_start();
-        var_dump($var);
-        $output = ob_get_clean();
-
-        // Add formatting
-        $output = preg_replace("/\]\=\>\n(\s+)/m", '] => ', $output);
-        $output = '<pre style="background: #FFFEEF; color: #000; border: 1px dotted #000; padding: 10px; margin: 10px 0; text-align: left;word-wrap:break-word">' . $label . ' => ' . $output . '</pre>';
-
-        // Output
-        if ($echo == true) {
-            echo $output;
-        } else {
-            return $output;
-        }
-    }
-}
-
-
-if (!function_exists('dd')) {
-    function dd()
-    {
-        foreach (func_get_args() as $x) {
-            dump($x);
-        }
-        die;
-    }
-}
