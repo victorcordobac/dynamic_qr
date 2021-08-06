@@ -5,12 +5,12 @@
       <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="8%">Qr code</th>
+                <th width="18%">QR</th>
                 <th width="15%">Nombre</th>
-                <th width="10%">Identificador</th>
+                <th width="10%" style="display:none">Identificador</th>
                 <th width="20%">URL</th>
                 <th width="10%">Creado por</th>
-                <th width="20%">Used For</th>
+                <th width="20%">Usado en</th>
                 <th width="5%">Scan</th>
                 <th width="23%">Operaciones</th>
             </tr>
@@ -22,7 +22,7 @@
                     <?php echo '<img src="'.PATH.htmlspecialchars($row['qrcode']).'" width="100" height="100">'; ?>
                 </td>
                 <td><?php echo htmlspecialchars($row['filename']); ?></td>
-                <td><?php echo htmlspecialchars($row['identifier']); ?></td>
+                <td style="display:none"><?php echo htmlspecialchars($row['identifier']); ?></td>
                 <td><?php echo htmlspecialchars($row['link']); ?></td>
                 <td><?php echo htmlspecialchars($row['user_name']); ?></td>
                 <td><?php echo htmlspecialchars($row['used_for']); ?></td>
@@ -48,17 +48,17 @@
                 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Confirm</h4>
+                                <h4 class="modal-title">CONFIRMAR</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
                                 <input type="hidden" name="filename" id="filename" value="<?php echo $row['filename']; ?>">
-                                <p>Are you sure you want to delete this row? Proceeding with the cancellation it will no longer be possible to recover the unique identifier and you will delete the created QR code from the server</p>
+                                <p>¿Estás seguro de que quieres eliminar este código QR?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">ELIMINAR</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </form>

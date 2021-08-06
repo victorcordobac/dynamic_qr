@@ -271,11 +271,11 @@ foreach ($createdQrcode_static as $row) {
 
                                     <div class="d-flex flex-row justify-content-end">
                                         <span class="mr-2">
-                                            <i class="fas fa-square text-primary"></i> Dynamic
+                                            <i class="fas fa-square text-primary"></i> Dinámicos
                                         </span>
 
                                         <span>
-                                            <i class="fas fa-square text-gray"></i> Static
+                                            <i class="fas fa-square text-gray"></i> Estáticos
                                         </span>
                                     </div>
                                 </div><!-- /.card-body -->

@@ -1,5 +1,5 @@
  <div class="col-md-4">
-     <label for="">Used For</label>
+     <label for="">Usado en</label>
      <div class="row" id="append_filed">
          <?php for ($i=0;$i < $num_used_for;$i++): ?>
          <div class="col-md-12 del-row">
@@ -21,7 +21,7 @@
      </div>
      <a name="add_more" id="add_more" data-template="used_for_template" data-append="append_filed"
          class="btn btn-primary btn-xs" href="javascript:void(0)" role="button">
-         <i class="fa fa-plus" aria-hidden="true"></i> Add More
+         <i class="fa fa-plus" aria-hidden="true"></i> Añadir soporte
      </a>
  </div>
  <input type="hidden" name="num_fields" id="num_fields" value="<?=$num_used_for?>">

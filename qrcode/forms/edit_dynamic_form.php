@@ -32,8 +32,8 @@
 
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="filename">Nombre *</label>
-            <p>Puedes cambiar el nombre y url a la que dirige, pero no cambiará la imágen del QR</p>
+            <label for="filename">Nombre</label>
+            <!--p>Puedes cambiar el nombre y url a la que dirige, pero no cambiará la imágen del QR</p-->
             <input type="text" name="filename"
                 value="<?php echo htmlspecialchars($edit ? $dynamic_qrcode['filename'] : '', ENT_QUOTES, 'UTF-8'); ?>"
                 placeholder="Nombre" class="form-control" required="required" id="filename">
@@ -42,21 +42,23 @@
 
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="link">URL *</label>
+            <label for="link">URL</label>
             <input type="url" pattern="https://.*" name="link"
                 value="<?php echo htmlspecialchars($edit ? $dynamic_qrcode['link'] : '', ENT_QUOTES, 'UTF-8'); ?>"
                 placeholder="Link" class="form-control" required="required" id="link">
         </div>
     </div>
+    
+    <?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
 
     <div class="col-sm-12 mb-2">
-        <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="is_default" id="is_default" value="1"
-                    <?php echo ($edit && $dynamic_qrcode['is_default'] =='1')? "checked": "" ?> />
-                Default QR
+        <div class="form-group">
+            <label class="">
+                QR POR DEFECTO
             </label>
+            <input type="checkbox" class="" name="is_default" id="is_default" value="1"
+                <?php echo ($edit && $dynamic_qrcode['is_default'] =='1')? "checked": "" ?> style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;"/>
+                
         </div>
     </div>
-    <?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
 </fieldset>

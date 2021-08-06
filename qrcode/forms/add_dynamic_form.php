@@ -26,10 +26,10 @@
             <div class="col-6 col-md-3">
                 <label for="level">Precisión</label>
                 <select name="level" class="form-control">
-                    <option value="L">L - Smallest</option>
-                    <option value="M">M - Medium</option>
-                    <option value="Q">Q - High</option>
-                    <option value="H">H - Best</option>
+                    <option value="L">L - Pequeño</option>
+                    <option value="M">M - Mediano</option>
+                    <option value="Q">Q - Grande</option>
+                    <option value="H">H - Mayor calidad</option>
                 </select>
             </div>
         
@@ -60,13 +60,13 @@
     
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="link">URL *</label>
+            <label for="link">URL</label>
             <input type="url" pattern="https://.*" name="link" value="" placeholder="https://victorcordoba.com" class="form-control" required="required" id="link">
         </div>
     </div>
     
     
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="display:none">
         <div class="form-group">
             <label for="identifier">Identificador</label>
             <p>Se generará automáticamente</p>
@@ -77,14 +77,14 @@
   <div class="row">    
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="filename">Nombre *</label>
+            <label for="filename">Nombre</label>
             <input type="text" name="filename" value="" placeholder="My first Qrcode" class="form-control error" required="required" id = "filename">
           
         </div>
     </div>
     
     <div class="col-6 col-md-1">
-                <label for="format">Format</label>
+                <label for="format">Formato</label>
                 <select name="format" class="form-control">
                     <option value="png">PNG</option>
                     <option value="gif">GIF</option>
@@ -96,13 +96,29 @@
     </div>
   </div>
 </div>
-<div class="col-sm-12 mb-2">
+
+<!-- CAMPO SOPORTES -->
+<?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
+
+<!--div class="col-sm-12 mb-2">
   <div class="form-check">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input" name="is_default" id="is_default" value="1" >
       Default QR
     </label>
   </div>
-</div>
-<?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
+</div-->
+
+<div class="col-sm-12 mb-2">
+        <div class="form-group">
+            <label class="">
+                QR POR DEFECTO
+            </label>
+            <input type="checkbox" class="" name="is_default" id="is_default" value="1"
+                <?php echo ($edit && $dynamic_qrcode['is_default'] =='1')? "checked": "" ?> style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;"/>
+                
+        </div>
+    </div>
+
+
 </fieldset>

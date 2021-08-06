@@ -9,7 +9,7 @@
     <strong>Copyright &copy; 2021 <a href="https://victorcordoba.com">CARMELO COTÓN</a> - </strong>
     Desarrollado por Víctor Córdoba
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
+      <b>Versión</b> 2.0.0
     </div>
   </footer>
 </div>

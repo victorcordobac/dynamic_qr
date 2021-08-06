@@ -30,7 +30,7 @@
 
     <div class="col-sm-4">
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Contraseña</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-sm-4">
-        <label for="user-type">User type</label>
+        <label for="user-type">Tipo de usuario</label>
 
         <div class="form-group">
             <div class="radio">
@@ -63,7 +63,7 @@
             <div class="radio">
                 <label class="radio">
                     <input type="radio" name="admin_type" value="user" required=""
-                        <?php echo ($edit && $admin_account['admin_type'] =='user') ? "checked": "" ; ?> /> User</label>
+                        <?php echo ($edit && $admin_account['admin_type'] =='user') ? "checked": "" ; ?> /> Usuario sencillo</label>
             </div>
         </div>
     </div>

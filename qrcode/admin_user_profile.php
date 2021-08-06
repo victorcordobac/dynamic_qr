@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Update Mi Perfil - Expression Way</title>
+<title>Actualizar PERFIL - Expression Way</title>
 
 <head>
     <?php include './includes/head.php'; ?>
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="container-fluid">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edita tu perfilprofile</h3>
+                            <h3 class="card-title">Edita tu perfil</h3>
                         </div>
                         <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
                             <div class="card-body">

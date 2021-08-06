@@ -114,7 +114,7 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 				</form>
 				<?php if ($buttons): ?>
 				<div class="social-auth-links text-center mb-3">
-					<p>- OR -</p>
+					<p>- O -</p>
 					<?php foreach ($buttons as $btn):
                         $css = 'primary';
                         if ($btn->provider == 'Google') {
@@ -123,13 +123,13 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
                         ?>
 					<a name="" id="" class="btn btn-<?=$css?> btn-block" href="auth_login.php?network=<?=$btn->provider?>" role="button">
 						<i class="fab fa-<?=strtolower($btn->provider)?> mr-2" aria-hidden="true"></i>
-						Sign in using <?=$btn->provider?>
+						Acceder usando <?=$btn->provider?>
 					</a>
 					<?php endforeach ?>
 				</div>
 				<?php endif; ?>
 				<p class="mb-0">
-					<a href="create_user_profile.php" class="text-center">Register a new membership</a>	
+					<a href="create_user_profile.php" class="text-center">Registrarse</a>	
 				</p>
 				<?php if (isset($_SESSION['login_failure'])) : ?>
 					<br>

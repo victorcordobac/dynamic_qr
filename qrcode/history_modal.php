@@ -16,7 +16,7 @@ if (is_object($row)) {
         <tbody>
             <tr>
                 <td>
-                    <label>Redirect identifier</label>
+                    <label>Identificador</label>
                 </td>
                 <td>
                     <?=$data->identifier?>
@@ -40,7 +40,7 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
-                    <label>Redirigir a URL</label>
+                    <label>Activado</label>
                 </td>
                 <td>
                     <?=$data->state?>
@@ -48,7 +48,7 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
-                    <label>Default</label>
+                    <label>Por Defecto</label>
                 </td>
                 <td>
                     <?=($data->is_default)?'Default QR':'Normal QR'?>
@@ -56,7 +56,7 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
-                    <label>Used For</label>
+                    <label>Usado en</label>
                 </td>
                 <td>
                     <?=$data->used_for?>
@@ -64,7 +64,7 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
-                    <label>Created At</label>
+                    <label>Creado</label>
                 </td>
                 <td>
                     <?=$row->created_at?>

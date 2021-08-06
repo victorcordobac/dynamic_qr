@@ -3,13 +3,13 @@
             <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#text" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Text <i class="fas fa-align-left"></i></a>
+                    <a class="nav-link active" data-toggle="pill" href="#text" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Texto <i class="fas fa-align-left"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#email" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Email <i class="far fa-envelope"></i></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#phone" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Phone <i class="fas fa-phone-volume"></i></a>
+                    <a class="nav-link" data-toggle="pill" href="#phone" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Teléfono <i class="fas fa-phone-volume"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#sms" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Sms <i class="far fa-comments"></i></a>
@@ -21,16 +21,16 @@
                     <a class="nav-link" data-toggle="pill" href="#skype" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Skype <i class="fab fa-skype"></i></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#location" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Location <i class="fas fa-map-marker-alt"></i></a>
+                    <a class="nav-link" data-toggle="pill" href="#location" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Ubicación <i class="fas fa-map-marker-alt"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#vcard" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vcard 4.0 <i class="far fa-address-card"></i></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#event" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Event <i class="fas fa-calendar-alt"></i></a>
+                    <a class="nav-link" data-toggle="pill" href="#event" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Evento <i class="fas fa-calendar-alt"></i></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#bookmark" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Bookmark <i class="far fa-bookmark"></i></a>
+                    <a class="nav-link" data-toggle="pill" href="#bookmark" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Marcador Web <i class="far fa-bookmark"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="pill" href="#wifi" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Wifi <i class="fas fa-wifi"></i></a>

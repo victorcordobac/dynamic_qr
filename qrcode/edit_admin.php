@@ -73,7 +73,7 @@ $admin_account = $db->getOne("admin_accounts");
     
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Introduce los datos requeridos</h3>
+                    <h3 class="card-title">EDITAR</h3>
                 </div>
 	            <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
 	                <div class="card-body">

@@ -45,7 +45,7 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>List dynamic - Expression Way</title>
+    <title>QR Dinámicos - Expression Way</title>
     <head>
     <?php include './includes/head.php'; ?>
     </head>
@@ -73,7 +73,7 @@ $total_pages = $db->totalPages;
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
-                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Add new</a>
+                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir Nuevo</a>
                 </li>
             </ol>
           </div><!-- /.col -->
