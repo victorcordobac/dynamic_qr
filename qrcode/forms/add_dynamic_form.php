@@ -96,4 +96,13 @@
     </div>
   </div>
 </div>
+<div class="col-sm-12 mb-2">
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" name="is_default" id="is_default" value="1" >
+      Default QR
+    </label>
+  </div>
+</div>
+<?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
 </fieldset>

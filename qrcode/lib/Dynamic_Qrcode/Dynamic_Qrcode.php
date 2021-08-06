@@ -57,7 +57,7 @@ class Dynamic_Qrcode
         $data_to_db['filename'] = htmlspecialchars($_POST['filename'], ENT_QUOTES, 'UTF-8');
         $data_to_db['created_at'] = date('Y-m-d H:i:s');
         $data_to_db['link'] = htmlspecialchars($_POST['link'], ENT_QUOTES, 'UTF-8');
-    
+        
         return $data_to_db;
     }
     
@@ -101,6 +101,7 @@ class Dynamic_Qrcode
     public function add()
     {
         $data_to_db = $this->collect();
+        $used_for = $_POST['used_for'];
         $data_to_db['format'] = $_POST['format'];
         // for the identifier we create a random alphanumeric string through the function "randomString" in helpers.php > config.php
         $data_to_db['identifier'] = randomString(rand(5, 8));
@@ -108,9 +109,16 @@ class Dynamic_Qrcode
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$data_to_db['format'];
         $data_to_db['qrcode'] = $file_name;
         $data_to_db['created_by'] = $_SESSION['user_id'];
+        $data_to_db['is_default'] = key_exists('is_default', $_POST)?$_POST['is_default']:0;
         
-        $options = $this->setOptions();
+        $data_to_db['used_for'] = $this->getUsedFor($used_for);
 
+        if ($data_to_db['is_default'] == 1) {
+            $this->resetDefault();
+        }
+
+        $options = $this->setOptions();
+        $last_id = 0;
         if (!file_exists(DIRECTORY.$file_name)) {
             // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$data_to_db['format'])) {
             $content = file_get_contents('https://api.qrserver.com/v1/create-qr-code/?data='.READ_PATH.$data_to_db['identifier'].'&amp;&size='.$options['size'].'x'.$options['size'].'&ecc='.$options['errorCorrectionLevel'].'&margin=0&color='.$options['foreground'].'&bgcolor='.$options['background'].'&qzone=2'.'&format='.$data_to_db['format']);
@@ -129,6 +137,7 @@ class Dynamic_Qrcode
             
             $db = getDbInstance();
             $last_id = $db->insert('dynamic_qrcodes', $data_to_db);
+            $this->qrHistory($last_id);
         } else {
             $this->failure('You cannot create a new qr code with an existing name on the server!');
         }
@@ -154,21 +163,31 @@ class Dynamic_Qrcode
         
         $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");     // get format
         $format = $query[0]['format'];
-        
+        $used_for = $_POST['used_for'];
+         
         $data_to_db = $this->collect();
         $data_to_db['state'] = $_POST['state'];                                             // update link state
-        $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
+        // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
         $data_to_db['updated_by'] = $_SESSION['user_id'];
-
-        if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$format) || $data_to_db['filename'] == $old_filename) {
+        $data_to_db['is_default'] = key_exists('is_default', $_POST)?$_POST['is_default']:0;
+        $data_to_db['used_for'] = $this->getUsedFor($used_for);
+        
+        $stat= false;
+        
+        // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$format) || $data_to_db['filename'] == $old_filename) {
+        if (count($data_to_db)) {
+            $this->qrHistory($dynamic_id, $data_to_db);
+            if ($data_to_db['is_default'] == 1) {
+                $this->resetDefault();
+            }
             $db->where('id', $dynamic_id);
             $stat = $db->update('dynamic_qrcodes', $data_to_db);
-            
-            try {
-                rename(DIRECTORY.$old_filename.'.'.$format, DIRECTORY.$data_to_db['filename'].'.'.$format);
-            } catch (Exception $e) {
-                $this->failure($e->getMessage());
-            }
+        //No more renaming qr code.
+        // try {
+            //     rename(DIRECTORY.$old_filename.'.'.$format, DIRECTORY.$data_to_db['filename'].'.'.$format);
+            // } catch (Exception $e) {
+            //     $this->failure($e->getMessage());
+            // }
         } else {
             $this->failure('You cannot edit a qr code with an existing name on the server!');
         }
@@ -245,6 +264,71 @@ class Dynamic_Qrcode
         } catch (Exception $e) {
             $this->failure($e->getMessage());
         }
+    }
+
+    public function resetDefault()
+    {
+        // $is_default = 0;
+        // if (key_exists('is_default', $_POST) && $_POST['is_default'] == 1) {
+        $db = getDbInstance();
+        $db->where('created_by', $_SESSION['user_id']);
+        $db->update('dynamic_qrcodes', ['is_default'=>0]);
+        $is_default = $_POST['is_default'];
+        // }
+
+        return $is_default;
+    }
+
+    public function qrHistory($id, $data_to_db = null)
+    {
+        $db = getDbInstance();
+        $change = 0;
+        
+        $db->where('id', $id);
+        $old_qr = $db->objectBuilder()->getOne('dynamic_qrcodes');
+
+        if (is_array($data_to_db)) {
+            unset($data_to_db['created_at']);
+            
+            $used_for = explode(',', $data_to_db['used_for']);
+
+            unset($data_to_db['used_for']);
+            $obj_used_for = explode(',', $old_qr->used_for);
+            
+            foreach ($data_to_db as $key => $value) {
+                if ($value != $old_qr->{$key}) {
+                    $change++;
+                }
+            }
+            
+            if ($used_for !== $obj_used_for) {
+                $change++;
+            }
+        } else {
+            $change = 1;
+        }
+        
+        if ($change && $old_qr) {
+            $history_to_db['created_at'] = date('Y-m-d H:i:s');
+            $history_to_db['qr_data'] = base64_encode(serialize($old_qr));
+            $history_to_db['qr_id'] = $old_qr->id;
+
+            $db = getDbInstance();
+            $last_id = $db->insert('dynamic_qr_version', $history_to_db);
+        }
+        return true;
+    }
+
+    public function getUsedFor($used_for)
+    {
+        $arr = [];
+        foreach ($used_for as $value) {
+            if (strlen($value)) {
+                $arr[] = $value;
+            }
+        }
+
+        return implode(', ', $arr);
     }
     
     /* FLASH MESSAGE */

@@ -1,14 +1,13 @@
 <?php
-
 /**
- * PHP Dynamic Qr code
- *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
- * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
- */
+* PHP Dynamic Qr code
+*
+* @author    Giandonato Inverso <info@giandonatoinverso.it>
+* @copyright Copyright (c) 2020-2021
+* @license   https://opensource.org/licenses/MIT MIT License
+* @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
+* @version   1.0
+*/
 
 session_start();
 require_once 'config/config.php';
@@ -23,22 +22,27 @@ require_once 'config/config.php';
 $user_name = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if (!strlen($user_name)) {
-}
-$db = getDbInstance();
-$select = array('id', 'user_name', 'first_name', 'last_name', 'email', 'profile_pic', 'facebook', 'twitter', 'instagram');
-
-$db->where('user_name', $user_name);
-$profile = $db->objectBuilder()->getOne('admin_accounts');
-if (is_null($profile)) {
     $_SESSION['failure'] = 'User Not Found';
     header('Location:users_directory.php');
 }
-// $db = getDbInstance();
-$db->where('created_by', $profile->id);
-$dynamic_qrcodes = $db->objectBuilder()->get('dynamic_qrcodes');
+    $db = getDbInstance();
+    $select = array('id', 'user_name','first_name','last_name','email','profile_pic','facebook','twitter','instagram');
 
-$db->where('created_by', $profile->id);
-$static_qrcodes = $db->objectBuilder()->get('static_qrcodes');
+    $db->where('user_name', $user_name);
+    $profile = $db->objectBuilder()->getOne('admin_accounts');
+    if (is_null($profile)) {
+        $_SESSION['failure'] = 'User Not Found';
+        header('Location:users_directory.php');
+    }
+    $db->where('created_by', $profile->id);
+    $dynamic_qrcodes = $db->objectBuilder()->where('is_default', 0)->orderBy('id', 'desc')->get('dynamic_qrcodes');
+
+    $db->where('created_by', $profile->id);
+    $default_qr = $db->objectBuilder()->where('is_default', 1)->orderBy('id', 'desc')->getOne('dynamic_qrcodes');
+
+
+    $db->where('created_by', $profile->id);
+    $static_qrcodes = $db->objectBuilder()->orderBy('id', 'desc')->get('static_qrcodes');
 
 ?>
 
@@ -46,7 +50,7 @@ $static_qrcodes = $db->objectBuilder()->get('static_qrcodes');
 <html lang="en">
 
 <head>
-    <title>List admin - Expression Way</title>
+<title>List admin - Expression Way</title>
     <?php include './includes/head.php'; ?>
 </head>
 
@@ -72,7 +76,7 @@ $static_qrcodes = $db->objectBuilder()->get('static_qrcodes');
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
-
+                            
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
