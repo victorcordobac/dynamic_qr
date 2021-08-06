@@ -1,0 +1,21 @@
+# System / Log files
+*.DS_Store
+*.log
+
+# Archives
+*.zip
+#*.png
+
+# Sass Cache
+.sass-cache
+
+# Project files
+.idea
+nbproject
+nbproject/private
+.vscode/
+.vs/
+
+# Node
+node_modules/
+qrcode/node_modules/
