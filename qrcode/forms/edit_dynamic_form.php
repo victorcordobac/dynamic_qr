@@ -49,22 +49,6 @@
         </div>
     </div>
 
-
-    <div class="col-sm-4">
-        <label for="state">Redirigir a URL *</label>
-
-        <div class="form-group">
-            <label class="radio-inline">
-                <input type="radio" name="state" value="enable"
-                    <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?> required="required"
-                    id="enable" /> Activar</label>
-
-            <label class="radio-inline">
-                <input type="radio" name="state" value="disable"
-                    <?php echo ($edit && $dynamic_qrcode['state'] =='disable')? "checked": "" ; ?> required="required"
-                    id="disable" /> Desactivar</label>
-        </div>
-    </div>
     <div class="col-sm-12 mb-2">
         <div class="form-check">
             <label class="form-check-label">
