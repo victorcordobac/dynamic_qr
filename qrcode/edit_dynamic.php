@@ -104,14 +104,18 @@ if ($edit) {
                         <thead>
                             <tr>
                                 <th>Fecha</th>
+                                <th>URL</th>
                                 <th width="5%">Ver</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($history_qr as $row):?>
+                            <?php foreach ($history_qr as $row): $obj = unserialize(base64_decode($row->qr_data))?>
                             <tr>
                                 <td>
                                     <?=date('d-M-Y h:m:s', strtotime($row->created_at))?>
+                                </td>
+                                <td>
+                                    <?=$obj->link?>
                                 </td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-remote="<?=base_url()?>/history_modal.php?id=<?=$row->id?>" data-target="#exampleModal">
