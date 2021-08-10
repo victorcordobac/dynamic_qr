@@ -86,17 +86,22 @@ if ($edit) {
                 </div>
                 <form class="form" action="" method="post" id="dynamic_form" enctype="multipart/form-data">
                     <div class="card-body">
+                        <!--FORMULARIO-->
                         <?php include BASE_PATH.'/forms/edit_dynamic_form.php'; ?>
+                        <!--FORMULARIO-->
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="submit" class="btn btn-primary" id="actualizar">Actualizar</button>
                     </div>
                 </form>
             </div>
+
+
+
             <?php if ($history_qr): ?>
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">Historial de cambios</h3>
+                    <h3 class="card-title">HISTORIAL</h3>
                 </div>
                 
                 <div class="card-body">
@@ -158,13 +163,12 @@ if ($edit) {
 <link href="plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.js"></script>
 
-<!-- Page script -->
+<!-- SCRIPTS -->
 <script type="text/javascript">
-//INICIALIZAR EL BUTTON
-$("[name='state']").bootstrapSwitch();
 
 $(document).ready(function(){
     let i = 1;
+    //AÑADIR SOPORTES
     $('#add_more').on('click',function(){
         i++;
         let template_id = $(this).data('template');
@@ -173,13 +177,32 @@ $(document).ready(function(){
         $('#'+append_id).append(_template);
         $('#num_fields').val(i);
     });
+    //eliminar SOPORTES
    $('body').on('click','.remove',function(){
         $(this).closest('.del-row').remove();
    });
+   //SACAR MODAL
    $('#exampleModal').on('show.bs.modal', function (e) {
     let btn = $(e.relatedTarget);
     $(this).find('.modal-body').load(btn.data('remote'));
   });
+
+    //INICIALIZAR SWITCH
+    $("[name='state']").bootstrapSwitch();
+    //CONVERTIR VALOR DEL SWITCH
+    $('#actualizar').on('click', function () {
+        var activado = '';
+
+        if ($('#interruptor').is(':checked')) {
+            $activado = $('#interruptor').attr('value', 'enable');           
+        }
+        else {
+            $activado = $('#interruptor').attr('value', 'disable');         
+        }        
+    });
+    
+    
+    //VALIDACIÓN
    $('#dynamic_form').validate({
        rules: {
             filename: {

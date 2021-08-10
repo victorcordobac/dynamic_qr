@@ -9,6 +9,8 @@
 * @version   1.0
 */
 
+/*LÓGICA DE QRCODE EN LA BASE DE DATOS*/
+
 require_once 'config/config.php';
 
 
@@ -151,7 +153,7 @@ class Dynamic_Qrcode
     }
     
     /**
-     * Edit qr code
+     * EDITAR CODIGO QR
      *
      */
     public function edit()
@@ -166,6 +168,7 @@ class Dynamic_Qrcode
         $used_for = $_POST['used_for'];
          
         $data_to_db = $this->collect();
+        
         $data_to_db['state'] = $_POST['state'];                                             // update link state
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
         $data_to_db['updated_by'] = $_SESSION['user_id'];

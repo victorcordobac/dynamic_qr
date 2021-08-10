@@ -12,11 +12,13 @@
         </div>
     </div-->
 
+    <?php echo("<script>console.log('ESTADO: " . $dynamic_qrcode['state'] . "');</script>");?>
+
     <div class="col-sm-4">
         <label for="state">Activado</label>
 
         <div class="form-group">
-            <input type="checkbox" name="state" <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?>>
+            <input id="interruptor" type="checkbox" name="state" <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?>>
         </div>
     </div>
 
