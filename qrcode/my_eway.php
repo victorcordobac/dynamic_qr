@@ -40,6 +40,8 @@ if ($edit) {
     }
     
     $db->where('qr_id', $dynamic_id);
+
+    //CREAR VARIABLE PARA HISTÓRICO
     $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
 }
 ?>
@@ -130,7 +132,7 @@ if ($edit) {
 
 
             <!--LISTADO HISTÓRICO-->
-            <?php include BASE_PATH.'/forms/renacimiento/partes/history_table.php'; ?>
+            <?php include BASE_PATH.'/forms/renacimiento/partes/history_timeline.php'; ?>
 
         </div><!--/. container-fluid -->
     </section><!-- /.content -->
