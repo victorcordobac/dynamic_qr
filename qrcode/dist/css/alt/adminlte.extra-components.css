@@ -5,6 +5,16 @@
  *   Website: AdminLTE.io <https://adminlte.io>
  *   License: Open source - MIT <https://opensource.org/licenses/MIT>
  */
+/*
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+*/
 @-webkit-keyframes flipInX {
   0% {
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -394,12 +404,12 @@
 
 .info-box .info-box .bg-primary,
 .info-box .info-box .bg-gradient-primary {
-  color: #fff;
+  color: #1f2d3d;
 }
 
 .info-box .info-box .bg-primary .progress-bar,
 .info-box .info-box .bg-gradient-primary .progress-bar {
-  background-color: #fff;
+  background-color: #1f2d3d;
 }
 
 .info-box .info-box .bg-secondary,
@@ -414,12 +424,12 @@
 
 .info-box .info-box .bg-success,
 .info-box .info-box .bg-gradient-success {
-  color: #fff;
+  color: #1f2d3d;
 }
 
 .info-box .info-box .bg-success .progress-bar,
 .info-box .info-box .bg-gradient-success .progress-bar {
-  background-color: #fff;
+  background-color: #1f2d3d;
 }
 
 .info-box .info-box .bg-info,
@@ -1012,63 +1022,63 @@
 }
 
 .direct-chat-primary .right > .direct-chat-text {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: #fff;
+  background-color: #3AE8B0;
+  border-color: #3AE8B0;
+  color: #1f2d3d;
 }
 
 .direct-chat-primary .right > .direct-chat-text::after, .direct-chat-primary .right > .direct-chat-text::before {
-  border-left-color: #007bff;
+  border-left-color: #3AE8B0;
 }
 
 .direct-chat-secondary .right > .direct-chat-text {
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #6967CE;
+  border-color: #6967CE;
   color: #fff;
 }
 
 .direct-chat-secondary .right > .direct-chat-text::after, .direct-chat-secondary .right > .direct-chat-text::before {
-  border-left-color: #6c757d;
+  border-left-color: #6967CE;
 }
 
 .direct-chat-success .right > .direct-chat-text {
-  background-color: #28a745;
-  border-color: #28a745;
-  color: #fff;
+  background-color: #3AE8B0;
+  border-color: #3AE8B0;
+  color: #1f2d3d;
 }
 
 .direct-chat-success .right > .direct-chat-text::after, .direct-chat-success .right > .direct-chat-text::before {
-  border-left-color: #28a745;
+  border-left-color: #3AE8B0;
 }
 
 .direct-chat-info .right > .direct-chat-text {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+  background-color: #19AFD0;
+  border-color: #19AFD0;
   color: #fff;
 }
 
 .direct-chat-info .right > .direct-chat-text::after, .direct-chat-info .right > .direct-chat-text::before {
-  border-left-color: #17a2b8;
+  border-left-color: #19AFD0;
 }
 
 .direct-chat-warning .right > .direct-chat-text {
-  background-color: #ffc107;
-  border-color: #ffc107;
+  background-color: #FFB900;
+  border-color: #FFB900;
   color: #1f2d3d;
 }
 
 .direct-chat-warning .right > .direct-chat-text::after, .direct-chat-warning .right > .direct-chat-text::before {
-  border-left-color: #ffc107;
+  border-left-color: #FFB900;
 }
 
 .direct-chat-danger .right > .direct-chat-text {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #FD636B;
+  border-color: #FD636B;
   color: #fff;
 }
 
 .direct-chat-danger .right > .direct-chat-text::after, .direct-chat-danger .right > .direct-chat-text::before {
-  border-left-color: #dc3545;
+  border-left-color: #FD636B;
 }
 
 .direct-chat-light .right > .direct-chat-text {
@@ -1279,6 +1289,56 @@
 
 .direct-chat-gray-dark .right > .direct-chat-text::after, .direct-chat-gray-dark .right > .direct-chat-text::before {
   border-left-color: #343a40;
+}
+
+.direct-chat-verde-corporativo .right > .direct-chat-text {
+  background-color: #3AE8B0;
+  border-color: #3AE8B0;
+  color: #1f2d3d;
+}
+
+.direct-chat-verde-corporativo .right > .direct-chat-text::after, .direct-chat-verde-corporativo .right > .direct-chat-text::before {
+  border-left-color: #3AE8B0;
+}
+
+.direct-chat-azul-corporativo .right > .direct-chat-text {
+  background-color: #19AFD0;
+  border-color: #19AFD0;
+  color: #fff;
+}
+
+.direct-chat-azul-corporativo .right > .direct-chat-text::after, .direct-chat-azul-corporativo .right > .direct-chat-text::before {
+  border-left-color: #19AFD0;
+}
+
+.direct-chat-morado-corporativo .right > .direct-chat-text {
+  background-color: #6967CE;
+  border-color: #6967CE;
+  color: #fff;
+}
+
+.direct-chat-morado-corporativo .right > .direct-chat-text::after, .direct-chat-morado-corporativo .right > .direct-chat-text::before {
+  border-left-color: #6967CE;
+}
+
+.direct-chat-amarillo-corporativo .right > .direct-chat-text {
+  background-color: #FFB900;
+  border-color: #FFB900;
+  color: #1f2d3d;
+}
+
+.direct-chat-amarillo-corporativo .right > .direct-chat-text::after, .direct-chat-amarillo-corporativo .right > .direct-chat-text::before {
+  border-left-color: #FFB900;
+}
+
+.direct-chat-rojo-corporativo .right > .direct-chat-text {
+  background-color: #FD636B;
+  border-color: #FD636B;
+  color: #fff;
+}
+
+.direct-chat-rojo-corporativo .right > .direct-chat-text::after, .direct-chat-rojo-corporativo .right > .direct-chat-text::before {
+  border-left-color: #FD636B;
 }
 
 .dark-mode .direct-chat-text {
