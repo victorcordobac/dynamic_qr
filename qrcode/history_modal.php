@@ -14,7 +14,7 @@ if (is_object($row)) {
     $data = unserialize($base_data); ?>
 <table class="table table-striped table-bordered">
         <tbody>
-            <tr>
+            <!--tr>
                 <td>
                     <label>Identificador</label>
                 </td>
@@ -22,7 +22,7 @@ if (is_object($row)) {
                     <?=$data->identifier?>
                 </td>
             </tr>
-            <tr>
+            <tr-->
                 <td>
                     <label>Nombre</label>
                 </td>
@@ -40,22 +40,6 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
-                    <label>Activado</label>
-                </td>
-                <td>
-                    <?=$data->state?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Por Defecto</label>
-                </td>
-                <td>
-                    <?=($data->is_default)?'Default QR':'Normal QR'?>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label>Usado en</label>
                 </td>
                 <td>
@@ -64,10 +48,37 @@ if (is_object($row)) {
             </tr>
             <tr>
                 <td>
+                    <label>Activado</label>
+                </td>
+                <td>
+                    <?=($data->state == 'enable')?'SI':'NO'?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>eWay Principal</label>
+                </td>
+                <td>
+                    <?=($data->is_default)?'SI':'NO'?>
+                </td>
+            </tr>
+           
+            <tr>
+                <td>
                     <label>Creado</label>
                 </td>
                 <td>
-                    <?=$row->created_at?>
+                    <!--<?=$data->created_at?>-->
+                    <?=date('j / n / Y  -  G:i:s', strtotime($data->created_at))?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Actualizado</label>
+                </td>
+                <td>
+                    <!--<?=$data->updated_at?>-->
+                    <?=date('j / n / Y  -  G:i:s', strtotime($data->updated_at))?>
                 </td>
             </tr>
         </tbody>

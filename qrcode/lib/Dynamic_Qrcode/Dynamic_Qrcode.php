@@ -57,7 +57,8 @@ class Dynamic_Qrcode
     private function collect()
     {
         $data_to_db['filename'] = htmlspecialchars($_POST['filename'], ENT_QUOTES, 'UTF-8');
-        $data_to_db['created_at'] = date('Y-m-d H:i:s');
+        $hora_española = time() + (2 * 60 * 60); //GMT + 2
+        $data_to_db['updated_at'] = date('Y-m-d H:i:s', $hora_española);
         $data_to_db['link'] = htmlspecialchars($_POST['link'], ENT_QUOTES, 'UTF-8');
         
         return $data_to_db;
@@ -102,7 +103,11 @@ class Dynamic_Qrcode
      */
     public function add()
     {
-        $data_to_db = $this->collect();
+        $data_to_db = $this->collect(); //mete filename, updated_at, link
+
+        $hora_española = time() + (2 * 60 * 60); //GMT + 2
+        $data_to_db['created_at'] = date('Y-m-d H:i:s', $hora_española);
+
         $used_for = $_POST['used_for'];
         $data_to_db['format'] = $_POST['format'];
         // for the identifier we create a random alphanumeric string through the function "randomString" in helpers.php > config.php
@@ -145,7 +150,7 @@ class Dynamic_Qrcode
         }
         
         if ($last_id) {
-            $this->success('Qr code added successfully!');
+            $this->success('¡Nuevo eWay creado!');
         } else {
             echo 'Insert failed: ' . $db->getLastError();
             exit();
@@ -167,7 +172,7 @@ class Dynamic_Qrcode
         $format = $query[0]['format'];
         $used_for = $_POST['used_for'];
          
-        $data_to_db = $this->collect();
+        $data_to_db = $this->collect(); //mete filename, updated_at, link
         
         $data_to_db['state'] = $_POST['state'];                                             // update link state
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
@@ -196,12 +201,69 @@ class Dynamic_Qrcode
         }
         
         if ($stat) {
-            $this->success('Qr code updated successfully!');
+            $this->success('¡eWay actualizado!');
         } else {
             echo 'Insert failed: ' . $db->getLastError();
             exit();
         }
     }
+
+    /**
+     * EDITAR SOLO LA URL QR
+     *
+     */
+    public function edit_url()
+    {
+        $db = getDbInstance();
+        
+        $dynamic_id = htmlspecialchars($_GET['dynamic_id'], ENT_QUOTES, 'UTF-8');           // get dynamic id
+        $old_filename = htmlspecialchars($_GET['filename'], ENT_QUOTES, 'UTF-8');           // get filename
+        
+        $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");     // get format
+        $format = $query[0]['format'];
+         
+        //$data_to_db = $this->collect(); //mete filename, updated_at, link, pero filename no queremos cambiarlo
+        
+        $hora_española = time() + (2 * 60 * 60); //GMT + 2
+        $data_to_db['updated_at'] = date('Y-m-d H:i:s', $hora_española);
+        $data_to_db['link'] = htmlspecialchars($_POST['link'], ENT_QUOTES, 'UTF-8');
+
+        // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
+        $data_to_db['updated_by'] = $_SESSION['user_id'];
+        
+        $stat= false;
+        
+        // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$format) || $data_to_db['filename'] == $old_filename) {
+
+
+        if (count($data_to_db)) {
+            //Guardar qr history
+            $this->qrHistory($dynamic_id, $data_to_db);
+
+            $db->where('id', $dynamic_id);
+            //METE LOS DATOS A LA DB
+            $stat = $db->update('dynamic_qrcodes', $data_to_db); 
+
+
+        //No more renaming qr code.
+        // try {
+            //     rename(DIRECTORY.$old_filename.'.'.$format, DIRECTORY.$data_to_db['filename'].'.'.$format);
+            // } catch (Exception $e) {
+            //     $this->failure($e->getMessage());
+            // }
+        } else {
+            $this->failure('You cannot edit a qr code with an existing name on the server!');
+        }
+        
+        if ($stat) {
+            $this->success('¡URL actualizada!');
+        } else {
+            echo 'Insert failed: ' . $db->getLastError();
+            exit();
+        }
+    }
+
+
     
     /**
      * Delete qr code
@@ -228,7 +290,7 @@ class Dynamic_Qrcode
         }
 
         if ($status) {
-            $this->info('Qr code deleted successfully!');
+            $this->info('¡eWay eliminado!');
         } else {
             $this->failure('Unable to delete qr code');
         }
@@ -269,6 +331,9 @@ class Dynamic_Qrcode
         }
     }
 
+    /*
+    * VERIFICAR QUE SOLO HAY UN QR PRINCIPAL
+    */
     public function resetDefault()
     {
         // $is_default = 0;
@@ -281,6 +346,10 @@ class Dynamic_Qrcode
 
         return $is_default;
     }
+
+     /*
+    * FUNCIÓN PARA LOS HISTORIAL de cambios
+    */
 
     public function qrHistory($id, $data_to_db = null)
     {
@@ -312,7 +381,8 @@ class Dynamic_Qrcode
         }
         
         if ($change && $old_qr) {
-            $history_to_db['created_at'] = date('Y-m-d H:i:s');
+            $hora_española = time() + (2 * 60 * 60); //GMT + 2
+            $history_to_db['created_at'] = date('Y-m-d H:i:s', $hora_española); //HISTORIA GUARDADA
             $history_to_db['qr_data'] = base64_encode(serialize($old_qr));
             $history_to_db['qr_id'] = $old_qr->id;
 
@@ -321,6 +391,10 @@ class Dynamic_Qrcode
         }
         return true;
     }
+
+    /*
+    * FUNCIÓN PARA LOS SOPORTES
+    */
 
     public function getUsedFor($used_for)
     {
