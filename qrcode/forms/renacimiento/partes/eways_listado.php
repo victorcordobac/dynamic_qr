@@ -27,15 +27,14 @@
                     </div>
                     <div class="text-center mx-auto">
                         <!-- VER / EDIT-URL -->
-                        <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url" class="btn btn-primary mr-2"><i class="fas fa-eye"></i></a>
                         <!-- EDIT -->
-                        <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                        
-                        <!-- DELETE -->
-                        <a href="#" class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="fas fa-trash"></i></a>
+                        <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary mr-2"><i class="fas fa-edit"></i></a>
                         
                         <!-- DOWNLOAD -->
-                        <a href="<?php echo PATH.htmlspecialchars($row['qrcode']); ?>" class="btn btn-primary" download><i class="fa fa-download"></i></a>
+                        <a href="<?php echo PATH.htmlspecialchars($row['qrcode']); ?>" class="btn btn-primary mr-2" download><i class="fa fa-download"></i></a>
+                        <!-- DELETE -->
+                        <a href="#" class="btn btn-danger delete_btn mr-2" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="fas fa-trash"></i></a>
                     </div>
                 </div>
             </div>

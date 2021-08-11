@@ -64,16 +64,17 @@ $total_pages = $db->totalPages;
     <!-- Content Header -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-2 clearfix">
             
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> MIS EWAYS</h1>
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-0 text-dark float-left"> MIS EWAYS</h1>
+            <a href="add_dynamic.php" class="btn btn-success float-right"><i class="fa fa-plus"></i> Nuevo</a>
           </div><!-- /.col -->
           
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
+          <div class="col-sm-6 col-xs-6">
+            <ol class="breadcrumb float-sm-right float-right">
                 <li class="breadcrumb-item">
-                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir Nuevo</a>
+                  
                 </li>
             </ol>
           </div><!-- /.col -->
