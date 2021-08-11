@@ -30,6 +30,9 @@
                 <td><?php echo htmlspecialchars($row['scan']); ?></td>
                 <td>
                     
+
+                    <!-- VER / EDIT-URL -->
+                    <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                     <!-- EDIT -->
                     <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                     
