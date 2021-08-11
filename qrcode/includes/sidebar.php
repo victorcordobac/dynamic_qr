@@ -51,6 +51,7 @@
                         <i class="nav-icon fas fa-tools"></i>
                         <p>
                             AVANZADO
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <!--nivel 2 -->

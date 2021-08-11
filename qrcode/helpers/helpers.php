@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Function to generate random string.
  * The function takes an integer n as input and generates a string by concatenating n characters chosen randomly from a domain.
@@ -128,7 +129,7 @@ function check_super()
     if ($_SESSION['admin_type'] !== 'super') {
         $_SESSION['failure'] = 'Only a "super admin" account can access the admin listing page';
         // Redirect to the listing page
-        header('Location: index.php');
+        header('Location: eways.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }

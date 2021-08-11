@@ -39,7 +39,7 @@ class Profile
             $user_id = $_SESSION['user_id'];
             $db->where('id', $user_id);
         }
-        $select = ['id', 'first_name','last_name','mobile_no','facebook','twitter','instagram','profile_pic'];
+        $select = ['id', 'first_name', 'last_name', 'mobile_no', 'facebook', 'twitter', 'instagram', 'profile_pic'];
         return $db->objectBuilder()->getOne('admin_accounts', $select);
     }
 
@@ -132,7 +132,7 @@ class Profile
         if (strlen($name)) {
             $data_to_db['profile_pic'] = $name;
         }
-        
+
         // Reset db instance
         $db = getDbInstance();
         $db->where('id', $_SESSION['user_id']);
@@ -156,8 +156,8 @@ class Profile
     {
         if ($_FILES['profile_pic']['error'] == 0) {
             $path_info = pathinfo($_FILES['profile_pic']['name']);
-            $name = uniqid('profile_pic_').'.'.$path_info['extension'];
-            $bool = move_uploaded_file($_FILES['profile_pic']['tmp_name'], 'upload/images/'.$name);
+            $name = uniqid('profile_pic_') . '.' . $path_info['extension'];
+            $bool = move_uploaded_file($_FILES['profile_pic']['tmp_name'], 'upload/images/' . $name);
             if ($bool) {
                 return $name;
             }
@@ -208,18 +208,18 @@ class Profile
     /**
      * Flash message Success process
      */
-    public function success($message, $user_type=null, $user_id=0)
+    public function success($message, $user_type = null, $user_id = 0)
     {
         $_SESSION['success'] = $message;
         $_SESSION['user_logged_in'] = true;
         if ($user_type) {
-            $_SESSION['admin_type'] = $user_type ;
+            $_SESSION['admin_type'] = $user_type;
         }
         if ($user_id) {
             $_SESSION['user_id'] = $user_id;
         }
         // Redirect to the listing page
-        header('Location: index.php');
+        header('Location: eways.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }

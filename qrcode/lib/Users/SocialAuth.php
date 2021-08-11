@@ -16,7 +16,7 @@ class SocailAuth
             $_SESSION['user_logged_in'] = true;
             $_SESSION['admin_type'] = $row['admin_type'];
             $_SESSION['user_id'] = $row['id'];
-            header('Location: index.php');
+            header('Location: eways.php');
             exit();
         }
         return false;
