@@ -59,7 +59,7 @@
                     <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url"
                         class="btn btn-primary mr-2"><i class="fas fa-eye"></i></a>
                     <!-- EDIT -->
-                    <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit"
+                    <a href="my_eway_edit.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit"
                         class="btn btn-primary mr-2"><i class="fas fa-edit"></i></a>
 
                     <!-- DOWNLOAD -->

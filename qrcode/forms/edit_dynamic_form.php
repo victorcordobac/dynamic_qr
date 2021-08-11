@@ -5,20 +5,21 @@
         
         <div class="form-group">
             <label class="radio-inline">
-            <input type="radio" name="state" value="enable" <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?> required="required" id="enable"/> Activar</label>
+            <input type="radio" name="state" value="enable" <?php echo ($edit && $dynamic_qrcode['state'] == 'enable') ? "checked" : ""; ?> required="required" id="enable"/> Activar</label>
             
             <label class="radio-inline">
-            <input type="radio" name="state" value="disable" <?php echo ($edit && $dynamic_qrcode['state'] =='disable')? "checked": "" ; ?> required="required" id="disable"/> Desactivar</label>
+            <input type="radio" name="state" value="disable" <?php echo ($edit && $dynamic_qrcode['state'] == 'disable') ? "checked" : ""; ?> required="required" id="disable"/> Desactivar</label>
         </div>
     </div-->
 
-    <?php echo("<script>console.log('ESTADO: " . $dynamic_qrcode['state'] . "');</script>");?>
+    <!--?php echo("<script>console.log('ESTADO: " . $dynamic_qrcode['state'] . "');</script>");?-->
 
     <div class="col-sm-4">
         <label for="state">Activado</label>
 
         <div class="form-group">
-            <input id="interruptor" type="checkbox" name="state" <?php echo ($edit &&$dynamic_qrcode['state'] =='enable') ? "checked": "" ; ?>>
+            <input id="interruptor" type="checkbox" name="state"
+                <?php echo ($edit && $dynamic_qrcode['state'] == 'enable') ? "checked" : ""; ?>>
         </div>
     </div>
 
@@ -50,8 +51,8 @@
                 placeholder="Link" class="form-control" required="required" id="link">
         </div>
     </div>
-    
-    <?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
+
+    <?php include_once(BASE_PATH . '/forms/used_for_field.php') ?>
 
     <div class="col-sm-12 mb-2">
         <div class="form-group">
@@ -59,8 +60,9 @@
                 QR POR DEFECTO
             </label>
             <input type="checkbox" class="" name="is_default" id="is_default" value="1"
-                <?php echo ($edit && $dynamic_qrcode['is_default'] =='1')? "checked": "" ?> style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;"/>
-                
+                <?php echo ($edit && $dynamic_qrcode['is_default'] == '1') ? "checked" : "" ?>
+                style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;" />
+
         </div>
     </div>
 </fieldset>

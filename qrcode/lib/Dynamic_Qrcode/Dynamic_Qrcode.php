@@ -1,13 +1,14 @@
 <?php
+
 /**
-* PHP Dynamic Qr code
-*
-* @author    Giandonato Inverso <info@giandonatoinverso.it>
-* @copyright Copyright (c) 2020-2021
-* @license   https://opensource.org/licenses/MIT MIT License
-* @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
-* @version   1.0
-*/
+ * PHP Dynamic Qr code
+ *
+ * @author    Giandonato Inverso <info@giandonatoinverso.it>
+ * @copyright Copyright (c) 2020-2021
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
+ * @version   1.0
+ */
 
 /*LÓGICA DE QRCODE EN LA BASE DE DATOS*/
 
@@ -30,7 +31,7 @@ class Dynamic_Qrcode
     public function __destruct()
     {
     }
-    
+
     /**
      * Set friendly columns\' names to order tables\' entries
      * N.B. This function is called to generate the "list all" table
@@ -49,7 +50,7 @@ class Dynamic_Qrcode
 
         return $ordering;
     }
-    
+
     /**
      * This private function is used by both add () and edit () of this class to initially store in the array that will be sent to the database the:
      * filename, created_at, link
@@ -60,10 +61,10 @@ class Dynamic_Qrcode
         $hora_española = time() + (2 * 60 * 60); //GMT + 2
         $data_to_db['updated_at'] = date('Y-m-d H:i:s', $hora_española);
         $data_to_db['link'] = htmlspecialchars($_POST['link'], ENT_QUOTES, 'UTF-8');
-        
+
         return $data_to_db;
     }
-    
+
     /**
      * Set option for qr code like:
      * Error Correction Level, size (default = 100), foreground, background
@@ -72,29 +73,29 @@ class Dynamic_Qrcode
     private function setOptions()
     {
         $errorCorrectionLevel = 'L';
-        if (isset($_POST['level']) && in_array($_POST['level'], array('L','M','Q','H'))) {
+        if (isset($_POST['level']) && in_array($_POST['level'], array('L', 'M', 'Q', 'H'))) {
             $errorCorrectionLevel = $_POST['level'];
         }
-      
+
         $size = 100;
         if (isset($_POST['size'])) {
             $size = min(max((int)$_POST['size'], 100), 1000);
         }
-    
+
         $foreground = substr($_POST['foreground'], 1);                      // We eliminate the character "#" for the hexadecimal color
         $background = substr($_POST['background'], 1);
-    
+
         //$logo = $_POST['optionlogo'];
-       
+
         return array(
             "errorCorrectionLevel" => $errorCorrectionLevel,
             "size" => $size,
             "foreground" => $foreground,
             "background" => $background,
             //"optionlogo" => $logo,
-            );
+        );
     }
-    
+
     /**
      * Add qr code
      * Check out http://goqr.me/api/ for more information
@@ -112,12 +113,13 @@ class Dynamic_Qrcode
         $data_to_db['format'] = $_POST['format'];
         // for the identifier we create a random alphanumeric string through the function "randomString" in helpers.php > config.php
         $data_to_db['identifier'] = randomString(rand(5, 8));
-        $file_name = uniqid('dynamic_qr_').'.'.$data_to_db['format'];
+        $file_name = uniqid('dynamic_qr_') . '.' . $data_to_db['format'];
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$data_to_db['format'];
         $data_to_db['qrcode'] = $file_name;
         $data_to_db['created_by'] = $_SESSION['user_id'];
-        $data_to_db['is_default'] = key_exists('is_default', $_POST)?$_POST['is_default']:0;
-        
+        $data_to_db['updated_by'] = $_SESSION['user_id']; //AÑADO TAMBIÉN UPDATED BY para que no de error el historial
+        $data_to_db['is_default'] = key_exists('is_default', $_POST) ? $_POST['is_default'] : 0;
+
         $data_to_db['used_for'] = $this->getUsedFor($used_for);
 
         if ($data_to_db['is_default'] == 1) {
@@ -126,29 +128,29 @@ class Dynamic_Qrcode
 
         $options = $this->setOptions();
         $last_id = 0;
-        if (!file_exists(DIRECTORY.$file_name)) {
+        if (!file_exists(DIRECTORY . $file_name)) {
             // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$data_to_db['format'])) {
-            $content = file_get_contents('https://api.qrserver.com/v1/create-qr-code/?data='.READ_PATH.$data_to_db['identifier'].'&amp;&size='.$options['size'].'x'.$options['size'].'&ecc='.$options['errorCorrectionLevel'].'&margin=0&color='.$options['foreground'].'&bgcolor='.$options['background'].'&qzone=2'.'&format='.$data_to_db['format']);
-            
+            $content = file_get_contents('https://api.qrserver.com/v1/create-qr-code/?data=' . READ_PATH . $data_to_db['identifier'] . '&amp;&size=' . $options['size'] . 'x' . $options['size'] . '&ecc=' . $options['errorCorrectionLevel'] . '&margin=0&color=' . $options['foreground'] . '&bgcolor=' . $options['background'] . '&qzone=2' . '&format=' . $data_to_db['format']);
+
             // $filename = DIRECTORY.$data_to_db['filename'].'.'.$data_to_db['format'];
-            $filename = DIRECTORY.$file_name;
-        
+            $filename = DIRECTORY . $file_name;
+
             try {
                 file_put_contents($filename, $content);
             } catch (Exception $e) {
                 $this->failure($e->getMessage());
             }
-            
+
             // If you want you can customide qr code with logo
             //$this->addLogo($data_to_db['qrcode'], $options['optionlogo']);
-            
+
             $db = getDbInstance();
             $last_id = $db->insert('dynamic_qrcodes', $data_to_db);
             $this->qrHistory($last_id);
         } else {
             $this->failure('You cannot create a new qr code with an existing name on the server!');
         }
-        
+
         if ($last_id) {
             $this->success('¡Nuevo eWay creado!');
         } else {
@@ -156,7 +158,7 @@ class Dynamic_Qrcode
             exit();
         }
     }
-    
+
     /**
      * EDITAR CODIGO QR
      *
@@ -164,24 +166,24 @@ class Dynamic_Qrcode
     public function edit()
     {
         $db = getDbInstance();
-        
+
         $dynamic_id = htmlspecialchars($_GET['dynamic_id'], ENT_QUOTES, 'UTF-8');           // get dynamic id
         $old_filename = htmlspecialchars($_GET['filename'], ENT_QUOTES, 'UTF-8');           // get filename
-        
+
         $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");     // get format
         $format = $query[0]['format'];
         $used_for = $_POST['used_for'];
-         
+
         $data_to_db = $this->collect(); //mete filename, updated_at, link
-        
+
         $data_to_db['state'] = $_POST['state'];                                             // update link state
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
         $data_to_db['updated_by'] = $_SESSION['user_id'];
-        $data_to_db['is_default'] = key_exists('is_default', $_POST)?$_POST['is_default']:0;
+        $data_to_db['is_default'] = key_exists('is_default', $_POST) ? $_POST['is_default'] : 0;
         $data_to_db['used_for'] = $this->getUsedFor($used_for);
-        
-        $stat= false;
-        
+
+        $stat = false;
+
         // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$format) || $data_to_db['filename'] == $old_filename) {
         if (count($data_to_db)) {
             $this->qrHistory($dynamic_id, $data_to_db);
@@ -190,8 +192,8 @@ class Dynamic_Qrcode
             }
             $db->where('id', $dynamic_id);
             $stat = $db->update('dynamic_qrcodes', $data_to_db);
-        //No more renaming qr code.
-        // try {
+            //No more renaming qr code.
+            // try {
             //     rename(DIRECTORY.$old_filename.'.'.$format, DIRECTORY.$data_to_db['filename'].'.'.$format);
             // } catch (Exception $e) {
             //     $this->failure($e->getMessage());
@@ -199,7 +201,7 @@ class Dynamic_Qrcode
         } else {
             $this->failure('You cannot edit a qr code with an existing name on the server!');
         }
-        
+
         if ($stat) {
             $this->success('¡eWay actualizado!');
         } else {
@@ -215,24 +217,24 @@ class Dynamic_Qrcode
     public function edit_url()
     {
         $db = getDbInstance();
-        
+
         $dynamic_id = htmlspecialchars($_GET['dynamic_id'], ENT_QUOTES, 'UTF-8');           // get dynamic id
         $old_filename = htmlspecialchars($_GET['filename'], ENT_QUOTES, 'UTF-8');           // get filename
-        
+
         $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");     // get format
         $format = $query[0]['format'];
-         
+
         //$data_to_db = $this->collect(); //mete filename, updated_at, link, pero filename no queremos cambiarlo
-        
+
         $hora_española = time() + (2 * 60 * 60); //GMT + 2
         $data_to_db['updated_at'] = date('Y-m-d H:i:s', $hora_española);
         $data_to_db['link'] = htmlspecialchars($_POST['link'], ENT_QUOTES, 'UTF-8');
 
         // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$format;                        // update qrcode in db
         $data_to_db['updated_by'] = $_SESSION['user_id'];
-        
-        $stat= false;
-        
+
+        $stat = false;
+
         // if (!file_exists(DIRECTORY.$data_to_db['filename'].'.'.$format) || $data_to_db['filename'] == $old_filename) {
 
 
@@ -242,11 +244,11 @@ class Dynamic_Qrcode
 
             $db->where('id', $dynamic_id);
             //METE LOS DATOS A LA DB
-            $stat = $db->update('dynamic_qrcodes', $data_to_db); 
+            $stat = $db->update('dynamic_qrcodes', $data_to_db);
 
 
-        //No more renaming qr code.
-        // try {
+            //No more renaming qr code.
+            // try {
             //     rename(DIRECTORY.$old_filename.'.'.$format, DIRECTORY.$data_to_db['filename'].'.'.$format);
             // } catch (Exception $e) {
             //     $this->failure($e->getMessage());
@@ -254,7 +256,7 @@ class Dynamic_Qrcode
         } else {
             $this->failure('You cannot edit a qr code with an existing name on the server!');
         }
-        
+
         if ($stat) {
             $this->success('¡URL actualizada!');
         } else {
@@ -264,27 +266,27 @@ class Dynamic_Qrcode
     }
 
 
-    
+
     /**
      * Delete qr code
      *
      */
     public function cancel($dynamic_id, $filename)
     {
-        if ($_SESSION['admin_type']!='super') {
+        if ($_SESSION['admin_type'] != 'super') {
             $this->failure('You don\'t have permission to perform this action');
         }
-        
+
         $db = getDbInstance();
-        
+
         $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");
         $format = $query[0]['format'];
-        
+
         $db->where('id', $dynamic_id);
         $status = $db->delete('dynamic_qrcodes');
-        
+
         try {
-            unlink(DIRECTORY.$filename.'.'.$format);
+            unlink(DIRECTORY . $filename . '.' . $format);
         } catch (Exception $e) {
             $this->failure($e->getMessage());
         }
@@ -295,7 +297,7 @@ class Dynamic_Qrcode
             $this->failure('Unable to delete qr code');
         }
     }
-    
+
     /**
      * Add logo
      * IMPORTANT: I do not recommend to use this option because there may be problems with the scanning of the qr code as some readers may not recognize the code
@@ -304,23 +306,23 @@ class Dynamic_Qrcode
     {
         try {
             if ($logo != 'none') {
-                $logo = imagecreatefrompng($_SERVER['HTTP_HOST'].'/admin'.$logo);
-                $QR = imagecreatefrompng(BASE_PATH.$src);
-            
+                $logo = imagecreatefrompng($_SERVER['HTTP_HOST'] . '/admin' . $logo);
+                $QR = imagecreatefrompng(BASE_PATH . $src);
+
                 $QR_width = imagesx($QR);
                 $QR_height = imagesy($QR);
-    
+
                 $logo_width = imagesx($logo);
                 $logo_height = imagesy($logo);
-    
+
                 // Scale logo to fit in the QR Code
-                $logo_qr_width = $QR_width/3;
-                $scale = $logo_width/$logo_qr_width;
-                $logo_qr_height = $logo_height/$scale;
-                
+                $logo_qr_width = $QR_width / 3;
+                $scale = $logo_width / $logo_qr_width;
+                $logo_qr_height = $logo_height / $scale;
+
                 // You can try also with imagecopymerge() with same arguments
-                imagecopyresampled($QR, $logo, $QR_width/3, $QR_height/3, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
-        
+                imagecopyresampled($QR, $logo, $QR_width / 3, $QR_height / 3, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
+
                 //$output = Set directory for saving image;
                 header('Content-Type: image/png');
                 imagepng($QR /*, $output*/);
@@ -340,14 +342,14 @@ class Dynamic_Qrcode
         // if (key_exists('is_default', $_POST) && $_POST['is_default'] == 1) {
         $db = getDbInstance();
         $db->where('created_by', $_SESSION['user_id']);
-        $db->update('dynamic_qrcodes', ['is_default'=>0]);
+        $db->update('dynamic_qrcodes', ['is_default' => 0]);
         $is_default = $_POST['is_default'];
         // }
 
         return $is_default;
     }
 
-     /*
+    /*
     * FUNCIÓN PARA LOS HISTORIAL de cambios
     */
 
@@ -355,31 +357,31 @@ class Dynamic_Qrcode
     {
         $db = getDbInstance();
         $change = 0;
-        
+
         $db->where('id', $id);
         $old_qr = $db->objectBuilder()->getOne('dynamic_qrcodes');
 
         if (is_array($data_to_db)) {
             unset($data_to_db['created_at']);
-            
+
             $used_for = explode(',', $data_to_db['used_for']);
 
             unset($data_to_db['used_for']);
             $obj_used_for = explode(',', $old_qr->used_for);
-            
+
             foreach ($data_to_db as $key => $value) {
                 if ($value != $old_qr->{$key}) {
                     $change++;
                 }
             }
-            
+
             if ($used_for !== $obj_used_for) {
                 $change++;
             }
         } else {
             $change = 1;
         }
-        
+
         if ($change && $old_qr) {
             $hora_española = time() + (2 * 60 * 60); //GMT + 2
             $history_to_db['created_at'] = date('Y-m-d H:i:s', $hora_española); //HISTORIA GUARDADA
@@ -407,13 +409,13 @@ class Dynamic_Qrcode
 
         return implode(', ', $arr);
     }
-    
+
     /* FLASH MESSAGE */
     /* 3 functions for 3 types of messages with different styles defined in the flash_message.php file
     Each function takes a string as input and after a redirection it prints the desired message
     */
-    
-    
+
+
     /**
      * Flash message Failure process
      */
@@ -425,7 +427,7 @@ class Dynamic_Qrcode
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
-    
+
     /**
      * Flash message Success process
      */
@@ -437,7 +439,7 @@ class Dynamic_Qrcode
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
-    
+
     /**
      * Flash message Info process
      */

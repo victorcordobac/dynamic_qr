@@ -20,38 +20,39 @@ $dynamic_qrcode = new Dynamic_Qrcode();
 
 $dynamic_id = htmlspecialchars($_GET['dynamic_id'], ENT_QUOTES, 'UTF-8');
 $operation = htmlspecialchars($_GET['operation'], ENT_QUOTES, 'UTF-8');
-($operation == 'edit_url') ? $edit = true : $edit = false;
+($operation == 'edit') ? $edit = true : $edit = false;
 $db = getDbInstance();
 
 //SI HAY UNA SOLICITUD POST -> corre la siguiente función
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $dynamic_qrcode->edit_url();
+  $dynamic_qrcode->edit();
 }
 
 $num_used_for = 1;
 // If edit variable is set, we are performing the update operation.
 if ($edit) {
-    $db->where('id', $dynamic_id);
-    // Get data to pre-populate the form.
-    $dynamic_qrcode = $db->getOne('dynamic_qrcodes');
-    $used_for = null;
-    if (strlen($dynamic_qrcode['used_for'])) {
-        $used_for = explode(',', $dynamic_qrcode['used_for']);
-        $num_used_for = count($used_for);
-    }
+  $db->where('id', $dynamic_id);
+  // Get data to pre-populate the form.
+  $dynamic_qrcode = $db->getOne('dynamic_qrcodes');
+  $used_for = null;
+  if (strlen($dynamic_qrcode['used_for'])) {
+    $used_for = explode(',', $dynamic_qrcode['used_for']);
+    $num_used_for = count($used_for);
+  }
 
-    $db->where('qr_id', $dynamic_id);
+  $db->where('qr_id', $dynamic_id);
 
-    //CREAR VARIABLE PARA HISTÓRICO
-    $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
+  //CREAR VARIABLE PARA HISTÓRICO
+  $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<title>MI EWAY - Expression Way</title>
+
 
 <head>
+    <title>MI EWAY - Expression Way</title>
     <?php include './includes/head.php'; ?>
 </head>
 
@@ -73,7 +74,7 @@ if ($edit) {
                     <div class="row mb-2">
 
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">MI EWAY</h1>
+                            <h1 class="m-0 text-dark">EDITAR MI EWAY</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -96,23 +97,19 @@ if ($edit) {
                                     <?= $dynamic_qrcode['filename'] ?></h3>
                             </div>
                             <div class="card-body row">
-                                <div class="col-3 pl-2 pr-2 pt-4 pb-4 mx-auto text-right">
-                                    <a class="btn btn-lg btn-primary mb-3" href="<?php echo $dynamic_qrcode['link']; ?>"
+                                <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
+                                    <a class="btn btn-lg btn-primary" href="<?php echo $dynamic_qrcode['link']; ?>"
                                         target="_blank">
                                         <i class="fas fa-link align-middle"></i>
-                                    </a>
-                                    <a class="btn btn-lg btn-primary" download
-                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
-                                        <i class="fas fa-download"></i>
                                     </a>
                                 </div>
                                 <div class="col-6 mx-auto p-3 bg-primary mx-auto">
                                     <img src="<?= PATH . htmlspecialchars($dynamic_qrcode['qrcode']) ?>" class="w-100">
                                 </div>
-                                <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-left">
-                                    <a class="btn btn-lg bg-primary"
-                                        href="my_eway_edit.php?filename=<?php echo $dynamic_qrcode['filename']; ?>&dynamic_id=<?php echo $dynamic_qrcode['id']; ?>&operation=edit">
-                                        <i class="fas fa-edit"></i>
+                                <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
+                                    <a class="btn btn-lg btn-primary" download
+                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
+                                        <i class="fas fa-download"></i>
                                     </a>
                                 </div>
                             </div>
@@ -127,8 +124,14 @@ if ($edit) {
                         <form class="form" action="" method="post" id="dynamic_form" enctype="multipart/form-data">
                             <div class="card-body">
                                 <!--FORMULARIO-->
-                                <?php include BASE_PATH . '/forms/renacimiento/my_eway_form.php'; ?>
+                                <?php include BASE_PATH . '/forms/renacimiento/my_eway_edit_form.php'; ?>
                                 <!--FORMULARIO-->
+                            </div>
+                            <div class="card-footer mx-auto text-center">
+                                <button type="submit"
+                                    class="btn btn-lg btn-primary text-center font-weight-bold text-uppercase text-lg"
+                                    id="actualizar"><i class="fas fa-save mr-2"></i>Guardar</button>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -191,6 +194,18 @@ if ($edit) {
                 $(this).find('.modal-body').load(btn.data('remote'));
             });
 
+            //INICIALIZAR SWITCH
+            $("[name='state']").bootstrapSwitch();
+            //CONVERTIR VALOR DEL SWITCH
+            $('#actualizar').on('click', function() {
+                var activado = '';
+
+                if ($('#interruptor').is(':checked')) {
+                    $activado = $('#interruptor').attr('value', 'enable');
+                } else {
+                    $activado = $('#interruptor').attr('value', 'disable');
+                }
+            });
 
 
             //VALIDACIÓN
