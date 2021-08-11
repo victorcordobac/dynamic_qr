@@ -415,6 +415,8 @@ class Dynamic_Qrcode
     Each function takes a string as input and after a redirection it prints the desired message
     */
 
+    //REDIRECCIONES
+    //ESTO CONTROLA LAS REDIRECCIONES DE PÁGINA TRAS EDITAR, AÑADIR...//
 
     /**
      * Flash message Failure process
@@ -423,7 +425,7 @@ class Dynamic_Qrcode
     {
         $_SESSION['failure'] = $message;
         // Redirect to the listing page
-        header('Location: dynamic_qrcodes.php');
+        header('Location: eways.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
@@ -435,7 +437,7 @@ class Dynamic_Qrcode
     {
         $_SESSION['success'] = $message;
         // Redirect to the listing page
-        header('Location: dynamic_qrcodes.php');
+        header('Location: eways.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
@@ -447,7 +449,7 @@ class Dynamic_Qrcode
     {
         $_SESSION['info'] = $message;
         // Redirect to the listing page
-        header('Location: dynamic_qrcodes.php');
+        header('Location: eways.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
