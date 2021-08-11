@@ -1,4 +1,4 @@
- <input type="hidden" name="num_fields" id="num_fields" value="<?=$num_used_for?>">
+ <!--input type="hidden" name="num_fields" id="num_fields" value="<?=$num_used_for?>"-->
 
  <div class="card bg-secondary col-sm-4">
         <div class="card-header">
