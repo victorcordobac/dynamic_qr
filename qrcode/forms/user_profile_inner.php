@@ -14,7 +14,7 @@
         <!-- Profile Image -->
         <div class="card card-primary card-outline">
             <div class="card-header text-muted border-bottom-0 bg-primary mb-2 text-center">
-                <h1 class="lead text-lg font-weight-bold">
+                <h1 class="lead text-xl font-weight-bold">
                     <b><?= $profile->first_name, ' ', $profile->last_name ?></b>
                     </h2>
                     <p class="text-gray">@<?= $profile->user_name ?></p>
@@ -35,7 +35,7 @@
                 </div>
 
                 <!--p class="text-muted text-center mb-1"><?= $profile->user_name ?></p>
-        <p class="text-muted text-center"><?= $profile->email ?></p-->
+                < p class="text-muted text-center"><?= $profile->email ?></p-->
                 <div class="mx-auto mt-4 text-center">
                     <a href="" class="btn btn-app pb-5">
                         <i class="fa fa-qrcode"></i>
@@ -46,18 +46,19 @@
                         <b class="text-lg mr-2"><?= $num_scans[0]['sum(scan)']; ?></b>scans
                     </a>
                 </div>
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        <a href="mailto:<?= $row['email'] ?>" class="btn btn-md btn-danger mr-2">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="tel:+34<?= $row['mobile_no'] ?>" class="btn btn-md btn-danger">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
+
             </div>
             <!-- /.card-body -->
+            <div class="card-footer clearfix text-center">
+                <div class="">
+                    <a href="mailto:<?= $row['email'] ?>" class="btn btn-md btn-info mr-2">
+                        <i class="fas fa-envelope mr-2"></i> MANDAR EMAIL
+                    </a>
+                    <a href="tel:+34<?= $row['mobile_no'] ?>" class="btn btn-md btn-info">
+                        <i class="fas fa-phone mr-2"></i> LLAMAR
+                    </a>
+                </div>
+            </div>
         </div>
         <!-- /.card -->
         <?php if (strlen($profile->facebook) || strlen($profile->twitter) || strlen($profile->instagram)) : ?>
@@ -90,10 +91,10 @@
         <div class="card">
             <div class="card-header">
                 <nav class="nav nav-pills">
-                    <a class="nav-link active" data-toggle="tab" href="#dynamic_qr"><i
+                    <a class="nav-link active mx-auto text-lg" data-toggle="tab" href="#dynamic_qr"><i
                             class="fa fa-qrcode mr-2"></i>EWAYS</a>
                     <a class="nav-link" data-toggle="tab" href="#static_qr"><i
-                            class="fa fa-barcode mr-2"></i>ETIQUETAS</a>
+                            class="fa fa-barcode mr-2 mx-auto text-lg"></i>ETIQUETAS</a>
                 </nav>
             </div>
             <div class="card-body">
@@ -105,13 +106,19 @@
                                 <div class="row">
                                     <?php if ($default_qr) : ?>
                                     <div class="col-md-12">
-                                        <h3> QR PRINCIPAL</h3>
-                                    </div>
-                                    <div class="col-md-12">
                                         <div class="row">
 
                                             <div class="col-md-2">
                                                 <div class="card">
+                                                    <div class="ribbon-wrapper ribbon-xl text-shadow-none">
+                                                        <div class="ribbon bg-warning text-lg text-white">
+                                                            <i class="fa fa-star mr-1 text-white"
+                                                                style="text-shadow:none"></i>
+                                                            <span class="fobt-weight-bold text-white"
+                                                                style="text-shadow:none; font-weight:bold"> PRINCIPAL
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                     <div class="card-header bg-primary">
                                                         <h4 class="card-title text-center font-weight-bold">
                                                             <?= $default_qr->filename ?></h4>
@@ -153,9 +160,6 @@
                                         </div>
                                     </div>
                                     <?php endif ?>
-                                    <div class="col-md-12">
-                                        <h3> EWAYS</h3>
-                                    </div>
                                     <?php foreach ($dynamic_qrcodes as $dcode) : ?>
                                     <div class="col-md-2">
                                         <div class="card">
@@ -196,7 +200,7 @@
                                     <?php if (count($dynamic_qrcodes) == 0) : ?>
                                     <div class="col-md-12">
                                         <div class="alert alert-info" role="alert">
-                                            No se encontraron QR dinámicos
+                                            No se encontraron eWays
                                         </div>
                                     </div>
                                     <?php endif ?>
@@ -241,7 +245,7 @@
                                     <?php if (count($static_qrcodes) == 0) : ?>
                                     <div class="col-md-12">
                                         <div class="alert alert-info" role="alert">
-                                            No se encontraron QR estáticos
+                                            No se encontraron etiquetas
                                         </div>
                                     </div>
                                     <?php endif ?>

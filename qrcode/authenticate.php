@@ -29,9 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$user_id = $row['id'];
 
 		if (password_verify($password, $db_password)) {
+			//AQUÍ SE DEFINE $_SESSION <- AQUI
 			$_SESSION['user_logged_in'] = TRUE;
 			$_SESSION['admin_type'] = $row['admin_type'];
 			$_SESSION['user_id'] = $row['id'];
+			$_SESSION['user_name'] = $row['user_name'];
 
 			if ($remember) {
 				$series_id = randomString(16);

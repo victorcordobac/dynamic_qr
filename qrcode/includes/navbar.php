@@ -15,7 +15,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
-                <a href="admin_user_profile.php" class="dropdown-item">
+                <a href="user_profile.php?user=<?= $_SESSION['user_name']; ?>" class="dropdown-item">
                     <i class="fas fa-user"></i> MI PERFIL
                 </a>
                 <div class="dropdown-divider"></div>
