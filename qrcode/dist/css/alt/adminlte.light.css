@@ -16744,6 +16744,10 @@ body.text-sm .control-sidebar {
   padding-left: 1rem;
 }
 
+.navbar-light .navbar-nav a.nav-link {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
 .pagination-month .page-item {
   justify-self: stretch;
 }

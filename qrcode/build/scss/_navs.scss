@@ -180,3 +180,9 @@
     @include navbar-variant($color, $value);
   }
 }
+
+//AÑADIDO CARMELO
+
+.navbar-light .navbar-nav a.nav-link {
+    color: rgba(0,0,0,.8)!important;
+}
