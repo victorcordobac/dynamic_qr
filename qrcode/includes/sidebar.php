@@ -8,18 +8,21 @@
 
     <!-- Sidebar -->
     <div class="sidebar" style="margin-top: calc(6.5rem + 1px);">
-        <!--Sidebar user panel (optional) 
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+        <!--Sidebar user panel (optional)
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Superadmin</a>
+            </div>
         </div>
-        <div class="info">
-          <a href="#" class="d-block">Superadmin</a>
-        </div>
-      </div>
 
-      -->
+-->
+
         <!-- Sidebar Menu -->
+
+
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
@@ -160,6 +163,14 @@
                 </li>
             </ul>
         </nav>
+
+
+        <div class="float-right mt-5 mb-4 mr-2">
+            <a href="add_eway.php" class="btn btn-lg bg-primary text-lg"><i class="fas fa-plus-circle text-lg mr-2"></i>
+                NUEVO</a>
+        </div>
+
+
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
