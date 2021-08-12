@@ -1,13 +1,13 @@
 <?php
 
 /**
- * PHP Dynamic Qr code
+ *  EWAY APP - Códigos QR personalizados
  *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
+ * @author    Víctor Córdoba <hola@victorcordoba.com>
+ * @copyright Copyright (c) 2021
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
+ * @link      https://github.com/victorcordobac/dynamic_qr
+ * @version   3.0
  */
 
 session_start();
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <?php include './includes/head.php'; ?>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css' integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==' crossorigin='anonymous'/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css' integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==' crossorigin='anonymous' />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -87,18 +87,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js' integrity='sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==' crossorigin='anonymous'></script>
         <!-- Page script -->
         <script>
-            $(function () {
+            $(function() {
                 let drEvent = $('.dropify').dropify();
-                drEvent.on('dropify.beforeClear', function (event, element) {
+                drEvent.on('dropify.beforeClear', function(event, element) {
                     if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
                         $.post("ajax_remove_img.php", {
                                     profile_pic: element.file.name
                                 },
-                                function (data, textStatus, jqXHR) {
+                                function(data, textStatus, jqXHR) {
                                     alert(data.message);
                                 }
                             )
-                            .fail(function (data,textStatus) {
+                            .fail(function(data, textStatus) {
                                 location.reload();
                             });
                     }

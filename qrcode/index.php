@@ -1,13 +1,13 @@
 <?php
 
 /**
- * PHP Dynamic Qr code
+ *  EWAY APP - Códigos QR personalizados
  *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
+ * @author    Víctor Córdoba <hola@victorcordoba.com>
+ * @copyright Copyright (c) 2021
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
+ * @link      https://github.com/victorcordobac/dynamic_qr
+ * @version   3.0
  */
 
 session_start();
@@ -170,22 +170,22 @@ foreach ($createdQrcode_static as $row) {
                 <div class="container-fluid">
                     <!-- Info boxes -->
                     <div class="row">
-                        <?php if ($default_qr): ?>
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <div class="info-box mb-3 bg-dark">
-                                <span class="info-box-icon">
-                                    <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>" width="60">
-                                </span>
+                        <?php if ($default_qr) : ?>
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <div class="info-box mb-3 bg-dark">
+                                    <span class="info-box-icon">
+                                        <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>" width="60">
+                                    </span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text"><?=$default_qr->filename?></span>
-                                    <span class="info-box-number">Scans: <?=$default_qr->scan?></span>
-                                </div><!-- /.info-box-content -->
-                            </div>
-                        </div><!-- /.col -->
+                                    <div class="info-box-content">
+                                        <span class="info-box-text"><?= $default_qr->filename ?></span>
+                                        <span class="info-box-number">Scans: <?= $default_qr->scan ?></span>
+                                    </div><!-- /.info-box-content -->
+                                </div>
+                            </div><!-- /.col -->
                         <?php endif; ?>
 
-                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
+                        <div class="col-12 col-sm-6 col-md-<?= $card_col ?>">
                             <div class="info-box mb-3 bg-warning">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -196,7 +196,7 @@ foreach ($createdQrcode_static as $row) {
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
+                        <div class="col-12 col-sm-6 col-md-<?= $card_col ?>">
                             <div class="info-box mb-3 bg-success">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -210,7 +210,7 @@ foreach ($createdQrcode_static as $row) {
                         <!-- fix for small devices only -->
                         <div class="clearfix hidden-md-up"></div>
 
-                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
+                        <div class="col-12 col-sm-6 col-md-<?= $card_col ?>">
                             <div class="info-box mb-3 bg-danger">
                                 <span class="info-box-icon"><i class="fa fa-qrcode"></i></span>
 
@@ -222,7 +222,7 @@ foreach ($createdQrcode_static as $row) {
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-sm-6 col-md-<?=$card_col?>">
+                        <div class="col-12 col-sm-6 col-md-<?= $card_col ?>">
                             <div class="info-box mb-3 bg-info">
                                 <span class="info-box-icon"><i class="fas fa-chart-line"></i></span>
 

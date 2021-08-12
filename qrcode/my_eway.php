@@ -1,13 +1,13 @@
 <?php
 
 /**
- * PHP Dynamic Qr code
+ *  EWAY APP - Códigos QR personalizados
  *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
+ * @author    Víctor Córdoba <hola@victorcordoba.com>
+ * @copyright Copyright (c) 2021
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
+ * @link      https://github.com/victorcordobac/dynamic_qr
+ * @version   3.0
  */
 
 session_start();
@@ -97,12 +97,10 @@ if ($edit) {
                             </div>
                             <div class="card-body row">
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mx-auto text-right">
-                                    <a class="btn btn-lg btn-primary mb-3" href="<?php echo $dynamic_qrcode['link']; ?>"
-                                        target="_blank">
+                                    <a class="btn btn-lg btn-primary mb-3" href="<?php echo $dynamic_qrcode['link']; ?>" target="_blank">
                                         <i class="fas fa-link align-middle"></i>
                                     </a>
-                                    <a class="btn btn-lg btn-primary" download
-                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
+                                    <a class="btn btn-lg btn-primary" download href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>
@@ -110,8 +108,7 @@ if ($edit) {
                                     <img src="<?= PATH . htmlspecialchars($dynamic_qrcode['qrcode']) ?>" class="w-100">
                                 </div>
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-left">
-                                    <a class="btn btn-lg bg-primary"
-                                        href="my_eway_edit.php?filename=<?php echo $dynamic_qrcode['filename']; ?>&dynamic_id=<?php echo $dynamic_qrcode['id']; ?>&operation=edit">
+                                    <a class="btn btn-lg bg-primary" href="my_eway_edit.php?filename=<?php echo $dynamic_qrcode['filename']; ?>&dynamic_id=<?php echo $dynamic_qrcode['id']; ?>&operation=edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </div>
@@ -170,42 +167,42 @@ if ($edit) {
 
         <!-- SCRIPTS -->
         <script type="text/javascript">
-        $(document).ready(function() {
-            let i = 1;
-            //AÑADIR SOPORTES
-            $('#add_more').on('click', function() {
-                i++;
-                let template_id = $(this).data('template');
-                let append_id = $(this).data('append');
-                let _template = $("#" + template_id).html();
-                $('#' + append_id).append(_template);
-                $('#num_fields').val(i);
-            });
-            //eliminar SOPORTES
-            $('body').on('click', '.remove', function() {
-                $(this).closest('.del-row').remove();
-            });
-            //SACAR MODAL
-            $('#exampleModal').on('show.bs.modal', function(e) {
-                let btn = $(e.relatedTarget);
-                $(this).find('.modal-body').load(btn.data('remote'));
-            });
+            $(document).ready(function() {
+                let i = 1;
+                //AÑADIR SOPORTES
+                $('#add_more').on('click', function() {
+                    i++;
+                    let template_id = $(this).data('template');
+                    let append_id = $(this).data('append');
+                    let _template = $("#" + template_id).html();
+                    $('#' + append_id).append(_template);
+                    $('#num_fields').val(i);
+                });
+                //eliminar SOPORTES
+                $('body').on('click', '.remove', function() {
+                    $(this).closest('.del-row').remove();
+                });
+                //SACAR MODAL
+                $('#exampleModal').on('show.bs.modal', function(e) {
+                    let btn = $(e.relatedTarget);
+                    $(this).find('.modal-body').load(btn.data('remote'));
+                });
 
 
 
-            //VALIDACIÓN
-            $('#dynamic_form').validate({
-                rules: {
-                    filename: {
-                        required: true,
-                    },
-                    link: {
-                        required: true,
-                        minlength: 3
-                    },
-                }
+                //VALIDACIÓN
+                $('#dynamic_form').validate({
+                    rules: {
+                        filename: {
+                            required: true,
+                        },
+                        link: {
+                            required: true,
+                            minlength: 3
+                        },
+                    }
+                });
             });
-        });
         </script>
 </body>
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * PHP Dynamic Qr code
+ *  EWAY APP - Códigos QR personalizados
  *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
+ * @author    Víctor Córdoba <hola@victorcordoba.com>
+ * @copyright Copyright (c) 2021
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
+ * @link      https://github.com/victorcordobac/dynamic_qr
+ * @version   3.0
  */
 
 session_start();
@@ -25,25 +25,25 @@ $db = getDbInstance();
 
 //SI HAY UNA SOLICITUD POST -> corre la siguiente función
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $dynamic_qrcode->edit();
+    $dynamic_qrcode->edit();
 }
 
 $num_used_for = 1;
 // If edit variable is set, we are performing the update operation.
 if ($edit) {
-  $db->where('id', $dynamic_id);
-  // Get data to pre-populate the form.
-  $dynamic_qrcode = $db->getOne('dynamic_qrcodes');
-  $used_for = null;
-  if (strlen($dynamic_qrcode['used_for'])) {
-    $used_for = explode(',', $dynamic_qrcode['used_for']);
-    $num_used_for = count($used_for);
-  }
+    $db->where('id', $dynamic_id);
+    // Get data to pre-populate the form.
+    $dynamic_qrcode = $db->getOne('dynamic_qrcodes');
+    $used_for = null;
+    if (strlen($dynamic_qrcode['used_for'])) {
+        $used_for = explode(',', $dynamic_qrcode['used_for']);
+        $num_used_for = count($used_for);
+    }
 
-  $db->where('qr_id', $dynamic_id);
+    $db->where('qr_id', $dynamic_id);
 
-  //CREAR VARIABLE PARA HISTÓRICO
-  $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
+    //CREAR VARIABLE PARA HISTÓRICO
+    $history_qr = $db->objectBuilder()->orderBy('id', 'desc')->get('dynamic_qr_version');
 }
 ?>
 
@@ -98,8 +98,7 @@ if ($edit) {
                             </div>
                             <div class="card-body row">
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
-                                    <a class="btn btn-lg btn-primary" href="<?php echo $dynamic_qrcode['link']; ?>"
-                                        target="_blank">
+                                    <a class="btn btn-lg btn-primary" href="<?php echo $dynamic_qrcode['link']; ?>" target="_blank">
                                         <i class="fas fa-link align-middle"></i>
                                     </a>
                                 </div>
@@ -107,8 +106,7 @@ if ($edit) {
                                     <img src="<?= PATH . htmlspecialchars($dynamic_qrcode['qrcode']) ?>" class="w-100">
                                 </div>
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
-                                    <a class="btn btn-lg btn-primary" download
-                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
+                                    <a class="btn btn-lg btn-primary" download href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>
@@ -128,9 +126,7 @@ if ($edit) {
                                 <!--FORMULARIO-->
                             </div>
                             <div class="card-footer mx-auto text-center">
-                                <button type="submit"
-                                    class="btn btn-lg btn-primary text-center font-weight-bold text-uppercase text-lg"
-                                    id="actualizar"><i class="fas fa-save mr-2"></i>Guardar</button>
+                                <button type="submit" class="btn btn-lg btn-primary text-center font-weight-bold text-uppercase text-lg" id="actualizar"><i class="fas fa-save mr-2"></i>Guardar</button>
                                 </a>
                             </div>
                         </form>
@@ -173,54 +169,54 @@ if ($edit) {
 
         <!-- SCRIPTS -->
         <script type="text/javascript">
-        $(document).ready(function() {
-            let i = 1;
-            //AÑADIR SOPORTES
-            $('#add_more').on('click', function() {
-                i++;
-                let template_id = $(this).data('template');
-                let append_id = $(this).data('append');
-                let _template = $("#" + template_id).html();
-                $('#' + append_id).append(_template);
-                $('#num_fields').val(i);
-            });
-            //eliminar SOPORTES
-            $('body').on('click', '.remove', function() {
-                $(this).closest('.del-row').remove();
-            });
-            //SACAR MODAL
-            $('#exampleModal').on('show.bs.modal', function(e) {
-                let btn = $(e.relatedTarget);
-                $(this).find('.modal-body').load(btn.data('remote'));
-            });
+            $(document).ready(function() {
+                let i = 1;
+                //AÑADIR SOPORTES
+                $('#add_more').on('click', function() {
+                    i++;
+                    let template_id = $(this).data('template');
+                    let append_id = $(this).data('append');
+                    let _template = $("#" + template_id).html();
+                    $('#' + append_id).append(_template);
+                    $('#num_fields').val(i);
+                });
+                //eliminar SOPORTES
+                $('body').on('click', '.remove', function() {
+                    $(this).closest('.del-row').remove();
+                });
+                //SACAR MODAL
+                $('#exampleModal').on('show.bs.modal', function(e) {
+                    let btn = $(e.relatedTarget);
+                    $(this).find('.modal-body').load(btn.data('remote'));
+                });
 
-            //INICIALIZAR SWITCH
-            $("[name='state']").bootstrapSwitch();
-            //CONVERTIR VALOR DEL SWITCH
-            $('#actualizar').on('click', function() {
-                var activado = '';
+                //INICIALIZAR SWITCH
+                $("[name='state']").bootstrapSwitch();
+                //CONVERTIR VALOR DEL SWITCH
+                $('#actualizar').on('click', function() {
+                    var activado = '';
 
-                if ($('#interruptor').is(':checked')) {
-                    $activado = $('#interruptor').attr('value', 'enable');
-                } else {
-                    $activado = $('#interruptor').attr('value', 'disable');
-                }
+                    if ($('#interruptor').is(':checked')) {
+                        $activado = $('#interruptor').attr('value', 'enable');
+                    } else {
+                        $activado = $('#interruptor').attr('value', 'disable');
+                    }
+                });
+
+
+                //VALIDACIÓN
+                $('#dynamic_form').validate({
+                    rules: {
+                        filename: {
+                            required: true,
+                        },
+                        link: {
+                            required: true,
+                            minlength: 3
+                        },
+                    }
+                });
             });
-
-
-            //VALIDACIÓN
-            $('#dynamic_form').validate({
-                rules: {
-                    filename: {
-                        required: true,
-                    },
-                    link: {
-                        required: true,
-                        minlength: 3
-                    },
-                }
-            });
-        });
         </script>
 </body>
 
