@@ -11309,6 +11309,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   font-weight: bold;
   color: white !important;
   text-transform: uppercase;
+  text-align: center;
   /*Carmelo*/
 }
 

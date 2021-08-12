@@ -76,6 +76,9 @@ $nav-link-sm-height: ($font-size-sm * $line-height-sm + $nav-link-sm-padding-y *
 $main-header-height-sm-inner: ($nav-link-sm-height + ($main-header-link-padding-y * 2)) !default;
 $main-header-height-sm: calc(#{$main-header-height-sm-inner} + #{$main-header-bottom-border-width}) !default;
 
+//BARRAS DE TITULO PAGINAS - CARMELO
+$barras-de-titulo-color-fondo: $dark !default;
+
 
 // Main header skins
 $main-header-dark-form-control-bg: $gray-800 !default;
