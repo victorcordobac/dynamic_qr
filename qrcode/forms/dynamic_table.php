@@ -2,81 +2,92 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive p-0">
-      <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th width="18%">QR</th>
-                <th width="15%">Nombre</th>
-                <th width="10%" style="display:none">Identificador</th>
-                <th width="20%">URL</th>
-                <th width="10%">Creado por</th>
-                <th width="20%">Usado en</th>
-                <th width="5%">Scan</th>
-                <th width="23%">Operaciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($rows as $row): ?>
-            <tr>
-                <td>
-                    <?php echo '<img src="'.PATH.htmlspecialchars($row['qrcode']).'" width="100" height="100">'; ?>
-                </td>
-                <td><?php echo htmlspecialchars($row['filename']); ?></td>
-                <td style="display:none"><?php echo htmlspecialchars($row['identifier']); ?></td>
-                <td><?php echo htmlspecialchars($row['link']); ?></td>
-                <td><?php echo htmlspecialchars($row['user_name']); ?></td>
-                <td><?php echo htmlspecialchars($row['used_for']); ?></td>
-                
-                <td><?php echo htmlspecialchars($row['scan']); ?></td>
-                <td>
-                    
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="18%">QR</th>
+                            <th width="15%">Nombre</th>
+                            <th width="10%" style="display:none">Identificador</th>
+                            <th width="20%">URL</th>
+                            <th width="10%">Creado por</th>
+                            <th width="20%">Usado en</th>
+                            <th width="5%">Scan</th>
+                            <th width="23%">Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($rows as $row) : ?>
+                        <tr>
+                            <td>
+                                <?php echo '<img src="' . PATH . htmlspecialchars($row['qrcode']) . '" width="100" height="100">'; ?>
+                            </td>
+                            <td><?php echo htmlspecialchars($row['filename']); ?></td>
+                            <td style="display:none"><?php echo htmlspecialchars($row['identifier']); ?></td>
+                            <td><?php echo htmlspecialchars($row['link']); ?></td>
+                            <td><?php echo htmlspecialchars($row['user_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['used_for']); ?></td>
 
-                    <!-- VER / EDIT-URL -->
-                    <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                    <!-- EDIT -->
-                    <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                    
-                    <!-- DELETE -->
-                    <a href="#" class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="fas fa-trash"></i></a>
-                    
-                    <!-- DOWNLOAD -->
-                    <a href="<?php echo PATH.htmlspecialchars($row['qrcode']); ?>" class="btn btn-primary" download><i class="fa fa-download"></i></a>
-                </td>
-            </tr>
-            <!-- Delete Confirmation Modal -->
-            <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
-                <div class="modal-dialog">
-                    <form action="delete_dynamic.php" method="POST">
-                        <!-- Modal content -->
-                
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">CONFIRMAR</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                <input type="hidden" name="filename" id="filename" value="<?php echo $row['filename']; ?>">
-                                <p>¿Estás seguro de que quieres eliminar este código QR?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">ELIMINAR</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <td><?php echo htmlspecialchars($row['scan']); ?></td>
+                            <td>
+
+
+                                <!-- VER / EDIT-URL -->
+                                <a href="my_eway.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit_url"
+                                    class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                <!-- EDIT -->
+                                <a href="edit_dynamic.php?filename=<?php echo $row['filename']; ?>&dynamic_id=<?php echo $row['id']; ?>&operation=edit"
+                                    class="btn btn-primary"><i class="fas fa-edit"></i></a>
+
+                                <!-- DELETE -->
+                                <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
+                                    data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
+                                        class="fas fa-trash"></i></a>
+
+                                <!-- DOWNLOAD -->
+                                <a href="<?php echo PATH . htmlspecialchars($row['qrcode']); ?>" class="btn btn-primary"
+                                    download><i class="fa fa-download"></i></a>
+                            </td>
+                        </tr>
+                        <!-- Delete Confirmation Modal -->
+                        <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+                            <div class="modal-dialog">
+                                <form action="delete_dynamic.php" method="POST">
+                                    <!-- Modal content -->
+
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">CONFIRMAR</h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="del_id" id="del_id"
+                                                value="<?php echo $row['id']; ?>">
+                                            <input type="hidden" name="filename" id="filename"
+                                                value="<?php echo $row['filename']; ?>">
+                                            <input type="hidden" name="created_by" id="created_by"
+                                                value="<?php echo $row['created_by']; ?>">
+                                            <p>¿Estás seguro de que quieres eliminar este código QR?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">ELIMINAR</button>
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.Delete Confirmation Modal -->
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-   </div><!-- /.Card body -->
-   
-   <div class="card-footer clearfix">
-       <?php echo paginationLinks($page, $total_pages, 'dynamic_qrcodes.php'); ?>
-       </div><!-- /.Card footer -->
-       
+                        <!-- /.Delete Confirmation Modal -->
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div><!-- /.Card body -->
+
+            <div class="card-footer clearfix">
+                <?php echo paginationLinks($page, $total_pages, 'dynamic_qrcodes.php'); ?>
+            </div><!-- /.Card footer -->
+
         </div><!-- /.Card -->
     </div><!-- /.col -->
 </div><!-- /.row -->

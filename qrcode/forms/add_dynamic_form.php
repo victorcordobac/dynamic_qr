@@ -7,22 +7,22 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-qrcode"></i></span>
                     </div>
-                    
+
                     <input type="text" class="form-control" id="foreground" name="foreground" value="#000000">
                 </div>
             </div>
-                  
+
             <div class="col-6 col-md-3">
                 <label for="background">Color fondo:</label>
                 <div class="input-group my-colorpicker2">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-qrcode"></i></span>
                     </div>
-                    
+
                     <input type="text" class="form-control" id="background" name="background" value="#ffffff">
                 </div>
             </div>
-                  
+
             <div class="col-6 col-md-3">
                 <label for="level">Precisión</label>
                 <select name="level" class="form-control">
@@ -32,7 +32,7 @@
                     <option value="H">H - Mayor calidad</option>
                 </select>
             </div>
-        
+
             <div class="col-6 col-md-3">
                 <label for="size">Tamaño (px)</label>
                 <select name="size" class="form-control">
@@ -51,39 +51,42 @@
         </div>
     </div>
 
-<!-- Its use is not recommended. Read the documentation
+    <!-- Its use is not recommended. Read the documentation
     <div class="form-group">
         <label for="logo">Logo</label>
-        <?php //include 'logo.php' ?>
+        <?php //include 'logo.php' 
+        ?>
     </div>
     -->
-    
+
     <div class="col-sm-4">
         <div class="form-group">
             <label for="link">URL</label>
-            <input type="url" pattern="https://.*" name="link" value="" placeholder="https://victorcordoba.com" class="form-control" required="required" id="link">
+            <input type="url" pattern="https://.*" name="link" value="" placeholder="https://victorcordoba.com"
+                class="form-control" required="required" id="link">
         </div>
     </div>
-    
-    
+
+
     <div class="col-sm-4" style="display:none">
         <div class="form-group">
             <label for="identifier">Identificador</label>
             <p>Se generará automáticamente</p>
         </div>
     </div>
-    
-<div class="col-sm-12 mb-2">
-  <div class="row">    
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label for="filename">Nombre</label>
-            <input type="text" name="filename" value="" placeholder="Camino de Santiago" class="form-control error" required="required" id = "filename">
-          
-        </div>
-    </div>
-    
-    <div class="col-6 col-md-1">
+
+    <div class="col-sm-12 mb-2">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="filename">Nombre</label>
+                    <input type="text" name="filename" value="" placeholder="Camino de Santiago"
+                        class="form-control error" required="required" id="filename">
+
+                </div>
+            </div>
+
+            <div class="col-6 col-md-1">
                 <label for="format">Formato</label>
                 <select name="format" class="form-control">
                     <option value="png">PNG</option>
@@ -93,14 +96,14 @@
                     <option value="svg">SVG</option>
                     <option value="eps">EPS</option>
                 </select>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- CAMPO SOPORTES -->
-<?php include_once(BASE_PATH. '/forms/used_for_field.php') ?>
+    <!-- CAMPO SOPORTES -->
+    <?php include_once(BASE_PATH . '/forms/used_for_field.php') ?>
 
-<!--div class="col-sm-12 mb-2">
+    <!--div class="col-sm-12 mb-2">
   <div class="form-check">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input" name="is_default" id="is_default" value="1" >
@@ -109,14 +112,14 @@
   </div>
 </div-->
 
-<div class="col-sm-12 mb-2">
+    <div class="col-sm-12 mb-2">
         <div class="form-group">
             <label class="">
                 QR POR DEFECTO
             </label>
-            <input type="checkbox" class="" name="is_default" id="is_default" value="1"
-                <?php echo ($edit && $dynamic_qrcode['is_default'] =='1')? "checked": "" ?> style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;"/>
-                
+            <input type="checkbox" class="" name="is_default" id="is_default" value="0"
+                style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;" />
+
         </div>
     </div>
 

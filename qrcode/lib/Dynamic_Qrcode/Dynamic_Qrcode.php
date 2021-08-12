@@ -271,22 +271,24 @@ class Dynamic_Qrcode
      * Delete qr code
      *
      */
-    public function cancel($dynamic_id, $filename)
+    public function cancel($dynamic_id, $filename, $created_by)
     {
-        if ($_SESSION['admin_type'] != 'super') {
-            $this->failure('You don\'t have permission to perform this action');
+
+
+        if ($_SESSION['admin_type'] != 'super' && $_SESSION['user_id'] != $created_by) {
+            $this->failure('No tienes permiso para borrar este eway');
         }
 
         $db = getDbInstance();
 
-        $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id");
+        $query = $db->query("SELECT format FROM dynamic_qrcodes WHERE id=$dynamic_id"); //busca el formato, para saber la extensión del archivo que debe eliminar
         $format = $query[0]['format'];
 
-        $db->where('id', $dynamic_id);
-        $status = $db->delete('dynamic_qrcodes');
+        $db->where('id', $dynamic_id); //reduce los datos obtenidos a las filas cuyo id sea el del QR
+        $status = $db->delete('dynamic_qrcodes'); //elimina esa fila de la tabla dynamic_qrcodes
 
         try {
-            unlink(DIRECTORY . $filename . '.' . $format);
+            unlink(DIRECTORY . $filename . '.' . $format); //borra el archivo .png o lo que sea
         } catch (Exception $e) {
             $this->failure($e->getMessage());
         }
@@ -294,7 +296,7 @@ class Dynamic_Qrcode
         if ($status) {
             $this->info('¡eWay eliminado!');
         } else {
-            $this->failure('Unable to delete qr code');
+            $this->failure('No ha sido posibl eeliminarlo');
         }
     }
 

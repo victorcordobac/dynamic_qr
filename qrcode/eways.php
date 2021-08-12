@@ -20,7 +20,7 @@ $dynamic_qrcode = new Dynamic_Qrcode();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('dynamic_qrcodes.id', 'user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at', 'used_for', 'is_default');
+$select = array('dynamic_qrcodes.id', 'user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'created_by', 'updated_at', 'used_for', 'is_default');
 
 // Search and order php code
 $search_fields = array('filename', 'identifier', 'link');
@@ -30,10 +30,10 @@ require_once BASE_PATH . '/includes/search_order.php';
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 1;
 $db->join('admin_accounts', 'admin_accounts.id = dynamic_qrcodes.created_by');
 
+//MOSTRAR SOLO los eways que son del usuario
 if ($_SESSION['admin_type'] !== 'super') {
     $db->where('created_by', $_SESSION['user_id']);
 }
-
 
 // Set pagination limit
 $db->pageLimit = 15;

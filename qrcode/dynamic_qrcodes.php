@@ -1,13 +1,14 @@
 <?php
+
 /**
-* PHP Dynamic Qr code
-*
-* @author    Giandonato Inverso <info@giandonatoinverso.it>
-* @copyright Copyright (c) 2020-2021
-* @license   https://opensource.org/licenses/MIT MIT License
-* @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
-* @version   1.0
-*/
+ * PHP Dynamic Qr code
+ *
+ * @author    Giandonato Inverso <info@giandonatoinverso.it>
+ * @copyright Copyright (c) 2020-2021
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
+ * @version   1.0
+ */
 
 session_start();
 require_once 'config/config.php';
@@ -19,7 +20,7 @@ $dynamic_qrcode = new Dynamic_Qrcode();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('dynamic_qrcodes.id','user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at','used_for');
+$select = array('dynamic_qrcodes.id', 'user_name', 'filename', 'identifier', 'link', 'qrcode', 'scan', 'created_at', 'updated_at', 'used_for');
 
 // Search and order php code
 $search_fields = array('filename', 'identifier', 'link');
@@ -29,8 +30,9 @@ require_once BASE_PATH . '/includes/search_order.php';
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 1;
 $db->join('admin_accounts', 'admin_accounts.id = dynamic_qrcodes.created_by');
 
+//SOLO MOSTRAR LOS QR de los que el usuario es propietario
 if ($_SESSION['admin_type'] !== 'super') {
-    $db->where('created_by', $_SESSION['user_id']);
+  $db->where('created_by', $_SESSION['user_id']);
 }
 
 
@@ -45,65 +47,69 @@ $total_pages = $db->totalPages;
 
 <!DOCTYPE html>
 <html lang="en">
-    <title>QR Dinámicos - Expression Way</title>
-    <head>
+<title>QR Dinámicos - Expression Way</title>
+
+<head>
     <?php include './includes/head.php'; ?>
-    </head>
+</head>
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
-  <!-- Navbar -->
-  <?php include './includes/navbar.php'; ?>
-  <!-- /.navbar -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <?php include './includes/navbar.php'; ?>
+        <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <?php include './includes/sidebar.php'; ?>
-    <!-- /.Main Sidebar Container -->
+        <!-- Main Sidebar Container -->
+        <?php include './includes/sidebar.php'; ?>
+        <!-- /.Main Sidebar Container -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-            
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> QR Dinámicos</h1>
-          </div><!-- /.col -->
-          
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item">
-                  <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir Nuevo</a>
-                </li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div><!-- /.content-header -->
-    
-    <!-- Flash message-->
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
-    <!-- /.Flash message-->
-            
-    <!-- Filters -->
-    <?php $options = $dynamic_qrcode->setOrderingValues();
-          include BASE_PATH . '/forms/filters.php'; ?>  
-    <!-- /.Filters-->
-    
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-          
-        <!-- Table -->
-        <?php include BASE_PATH . '/forms/dynamic_table.php'; ?>  
-        <!-- /.Table -->
-    
-        </div><!-- /.container-fluid -->
-    </section>
-  </div><!-- /.content-wrapper -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
 
-    <!-- Footer and scripts -->
-    <?php include './includes/footer.php'; ?>
-    <!-- /.Footer and scripts -->
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark"> QR Dinámicos</h1>
+                        </div><!-- /.col -->
+
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">
+                                    <a href="add_dynamic.php" class="btn btn-success"><i class="fa fa-plus"></i> Añadir
+                                        Nuevo</a>
+                                </li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div><!-- /.content-header -->
+
+            <!-- Flash message-->
+            <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+            <!-- /.Flash message-->
+
+            <!-- Filters -->
+            <?php $options = $dynamic_qrcode->setOrderingValues();
+      include BASE_PATH . '/forms/filters.php'; ?>
+            <!-- /.Filters-->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <!-- Table -->
+                    <?php include BASE_PATH . '/forms/dynamic_table.php'; ?>
+                    <!-- /.Table -->
+
+                </div><!-- /.container-fluid -->
+            </section>
+        </div><!-- /.content-wrapper -->
+
+        <!-- Footer and scripts -->
+        <?php include './includes/footer.php'; ?>
+        <!-- /.Footer and scripts -->
 </body>
+
 </html>

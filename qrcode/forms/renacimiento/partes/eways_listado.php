@@ -74,5 +74,34 @@
         </div>
     </div>
 </div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+    <div class="modal-dialog">
+        <form action="delete_dynamic.php" method="POST">
+            <!-- Modal content -->
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">CONFIRMAR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <!--CAMPOS OCULTOS para enviar por POST a la función de eliminar-->
+                    <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
+                    <input type="hidden" name="filename" id="filename" value="<?php echo $row['filename']; ?>">
+                    <input type="hidden" name="created_by" id="created_by" value="<?php echo $row['created_by']; ?>">
+                    <input type="hidden" name="user_loged" id="user_loged" value="<?php echo $user_loged; ?>">
+                    <p>¿Estás seguro de que quieres eliminar este código QR?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ELIMINAR</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /.Delete Confirmation Modal -->
 <?php endforeach; ?>
 </div>
