@@ -22,21 +22,26 @@ if ($_SESSION['admin_type'] !== 'super') {
     $db->where('created_by', $_SESSION['user_id']);
 }
 
-$db->where('created_by', $_SESSION['user_id']);
+//$db->where('created_by', $_SESSION['user_id']); //creo que sobra
 $default_qr = $db->objectBuilder()->where('is_default', 1)->orderBy('id', 'desc')->getOne('dynamic_qrcodes');
 
 if ($default_qr) {
     $card_col = 2;
 }
 
+if ($_SESSION['admin_type'] !== 'super') {
+    $db->where('created_by', $_SESSION['user_id']);
+}
 $numQrcode_dynamic = $db->getValue("dynamic_qrcodes", "count(*)");
 
 
 //Get Static qr code rows
 if ($_SESSION['admin_type'] !== 'super') {
-    $db->where('created_by', $_SESSION['user_id']);
+    $db->where(
+        'created_by',
+        $_SESSION['user_id']
+    );
 }
-
 $numQrcode_static = $db->getValue("static_qrcodes", "count(*)");
 
 $total = $numQrcode_dynamic + $numQrcode_static;
@@ -171,18 +176,18 @@ foreach ($createdQrcode_static as $row) {
                     <!-- Info boxes -->
                     <div class="row">
                         <?php if ($default_qr) : ?>
-                            <div class="col-12 col-sm-6 col-md-4">
-                                <div class="info-box mb-3 bg-dark">
-                                    <span class="info-box-icon">
-                                        <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>" width="60">
-                                    </span>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box mb-3 bg-dark">
+                                <span class="info-box-icon">
+                                    <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>" width="60">
+                                </span>
 
-                                    <div class="info-box-content">
-                                        <span class="info-box-text"><?= $default_qr->filename ?></span>
-                                        <span class="info-box-number">Scans: <?= $default_qr->scan ?></span>
-                                    </div><!-- /.info-box-content -->
-                                </div>
-                            </div><!-- /.col -->
+                                <div class="info-box-content">
+                                    <span class="info-box-text"><?= $default_qr->filename ?></span>
+                                    <span class="info-box-number">Scans: <?= $default_qr->scan ?></span>
+                                </div><!-- /.info-box-content -->
+                            </div>
+                        </div><!-- /.col -->
                         <?php endif; ?>
 
                         <div class="col-12 col-sm-6 col-md-<?= $card_col ?>">
@@ -243,15 +248,18 @@ foreach ($createdQrcode_static as $row) {
                                     <h3 class="card-title">QR creados en la última semana</h3>
 
                                     <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                class="fas fa-minus"></i>
                                         </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                                class="fas fa-times"></i></button>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <p class="d-flex flex-column">
-                                            <span class="text-bold text-lg"><?php echo $dynamic_today + $dynamic_oneday + $dynamic_twoday + $dynamic_threeday + $dynamic_fourday + $dynamic_fiveday + $dynamic_sixday + $static_today + $static_oneday + $static_twoday + $static_threeday + $static_fourday + $static_fiveday + $static_sixday ?></span>
+                                            <span
+                                                class="text-bold text-lg"><?php echo $dynamic_today + $dynamic_oneday + $dynamic_twoday + $dynamic_threeday + $dynamic_fourday + $dynamic_fiveday + $dynamic_sixday + $static_today + $static_oneday + $static_twoday + $static_threeday + $static_fourday + $static_fiveday + $static_sixday ?></span>
                                             <span>Total de QR creados</span>
                                         </p>
                                     </div>
@@ -266,7 +274,9 @@ foreach ($createdQrcode_static as $row) {
                                             </div>
                                         </div>
 
-                                        <canvas id="created-chart" height="400" width="958" class="chartjs-render-monitor" style="display: block; height: 200px; width: 479px;"></canvas>
+                                        <canvas id="created-chart" height="400" width="958"
+                                            class="chartjs-render-monitor"
+                                            style="display: block; height: 200px; width: 479px;"></canvas>
                                     </div>
 
                                     <div class="d-flex flex-row justify-content-end">
@@ -292,7 +302,8 @@ foreach ($createdQrcode_static as $row) {
                                         </h3>
 
                                         <div class="card-tools">
-                                            <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                                            <button type="button" class="btn bg-info btn-sm"
+                                                data-card-widget="collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                             <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
@@ -302,7 +313,8 @@ foreach ($createdQrcode_static as $row) {
                                     </div>
 
                                     <div class="card-body">
-                                        <canvas class="chart" id="scan-chart" style="min-height: 313px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        <canvas class="chart" id="scan-chart"
+                                            style="min-height: 313px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                     </div>
                                 </div>
                             </section>
@@ -321,123 +333,20 @@ foreach ($createdQrcode_static as $row) {
         <script src="plugins/chart.js/Chart.min.js"></script>
         <!-- Created Qr code Chart script -->
         <script>
-            $(function() {
-                'use strict'
+        $(function() {
+            'use strict'
 
-                var ticksStyle = {
-                    fontColor: '#495057',
-                    fontStyle: 'bold'
-                }
+            var ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold'
+            }
 
-                var mode = 'index'
-                var intersect = true
+            var mode = 'index'
+            var intersect = true
 
-                var $createdChart = $('#created-chart')
-                var createdChart = new Chart($createdChart, {
-                    data: {
-                        labels: [
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 6, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 5, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 4, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 3, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 2, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'))); ?>',
-                            '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d'), date('Y'))); ?>'
-                        ],
-                        datasets: [{
-                                type: 'line',
-                                data: [
-                                    <?php echo $dynamic_sixday ?>,
-                                    <?php echo $dynamic_fiveday ?>,
-                                    <?php echo $dynamic_fourday ?>,
-                                    <?php echo $dynamic_threeday ?>,
-                                    <?php echo $dynamic_twoday ?>,
-                                    <?php echo $dynamic_oneday ?>,
-                                    <?php echo $dynamic_today ?>,
-
-                                ],
-                                backgroundColor: 'transparent',
-                                borderColor: '#007bff',
-                                pointBorderColor: '#007bff',
-                                pointBackgroundColor: '#007bff',
-                                fill: false
-                            },
-                            {
-                                type: 'line',
-                                data: [
-                                    <?php echo $static_sixday ?>,
-                                    <?php echo $static_fiveday ?>,
-                                    <?php echo $static_fourday ?>,
-                                    <?php echo $static_threeday ?>,
-                                    <?php echo $static_twoday ?>,
-                                    <?php echo $static_oneday ?>,
-                                    <?php echo $static_today ?>,
-
-                                ],
-                                backgroundColor: 'tansparent',
-                                borderColor: '#ced4da',
-                                pointBorderColor: '#ced4da',
-                                pointBackgroundColor: '#ced4da',
-                                fill: false
-                            }
-                        ]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        tooltips: {
-                            mode: mode,
-                            intersect: intersect
-                        },
-                        hover: {
-                            mode: mode,
-                            intersect: intersect
-                        },
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            yAxes: [{
-                                // display: false,
-                                gridLines: {
-                                    display: true,
-                                    lineWidth: '4px',
-                                    color: 'rgba(0, 0, 0, .2)',
-                                    zeroLineColor: 'transparent'
-                                },
-                                ticks: $.extend({
-                                    beginAtZero: true,
-                                    suggestedMax: 10
-                                }, ticksStyle)
-                            }],
-                            xAxes: [{
-                                display: true,
-                                gridLines: {
-                                    display: false
-                                },
-                                ticks: ticksStyle
-                            }]
-                        }
-                    }
-                })
-            })
-        </script>
-        <!-- /.Created Chart script -->
-        <!-- Scan Chart -->
-        <script>
-            /*
-             * Author: Abdullah A Almsaeed
-             * Date: 4 Jan 2014
-             **/
-
-            $(function() {
-
-                'use strict'
-                /* Chart.js Charts */
-                // Sales graph chart
-                var salesGraphChartCanvas = $('#scan-chart').get(0).getContext('2d');
-                //$('#revenue-chart').get(0).getContext('2d');
-
-                var salesGraphChartData = {
+            var $createdChart = $('#created-chart')
+            var createdChart = new Chart($createdChart, {
+                data: {
                     labels: [
                         '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 6, date('Y'))); ?>',
                         '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 5, date('Y'))); ?>',
@@ -448,69 +357,172 @@ foreach ($createdQrcode_static as $row) {
                         '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d'), date('Y'))); ?>'
                     ],
                     datasets: [{
-                        label: 'Scan',
-                        fill: false,
-                        borderWidth: 2,
-                        lineTension: 0,
-                        spanGaps: true,
-                        borderColor: '#efefef',
-                        pointRadius: 3,
-                        pointHoverRadius: 7,
-                        pointColor: '#efefef',
-                        pointBackgroundColor: '#efefef',
-                        data: [
-                            <?php echo $scan_sixday ?>,
-                            <?php echo $scan_fiveday ?>,
-                            <?php echo $scan_fourday ?>,
-                            <?php echo $scan_threeday ?>,
-                            <?php echo $scan_twoday ?>,
-                            <?php echo $scan_oneday ?>,
-                            <?php echo $scan_today ?>,
+                            type: 'line',
+                            data: [
+                                <?php echo $dynamic_sixday ?>,
+                                <?php echo $dynamic_fiveday ?>,
+                                <?php echo $dynamic_fourday ?>,
+                                <?php echo $dynamic_threeday ?>,
+                                <?php echo $dynamic_twoday ?>,
+                                <?php echo $dynamic_oneday ?>,
+                                <?php echo $dynamic_today ?>,
 
-                        ],
-                    }]
-                }
+                            ],
+                            backgroundColor: 'transparent',
+                            borderColor: '#007bff',
+                            pointBorderColor: '#007bff',
+                            pointBackgroundColor: '#007bff',
+                            fill: false
+                        },
+                        {
+                            type: 'line',
+                            data: [
+                                <?php echo $static_sixday ?>,
+                                <?php echo $static_fiveday ?>,
+                                <?php echo $static_fourday ?>,
+                                <?php echo $static_threeday ?>,
+                                <?php echo $static_twoday ?>,
+                                <?php echo $static_oneday ?>,
+                                <?php echo $static_today ?>,
 
-                var salesGraphChartOptions = {
+                            ],
+                            backgroundColor: 'tansparent',
+                            borderColor: '#ced4da',
+                            pointBorderColor: '#ced4da',
+                            pointBackgroundColor: '#ced4da',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
                     maintainAspectRatio: false,
-                    responsive: true,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
                     legend: {
-                        display: false,
+                        display: false
                     },
                     scales: {
-                        xAxes: [{
-                            ticks: {
-                                fontColor: '#efefef',
-                            },
-                            gridLines: {
-                                display: false,
-                                color: '#efefef',
-                                drawBorder: false,
-                            }
-                        }],
                         yAxes: [{
-                            ticks: {
-                                stepSize: 2,
-                                fontColor: '#efefef',
-                                suggestedMax: 30,
-                            },
+                            // display: false,
                             gridLines: {
                                 display: true,
-                                color: '#efefef',
-                                drawBorder: false,
-                            }
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
+                                suggestedMax: 10
+                            }, ticksStyle)
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
                         }]
                     }
                 }
-
-                // This will get the first returned node in the jQuery collection.
-                var salesGraphChart = new Chart(salesGraphChartCanvas, {
-                    type: 'line',
-                    data: salesGraphChartData,
-                    options: salesGraphChartOptions
-                })
-
             })
+        })
+        </script>
+        <!-- /.Created Chart script -->
+        <!-- Scan Chart -->
+        <script>
+        /*
+         * Author: Abdullah A Almsaeed
+         * Date: 4 Jan 2014
+         **/
+
+        $(function() {
+
+            'use strict'
+            /* Chart.js Charts */
+            // Sales graph chart
+            var salesGraphChartCanvas = $('#scan-chart').get(0).getContext('2d');
+            //$('#revenue-chart').get(0).getContext('2d');
+
+            var salesGraphChartData = {
+                labels: [
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 6, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 5, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 4, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 3, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 2, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'))); ?>',
+                    '<?php echo date("Y-m-d", mktime(0, 0, 0, date('m'), date('d'), date('Y'))); ?>'
+                ],
+                datasets: [{
+                    label: 'Scan',
+                    fill: false,
+                    borderWidth: 2,
+                    lineTension: 0,
+                    spanGaps: true,
+                    borderColor: '#efefef',
+                    pointRadius: 3,
+                    pointHoverRadius: 7,
+                    pointColor: '#efefef',
+                    pointBackgroundColor: '#efefef',
+                    data: [
+                        <?php echo $scan_sixday ?>,
+                        <?php echo $scan_fiveday ?>,
+                        <?php echo $scan_fourday ?>,
+                        <?php echo $scan_threeday ?>,
+                        <?php echo $scan_twoday ?>,
+                        <?php echo $scan_oneday ?>,
+                        <?php echo $scan_today ?>,
+
+                    ],
+                }]
+            }
+
+            var salesGraphChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#efefef',
+                        },
+                        gridLines: {
+                            display: false,
+                            color: '#efefef',
+                            drawBorder: false,
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            stepSize: 2,
+                            fontColor: '#efefef',
+                            suggestedMax: 30,
+                        },
+                        gridLines: {
+                            display: true,
+                            color: '#efefef',
+                            drawBorder: false,
+                        }
+                    }]
+                }
+            }
+
+            // This will get the first returned node in the jQuery collection.
+            var salesGraphChart = new Chart(salesGraphChartCanvas, {
+                type: 'line',
+                data: salesGraphChartData,
+                options: salesGraphChartOptions
+            })
+
+        })
         </script>
         <!-- /. Scan Chart -->
         <!-- /.Footer and scripts -->

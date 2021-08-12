@@ -79,7 +79,7 @@ function paginationLinks($current_page, $total_pages, $base_url)
     if ($current_page == 1) {
         $html .= '<li class="page-item disabled"><a class="page-link">First</a></li>';
     } else {
-        $html .= '<li class="page-item"><a class="page-link" href="' . $base_url . $http_query . '&page=1">First</a></li>';
+        $html .= '<li class="page-item"><a class="page-link" href="' . $base_url . $http_query . '&page=1">Inicio</a></li>';
     }
 
     // Show pagination links
@@ -105,7 +105,7 @@ function paginationLinks($current_page, $total_pages, $base_url)
     }
 
     if ($current_page == $total_pages) {
-        $html .= '<li class="page-item disabled"><a class="page-link">Last</a></li>';
+        $html .= '<li class="page-item disabled"><a class="page-link">Final</a></li>';
     } else {
         $html .= '<li class="page-item"><a class="page-link" href="' . $base_url . $http_query . '&page=' . $total_pages . '">Last</a></li>';
     }
@@ -127,9 +127,9 @@ function check_super()
 {
     // Only super admin is allowed to access this page
     if ($_SESSION['admin_type'] !== 'super') {
-        $_SESSION['failure'] = 'Only a "super admin" account can access the admin listing page';
+        $_SESSION['failure'] = 'Solo los administradores pueden ver el listado de usuarios';
         // Redirect to the listing page
-        header('Location: eways.php');
+        header('Location: people.php');
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
