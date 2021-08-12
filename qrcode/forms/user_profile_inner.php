@@ -119,7 +119,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="card-header bg-primary">
+                                                    <div class="card-header bg-info">
                                                         <h4 class="card-title text-center font-weight-bold">
                                                             <?= $default_qr->filename ?></h4>
                                                     </div>
@@ -163,7 +163,7 @@
                                     <?php foreach ($dynamic_qrcodes as $dcode) : ?>
                                     <div class="col-md-2">
                                         <div class="card">
-                                            <div class="card-header bg-primary">
+                                            <div class="card-header bg-info">
                                                 <h4 class="card-title text-center font-weight-bold">
                                                     <?= $dcode->filename ?></h4>
                                             </div>
@@ -214,7 +214,7 @@
                                     <?php foreach ($static_qrcodes as $dcode) : ?>
                                     <div class="col-md-2">
                                         <div class="card">
-                                            <div class="card-header bg-primary">
+                                            <div class="card-header bg-info">
                                                 <h4 class="card-title text-center font-weight-bold">
                                                     <?= $dcode->filename ?></h4>
                                             </div>
