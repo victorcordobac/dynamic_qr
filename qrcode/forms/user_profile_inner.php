@@ -68,17 +68,17 @@
             </div>
             <div class="card-body text-center">
                 <?php if (strlen($profile->facebook)) : ?>
-                <a ref="<?= $profile->facebook ?>" target="_blank" class="btn btn-lg btn-info mr-2">
+                <a href="<?= $profile->facebook ?>" target="_blank" class="btn btn-lg btn-info mr-2">
                     <i class="fab fa-facebook"></i>
                 </a>
                 <?php endif ?>
                 <?php if (strlen($profile->twitter)) : ?>
-                <a ref="<?= $profile->twitter ?>" target="_blank" class="btn btn-lg btn-info mr-2">
+                <a href="<?= $profile->twitter ?>" target="_blank" class="btn btn-lg btn-info mr-2">
                     <i class="fab fa-twitter"></i>
                 </a>
                 <?php endif ?>
                 <?php if (strlen($profile->instagram)) : ?>
-                <a ref="<?= $profile->instagram ?>" target="_blank" class="btn btn-lg btn-info mr-2">
+                <a href="<?= $profile->instagram ?>" target="_blank" class="btn btn-lg btn-info mr-2">
                     <i class="fab fa-instagram"></i>
                 </a>
                 <?php endif ?>
