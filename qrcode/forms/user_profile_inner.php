@@ -51,10 +51,10 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix text-center">
                 <div class="">
-                    <a href="mailto:<?= $row['email'] ?>" class="btn btn-md btn-info mr-2">
+                    <a href="mailto:<?= $profile->email ?>" class="btn btn-md btn-info mr-2">
                         <i class="fas fa-envelope mr-2"></i> MANDAR EMAIL
                     </a>
-                    <a href="tel:+34<?= $row['mobile_no'] ?>" class="btn btn-md btn-info">
+                    <a href="tel:+34<?= $profile->mobile_no ?>" class="btn btn-md btn-info">
                         <i class="fas fa-phone mr-2"></i> LLAMAR
                     </a>
                 </div>

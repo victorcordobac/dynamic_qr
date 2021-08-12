@@ -20,7 +20,7 @@ require_once 'config/config.php';
 
 // Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'user_name', 'first_name', 'last_name', 'email', 'profile_pic', 'facebook', 'twitter', 'instagram');
+$select = array('id', 'user_name', 'first_name', 'last_name', 'email', 'profile_pic', 'facebook', 'twitter', 'instagram', 'mobile_no');
 
 // Search and order
 $search_fields = array('first_name', 'last_name', 'email');
