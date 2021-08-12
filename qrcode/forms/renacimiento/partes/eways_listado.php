@@ -21,7 +21,8 @@
                 <h2 class="text-lg font-weight-bold text-center"> <?php echo htmlspecialchars($row['filename']); ?></h2>
             </div>
             <div class="card-header  text-muted  border-top-0 mt-2 mb-3 text-center text-white border-bottom-0">
-                <a href="<?= htmlspecialchars($row['link']); ?>" target="_blank" class="btn btn-info">
+                <a href="<?= htmlspecialchars($row['link']); ?>" target="_blank" class="btn btn-info"
+                    style="overflow-wrap: anywhere" ;>
                     <i class="fa fa-link mr-1"></i>
                     <?php
                         //ELIMINAR HTTPS y www de la vista pública
