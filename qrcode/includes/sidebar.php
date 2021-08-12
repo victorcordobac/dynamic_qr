@@ -38,8 +38,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./personas.php"
-                        <?php echo (CURRENT_PAGE == 'personas.php' || (substr(CURRENT_PAGE, 0, 14) == 'user_profile.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
+                    <a href="./people.php"
+                        <?php echo (CURRENT_PAGE == 'people.php' || (substr(CURRENT_PAGE, 0, 14) == 'user_profile.php')) ? ' class="nav-link active"' : ' class="nav-link"'; ?>>
                         <i class="nav-icon fas fa-address-book"></i>
                         <p>PERSONAS</p>
                     </a>

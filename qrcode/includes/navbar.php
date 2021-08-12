@@ -16,21 +16,21 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
                 <a href="admin_user_profile.php" class="dropdown-item">
-                    <i class="fas fa-user"></i> Perfil
+                    <i class="fas fa-user"></i> MI PERFIL
                 </a>
                 <div class="dropdown-divider"></div>
                 <?php if ($_SESSION['admin_type'] == 'super') : ?>
                 <a href="setting_list.php" class="dropdown-item">
-                    <i class="fa fa-cog"></i> Ajustes
+                    <i class="fa fa-cog"></i> AJUSTES
                 </a>
                 <?php endif; ?>
                 <div class="dropdown-divider"></div>
                 <a href="./logout.php" class="dropdown-item">
-                    <i class="fas fa-sign-out-alt"></i> Salir
+                    <i class="fas fa-sign-out-alt"></i> SALIR
                 </a>
             </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" style="display:none">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
                     class="fas fa-th-large"></i></a>
         </li>

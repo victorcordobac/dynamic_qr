@@ -1,13 +1,13 @@
 <?php
 
 /**
- * PHP Dynamic Qr code
+ *  EWAY APP - Códigos QR personalizados
  *
- * @author    Giandonato Inverso <info@giandonatoinverso.it>
- * @copyright Copyright (c) 2020-2021
+ * @author    Víctor Córdoba <hola@victorcordoba.com>
+ * @copyright Copyright (c) 2021
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
- * @version   1.0
+ * @link      https://github.com/victorcordobac/dynamic_qr
+ * @version   3.0
  */
 
 session_start();
@@ -19,52 +19,30 @@ require_once 'config/config.php';
 // $Users = new Users();
 
 // Get DB instance. i.e instance of MYSQLiDB Library
-
-$user_name = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-if (!strlen($user_name)) {
-    $_SESSION['failure'] = 'Uuario no encontrado';
-    header('Location:users_directory.php');
-}
 $db = getDbInstance();
-$select = array('id', 'user_name', 'first_name', 'last_name', 'email', 'mobile_no', 'profile_pic', 'facebook', 'twitter', 'instagram');
+$select = array('id', 'user_name', 'first_name', 'last_name', 'email', 'profile_pic', 'facebook', 'twitter', 'instagram');
 
-$db->where('user_name', $user_name);
+// Search and order
+$search_fields = array('first_name', 'last_name', 'email');
+require_once BASE_PATH . '/includes/search_order.php';
 
-$profile = $db->objectBuilder()->getOne('admin_accounts');
-if (is_null($profile)) {
-    $_SESSION['failure'] = 'Usuario no encontrado';
-    header('Location:users_directory.php');
-}
-$db->where('created_by', $profile->id);
-$dynamic_qrcodes = $db->objectBuilder()->where('is_default', 0)->orderBy('id', 'desc')->get('dynamic_qrcodes');
+// Set pagination limit
+$db->pageLimit = 15;
 
-$db->where('created_by', $profile->id);
-$num_scans = $db->query("SELECT sum(scan) FROM dynamic_qrcodes");
+// Get current page
+$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 1;
 
-$db->where('created_by', $profile->id);
-$default_qr = $db->objectBuilder()->where('is_default', 1)->orderBy('id', 'desc')->getOne('dynamic_qrcodes');
-
-
-$db->where('created_by', $profile->id);
-$static_qrcodes = $db->objectBuilder()->orderBy('id', 'desc')->get('static_qrcodes');
-
-if ($_SESSION['admin_type'] != 'super' && $_SESSION['user_id'] == $profile->id) {
-    $puede_editar = true;
-} else if ($_SESSION['admin_type'] == 'super') {
-    $puede_editar = true;
-} else
-    $puede_editar = false;
-
-
-
+// Get result of the query
+$rows = $db->arraybuilder()->paginate('admin_accounts', $page, $select);
+$total_pages = $db->totalPages;
+echo $total_pages;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title><?= $profile->first_name, ' ', $profile->last_name ?> - Expression Way</title>
+    <title>PERSONAS - Expression Way</title>
     <?php include './includes/head.php'; ?>
 </head>
 
@@ -86,7 +64,7 @@ if ($_SESSION['admin_type'] != 'super' && $_SESSION['user_id'] == $profile->id) 
                     <div class="row mb-2">
 
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">USUARIO</h1>
+                            <h1 class="m-0 text-dark">PERSONAS</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -100,13 +78,16 @@ if ($_SESSION['admin_type'] != 'super' && $_SESSION['user_id'] == $profile->id) 
             <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
             <!-- /.Flash message-->
 
+            <!-- Filters -->
+            <!--  ELIMINADO-->
+            <!-- /.Filters -->
 
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
 
                     <!-- Table -->
-                    <?php include BASE_PATH . '/forms/user_profile_inner.php'; ?>
+                    <?php include BASE_PATH . '/forms/renacimiento/partes/listado_personas.php'; ?>
                     <!-- /.Table -->
 
                 </div><!-- /.container-fluid -->
