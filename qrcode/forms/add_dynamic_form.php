@@ -117,7 +117,7 @@
             <label class="">
                 QR POR DEFECTO
             </label>
-            <input type="checkbox" class="" name="is_default" id="is_default" value="0"
+            <input type="checkbox" class="" name="is_default" id="is_default" value="1"
                 style="width: 1.5em;height: 1.5em; margin: 0em 1.5em 0.5em 1.5em; vertical-align: middle;" />
 
         </div>

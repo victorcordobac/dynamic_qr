@@ -6,7 +6,7 @@
         </div>
         <h3 class="card-title float-right font-weight-bold">USADO EN</h3>
     </div>
-    <div class="card-body mx-auto">
+    <div class="card-body">
         <div class="row" id="append_filed">
             <?php for ($i = 0; $i < $num_used_for; $i++) : ?>
             <div class="col-md-12 del-row">

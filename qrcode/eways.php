@@ -70,9 +70,10 @@ $total_pages = $db->totalPages;
                     <div class="row mb-2 clearfix">
 
                         <div class="col-sm-12 col-xs-12">
-                            <h1 class="m-0 text-dark float-left"> MIS EWAYS</h1>
-                            <a href="add_dynamic.php" class="btn btn-success float-right"><i class="fa fa-plus"></i>
-                                Nuevo</a>
+                            <h1 class="m-2 text-dark float-left"> MIS EWAYS</h1>
+                            <a href="add_eway.php" class="btn btn-success float-right btn-lg text-lg mr-2 mt-1"><i
+                                    class="fa fa-plus-circle"></i>
+                            </a>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6 col-xs-6">

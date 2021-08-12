@@ -108,20 +108,20 @@ class Dynamic_Qrcode
 
         $hora_española = time() + (2 * 60 * 60); //GMT + 2
         $data_to_db['created_at'] = date('Y-m-d H:i:s', $hora_española);
-
-        $used_for = $_POST['used_for'];
-        $data_to_db['format'] = $_POST['format'];
-        // for the identifier we create a random alphanumeric string through the function "randomString" in helpers.php > config.php
-        $data_to_db['identifier'] = randomString(rand(5, 8));
-        $file_name = uniqid('dynamic_qr_') . '.' . $data_to_db['format'];
-        // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$data_to_db['format'];
-        $data_to_db['qrcode'] = $file_name;
         $data_to_db['created_by'] = $_SESSION['user_id'];
         $data_to_db['updated_by'] = $_SESSION['user_id']; //AÑADO TAMBIÉN UPDATED BY para que no de error el historial
+        $data_to_db['format'] = $_POST['format'];
+        $data_to_db['identifier'] = randomString(rand(5, 8)); // for the identifier we create a random alphanumeric string through the function "randomString" in helpers.php > config.php
         $data_to_db['is_default'] = key_exists('is_default', $_POST) ? $_POST['is_default'] : 0;
 
-        $data_to_db['used_for'] = $this->getUsedFor($used_for);
+        $file_name = uniqid('eway_') . '.' . $data_to_db['format'];
+        // $data_to_db['qrcode'] = $data_to_db['filename'].'.'.$data_to_db['format'];
+        $data_to_db['qrcode'] = $file_name;
 
+        $used_for = $_POST['used_for'];
+        $data_to_db['used_for'] = $this->getUsedFor($used_for); // transforma esta variable para hacerla legible
+
+        //COMPROBAR DEFAULT - si este es default, quitar el que hubiera antes
         if ($data_to_db['is_default'] == 1) {
             $this->resetDefault();
         }
