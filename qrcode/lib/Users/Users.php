@@ -1,13 +1,14 @@
 <?php
+
 /**
-* PHP Dynamic Qr code
-*
-* @author    Giandonato Inverso <info@giandonatoinverso.it>
-* @copyright Copyright (c) 2020-2021
-* @license   https://opensource.org/licenses/MIT MIT License
-* @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
-* @version   1.0
-*/
+ * PHP Dynamic Qr code
+ *
+ * @author    Giandonato Inverso <info@giandonatoinverso.it>
+ * @copyright Copyright (c) 2020-2021
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/giandonatoinverso/PHP-Dynamic-Qr-code
+ * @version   1.0
+ */
 
 require_once 'config/config.php';
 
@@ -30,7 +31,7 @@ class Users
     public function __destruct()
     {
     }
-    
+
     /**
      * Set friendly columns\' names to order tables\' entries
      */
@@ -45,7 +46,7 @@ class Users
 
         return $ordering;
     }
-    
+
     /**
      * Collect input
      */
@@ -56,7 +57,7 @@ class Users
 
         return $data_to_db;
     }
-    
+
     /**
      * Check username
      */
@@ -86,7 +87,7 @@ class Users
             $this->failure('Email already exists');
         }
     }
-    
+
     /**
      * Add user
      */
@@ -95,7 +96,7 @@ class Users
         $data_to_db = $this->collect();
         $this->check($data_to_db);
         $this->check_email($data_to_db);
-        
+
         // Encrypting the password
         $data_to_db['password'] = password_hash($data_to_db['password'], PASSWORD_DEFAULT);
         // Reset db instance
@@ -103,10 +104,10 @@ class Users
         $last_id = $db->insert('admin_accounts', $data_to_db);
 
         if ($last_id) {
-            $this->success('Admin user added successfully');
+            $this->success('Tu cuenta ha sido creada. ¡Bienvenido!');
         }
     }
-    
+
     /**
      * Edit user
      *
@@ -127,7 +128,7 @@ class Users
                 'admin_user_id' => $admin_user_id,
                 'operation' => $operation,
             ));
-            $this->failure('Username already exists', 'Location: edit_admin.php?'.$query_string);
+            $this->failure('Username already exists', 'Location: edit_admin.php?' . $query_string);
         }
 
         // Check whether the user name already exists
@@ -135,13 +136,13 @@ class Users
         $db->where('email', $data_to_db['email']);
         $db->where('id', $admin_user_id, '!=');
         $row = $db->getOne('admin_accounts');
-        
+
         if (!empty($row['email'])) {
             $query_string = http_build_query(array(
                 'admin_user_id' => $admin_user_id,
                 'operation' => $operation,
             ));
-            $this->failure('Email already exists', 'Location: edit_admin.php?'.$query_string);
+            $this->failure('Email already exists', 'Location: edit_admin.php?' . $query_string);
         }
 
         $admin_user_id = filter_input(INPUT_GET, 'admin_user_id', FILTER_VALIDATE_INT);
@@ -151,25 +152,25 @@ class Users
         $db = getDbInstance();
         $db->where('id', $admin_user_id);
         $stat = $db->update('admin_accounts', $data_to_db);
-        
+
         if ($stat) {
             $this->success('User updated successfully!');
         } else {
             $this->failure('Failed to update Admin user: ' . $db->getLastError());
         }
     }
-    
+
     /**
      * Delete user
      *
      */
     public function cancel($del_id)
     {
-        if ($_SESSION['admin_type']!='super') {
+        if ($_SESSION['admin_type'] != 'super') {
             header('HTTP/1.1 401 Unauthorized', true, 401);
             exit("401 Unauthorized");
         }
-        
+
         $db = getDbInstance();
         $db->where('id', $del_id);
         $stat = $db->delete('admin_accounts');
@@ -180,7 +181,7 @@ class Users
             $this->failure('Unable to delete user');
         }
     }
-    
+
     /**
      * Flash message Failure process
      */
@@ -192,7 +193,7 @@ class Users
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
-    
+
     /**
      * Flash message Success process
      */
@@ -204,7 +205,7 @@ class Users
         // Important! Don't execute the rest put the exit/die.
         exit();
     }
-    
+
     /**
      * Flash message Info process
      */

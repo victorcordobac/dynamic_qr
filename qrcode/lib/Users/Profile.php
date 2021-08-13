@@ -49,9 +49,9 @@ class Profile
     public function setOrderingValues()
     {
         $ordering = [
-            'id' => 'ID',
             'user_name' => 'Nombre de usuario',
-            'admin_type' => 'Admin Type'
+            'id' => 'ID',
+            'admin_type' => 'Tipo'
         ];
 
         return $ordering;
@@ -94,7 +94,7 @@ class Profile
         $db->get('admin_accounts');
 
         if ($db->count >= 1) {
-            $this->failure('Email already exists');
+            $this->failure('Este email ya existe');
         }
     }
 
@@ -117,7 +117,7 @@ class Profile
 
         if ($last_id) {
             $this->remove_temp_user($data_to_db['email']);
-            $this->success('Admin user added successfully', 'user', $last_id);
+            $this->success('¡Tu cuenta ha sido creada. ¡Bienvenido!', 'user', $last_id);
         }
     }
 
@@ -139,9 +139,9 @@ class Profile
         $stat = $db->update('admin_accounts', $data_to_db);
 
         if ($stat) {
-            $this->success('User updated successfully!');
+            $this->success('¡Perfil actualizado!');
         } else {
-            $this->failure('Failed to update Admin user: ' . $db->getLastError());
+            $this->failure('Ha habido un fallo al actualizar el perfil: ' . $db->getLastError());
         }
     }
 
@@ -187,9 +187,9 @@ class Profile
         $stat = $db->delete('admin_accounts');
 
         if ($stat) {
-            $this->info('User deleted successfully!');
+            $this->info('¡Usuario eliminado! Sayonara usuario');
         } else {
-            $this->failure('Unable to delete user');
+            $this->failure('Imposible eliminar el usuario');
         }
     }
 

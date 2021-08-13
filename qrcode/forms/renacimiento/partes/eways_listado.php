@@ -1,3 +1,21 @@
+<?php if (count($rows) == 0) : ?>
+<div class="col-md-12 mx-auto">
+    <div class="alert alert-info alter-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-smile-wink"></i><b>¡Hola!</b></h5>
+        ¿Aún no has creado ningun <b>eWay</b> ? No me lo puedo creer. </br> Vamos a ello.
+    </div>
+</div>
+<div class="col-md-12 mx-auto text-center">
+    <a href="add_eway.php" class="btn btn-primary btn-block text-white font-weight-bold text-lg btn-xl"><i
+            class="fa fa-hand-point-right pt-3 pb-3 text-lg mr-3"></i><i
+            class="fa fa-plus-circle pt-3 pb-3 text-xl"></i><i
+            class="fa fa-hand-point-left pt-3 pb-3 text-lg ml-3"></i></br> CREAR MI PRIMER EWAY</a>
+</div>
+
+
+<?php endif ?>
+
 <div class="row">
     <?php foreach ($rows as $row) : ?>
     <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">

@@ -27,73 +27,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
+<head>
     <title>REGISTRO - Expression Way</title>
     <?php include './includes/head.php'; ?>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css' integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==' crossorigin='anonymous'/>
-    </head>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css'
+        integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=='
+        crossorigin='anonymous' />
+</head>
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-no">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">REGISTRO</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-    <!-- Flash messages -->
-        <?php include BASE_PATH.'/includes/flash_messages.php'; ?>
-    
-            <div class="card card-primary mb-5">
-                <div class="card-header">
-                    <h3 class="card-title">Completa los siguientes campos</h3>
-                </div>
-	            <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-	                <div class="card-body">
-		                <?php include BASE_PATH . '/forms/create_user_profile_form.php'; ?>
-		            </div>
-	                <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-                </form>
+    <div class="wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-no">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">REGISTRO</h1>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
             </div>
+            <!-- /.content-header -->
 
-        </div><!--/. container-fluid -->
-    </section><!-- /.content -->
-  </div><!-- /.content-wrapper -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Flash messages -->
+                    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
 
-<!-- Footer and scripts -->
-<?php include './includes/footer.php'; ?>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js' integrity='sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==' crossorigin='anonymous'></script>
+                    <div class="card card-primary mb-5">
+                        <div class="card-header">
+                            <h3 class="card-title">Completa los siguientes campos</h3>
+                        </div>
+                        <form class="well form-horizontal" action="" method="post" id="contact_form"
+                            enctype="multipart/form-data">
+                            <div class="card-body">
+                                <?php include BASE_PATH . '/forms/create_user_profile_form.php'; ?>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Registrarme</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!--/. container-fluid -->
+            </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+
+        <!-- Footer and scripts -->
+        <?php include './includes/footer.php'; ?>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js'
+            integrity='sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=='
+            crossorigin='anonymous'></script>
         <!-- Page script -->
         <script>
-            $(function () {
-                let drEvent = $('.dropify').dropify();
-                drEvent.on('dropify.beforeClear', function (event, element) {
-                    if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
-                        $.post("ajax_remove_img.php", {
-                                    profile_pic: element.file.name
-                                },
-                                function (data, textStatus, jqXHR) {
-                                    alert(data.message);
-                                }
-                            )
-                            .fail(function (data,textStatus) {
-                                location.reload();
-                            });
-                    }
-                });
-            })
+        $(function() {
+            let drEvent = $('.dropify').dropify();
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
+                    $.post("ajax_remove_img.php", {
+                                profile_pic: element.file.name
+                            },
+                            function(data, textStatus, jqXHR) {
+                                alert(data.message);
+                            }
+                        )
+                        .fail(function(data, textStatus) {
+                            location.reload();
+                        });
+                }
+            });
+        })
         </script>
 </body>
+
 </html>

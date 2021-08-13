@@ -22,14 +22,14 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     <?php
-          $img = 'upload/images/dummy-profile-pic.png';
-          $path_info = pathinfo($profile->profile_pic);
-          $path = 'upload/images/' . $profile->profile_pic;
-          if (file_exists($path) && key_exists('extension', $path_info)) {
-            $img = $path;
-          }
+                    $img = 'upload/images/dummy-profile-pic.png';
+                    $path_info = pathinfo($profile->profile_pic);
+                    $path = 'upload/images/' . $profile->profile_pic;
+                    if (file_exists($path) && key_exists('extension', $path_info)) {
+                        $img = $path;
+                    }
 
-          ?>
+                    ?>
                     <img class="profile-user-img img-fluid img-circle" src="<?= $img ?>"
                         alt="<?= $profile->first_name ?>">
                 </div>
@@ -93,8 +93,8 @@
                 <nav class="nav nav-pills">
                     <a class="nav-link active mx-auto text-lg" data-toggle="tab" href="#dynamic_qr"><i
                             class="fa fa-qrcode mr-2"></i>EWAYS</a>
-                    <a class="nav-link" data-toggle="tab" href="#static_qr"><i
-                            class="fa fa-barcode mr-2 mx-auto text-lg"></i>ETIQUETAS</a>
+                    <a class="nav-link mx-auto text-lg" data-toggle="tab" href="#static_qr"><i
+                            class="fa fa-barcode mr-2 "></i>ETIQUETAS</a>
                 </nav>
             </div>
             <div class="card-body">
