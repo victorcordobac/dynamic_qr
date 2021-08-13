@@ -19,6 +19,6 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <!--FAVICON-->
-<link rel="shortcut icon" href=”/upload/images/favicon.ico”>
+<link rel="shortcut icon" href="/upload/images/favicon.ico">
 <!--MANIFEST PARA WEB APP-->
-<link rel='manifest' href='/manifest.webmanifest'>
+<link rel="manifest" href="/manifest.webmanifest">
