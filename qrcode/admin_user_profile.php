@@ -30,7 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <?php include './includes/head.php'; ?>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css' integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==' crossorigin='anonymous' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css'
+        integrity='sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=='
+        crossorigin='anonymous' />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -68,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="card-header">
                             <h3 class="card-title">Edita tu perfil</h3>
                         </div>
-                        <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+                        <form class="well form-horizontal" action="" method="post" id="contact_form"
+                            enctype="multipart/form-data">
                             <div class="card-body">
                                 <?php include BASE_PATH . '/forms/user_profile_form.php'; ?>
                             </div>
@@ -84,26 +87,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Footer and scripts -->
         <?php include './includes/footer.php'; ?>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js' integrity='sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==' crossorigin='anonymous'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js'
+            integrity='sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=='
+            crossorigin='anonymous'></script>
         <!-- Page script -->
         <script>
-            $(function() {
-                let drEvent = $('.dropify').dropify();
-                drEvent.on('dropify.beforeClear', function(event, element) {
-                    if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
-                        $.post("ajax_remove_img.php", {
-                                    profile_pic: element.file.name
-                                },
-                                function(data, textStatus, jqXHR) {
-                                    alert(data.message);
-                                }
-                            )
-                            .fail(function(data, textStatus) {
-                                location.reload();
-                            });
-                    }
-                });
-            })
+        //CAREMLO EDITAR VARIABLES DROPIFY
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Arrastra aquí una foto o haz click para buscarla',
+                'replace': 'Arrastra o haz click para cambiar la foto',
+                'remove': 'Eliminar',
+                'error': 'Vaya, algo ha ido mal'
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p style="font-size:0.5em">{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        });
+        //fin CAREMLO EDITAR VARIABLES DROPIFY
+        $(function() {
+            let drEvent = $('.dropify').dropify();
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
+                    $.post("ajax_remove_img.php", {
+                                profile_pic: element.file.name
+                            },
+                            function(data, textStatus, jqXHR) {
+                                alert(data.message);
+                            }
+                        )
+                        .fail(function(data, textStatus) {
+                            location.reload();
+                        });
+                }
+            });
+        })
         </script>
 </body>
 

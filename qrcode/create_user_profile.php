@@ -85,10 +85,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             crossorigin='anonymous'></script>
         <!-- Page script -->
         <script>
+        //CAREMLO EDITAR VARIABLES DROPIFY
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Arrastra aquí una foto o haz click para buscarla',
+                'replace': 'Arrastra o haz click para cambiar la foto',
+                'remove': 'Eliminar',
+                'error': 'Vaya, algo ha ido mal'
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p style="font-size:0.5em">{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        });
+        //fin CAREMLO EDITAR VARIABLES DROPIFY
         $(function() {
             let drEvent = $('.dropify').dropify();
             drEvent.on('dropify.beforeClear', function(event, element) {
-                if (confirm("Do you really want to delete \"" + element.file.name + "\" ?")) {
+                if (confirm("¿Seguro que quieres eliminar \"" + element.file.name + "\" ?")) {
                     $.post("ajax_remove_img.php", {
                                 profile_pic: element.file.name
                             },
@@ -99,6 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         .fail(function(data, textStatus) {
                             location.reload();
                         });
+                }
+            });
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Arrastra aquí una foto o haz click para buscarla',
+                    'replace': 'Arrastra o haz click para cambiar la foto',
+                    'remove': 'Eliminar',
+                    'error': 'Vaya, algo ha ido mal'
                 }
             });
         })
