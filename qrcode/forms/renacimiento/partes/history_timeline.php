@@ -1,11 +1,11 @@
 <?php if ($history_qr) : ?>
-<div class="card card-dark mt-5">
+<div class="card card-primary mt-5  p-0 mx-auto">
     <div class="card-header pt-3 pb-3">
         <div class="card-tools float-left">
             <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-history"></i>
             </button>
         </div>
-        <h3 class="card-title float-right font-weight-bold">HISTORIAL DE CAMBIOS</h3>
+        <h3 class="card-title float-right font-weight-bold text-lg">HISTORIAL DE CAMBIOS</h3>
     </div>
 
     <div class="card-body">

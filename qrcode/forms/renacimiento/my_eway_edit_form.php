@@ -2,7 +2,7 @@
 
 
     <!--NOMBRE-->
-    <div class="card bg-secondary col-sm-4">
+    <div class="card bg-warning col-sm-4">
         <div class="card-header">
             <div class="card-tools float-left">
                 <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-qrcode"></i>
@@ -22,7 +22,7 @@
 
 
     <!--URL-->
-    <div class="card bg-secondary col-sm-4">
+    <div class="card bg-warning col-sm-4">
         <div class="card-header">
             <div class="card-tools float-left">
                 <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-link"></i>
@@ -47,7 +47,7 @@
     <?php include_once(BASE_PATH . '/forms/renacimiento/partes/used_for_field_new.php') ?>
 
     <!--QR PRINCIPAL-->
-    <div class="card bg-secondary col-sm-4">
+    <div class="card bg-warning col-sm-4">
         <div class="card-header">
             <div class="card-tools float-left">
                 <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-star"></i>
@@ -70,7 +70,7 @@
     </div>
 
     <!--ACTIVADO-->
-    <div class="card bg-secondary col-sm-4">
+    <div class="card bg-warning col-sm-4">
         <div class="card-header">
             <div class="card-tools float-left">
                 <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-unlink"></i>

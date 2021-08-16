@@ -86,29 +86,32 @@ if ($edit) {
 
             <!-- Main content -->
             <section class="content">
-                <div class="container-fluid">
+                <div class="container-fluid row m-0 p-1">
 
                     <!--CONTENEDOR SUPERIOR QR-->
-                    <div class="col-12 col-sm-6 col-md-3 mx-auto">
-                        <div class="card card-primary mb-3">
+                    <div class="col-12 col-sm-6 col-md-4 mx-auto">
+                        <div class="card card-primary bg-primary mb-5">
                             <div class="card-header">
                                 <h3 class="card-title float-none text-center text-uppercase font-weight-bold text-xl">
                                     <?= $dynamic_qrcode['filename'] ?></h3>
                             </div>
                             <div class="card-body row">
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mx-auto text-right">
-                                    <a class="btn btn-lg btn-primary mb-3" href="<?php echo $dynamic_qrcode['link']; ?>" target="_blank">
+                                    <a class="btn btn-lg btn-info mb-3" href="<?php echo $dynamic_qrcode['link']; ?>"
+                                        target="_blank">
                                         <i class="fas fa-link align-middle"></i>
                                     </a>
-                                    <a class="btn btn-lg btn-primary" download href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
+                                    <a class="btn btn-lg btn-info" download
+                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>
-                                <div class="col-6 mx-auto p-3 bg-primary mx-auto">
+                                <div class="col-6 mx-auto p-2 bg-primary rounded mx-auto">
                                     <img src="<?= PATH . htmlspecialchars($dynamic_qrcode['qrcode']) ?>" class="w-100">
                                 </div>
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-left">
-                                    <a class="btn btn-lg bg-primary" href="my_eway_edit.php?filename=<?php echo $dynamic_qrcode['filename']; ?>&dynamic_id=<?php echo $dynamic_qrcode['id']; ?>&operation=edit">
+                                    <a class="btn btn-lg bg-info"
+                                        href="my_eway_edit.php?filename=<?php echo $dynamic_qrcode['filename']; ?>&dynamic_id=<?php echo $dynamic_qrcode['id']; ?>&operation=edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </div>
@@ -116,17 +119,11 @@ if ($edit) {
                         </div>
                     </div>
                     <!--fin CONTENEDOR SUPERIOR QR-->
-
-                    <div class="card card-primary">
-                        <div class="card-header" style="display:none">
-                            <h3 class="card-title">EDITAR</h3>
-                        </div>
+                    <div class="col-12 col-sm-6 col-md-5 mx-auto">
                         <form class="form" action="" method="post" id="dynamic_form" enctype="multipart/form-data">
-                            <div class="card-body">
-                                <!--FORMULARIO-->
-                                <?php include BASE_PATH . '/forms/renacimiento/my_eway_form.php'; ?>
-                                <!--FORMULARIO-->
-                            </div>
+                            <!--FORMULARIO-->
+                            <?php include BASE_PATH . '/forms/renacimiento/my_eway_form.php'; ?>
+                            <!--FORMULARIO-->
                         </form>
                     </div>
 
@@ -167,42 +164,42 @@ if ($edit) {
 
         <!-- SCRIPTS -->
         <script type="text/javascript">
-            $(document).ready(function() {
-                let i = 1;
-                //AÑADIR SOPORTES
-                $('#add_more').on('click', function() {
-                    i++;
-                    let template_id = $(this).data('template');
-                    let append_id = $(this).data('append');
-                    let _template = $("#" + template_id).html();
-                    $('#' + append_id).append(_template);
-                    $('#num_fields').val(i);
-                });
-                //eliminar SOPORTES
-                $('body').on('click', '.remove', function() {
-                    $(this).closest('.del-row').remove();
-                });
-                //SACAR MODAL
-                $('#exampleModal').on('show.bs.modal', function(e) {
-                    let btn = $(e.relatedTarget);
-                    $(this).find('.modal-body').load(btn.data('remote'));
-                });
-
-
-
-                //VALIDACIÓN
-                $('#dynamic_form').validate({
-                    rules: {
-                        filename: {
-                            required: true,
-                        },
-                        link: {
-                            required: true,
-                            minlength: 3
-                        },
-                    }
-                });
+        $(document).ready(function() {
+            let i = 1;
+            //AÑADIR SOPORTES
+            $('#add_more').on('click', function() {
+                i++;
+                let template_id = $(this).data('template');
+                let append_id = $(this).data('append');
+                let _template = $("#" + template_id).html();
+                $('#' + append_id).append(_template);
+                $('#num_fields').val(i);
             });
+            //eliminar SOPORTES
+            $('body').on('click', '.remove', function() {
+                $(this).closest('.del-row').remove();
+            });
+            //SACAR MODAL
+            $('#exampleModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget);
+                $(this).find('.modal-body').load(btn.data('remote'));
+            });
+
+
+
+            //VALIDACIÓN
+            $('#dynamic_form').validate({
+                rules: {
+                    filename: {
+                        required: true,
+                    },
+                    link: {
+                        required: true,
+                        minlength: 3
+                    },
+                }
+            });
+        });
         </script>
 </body>
 

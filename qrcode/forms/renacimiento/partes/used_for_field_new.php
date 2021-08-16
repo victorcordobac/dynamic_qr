@@ -1,4 +1,4 @@
-<div class="card bg-secondary col-sm-4">
+<div class="card bg-warning col-sm-4">
     <div class="card-header">
         <div class="card-tools float-left">
             <button type="button" class="btn btn-lg btn-tool text-lg"><i class="fas fa-map-marker-alt"></i>
@@ -27,7 +27,7 @@
             <?php endfor ?>
         </div>
         <a name="add_more" id="add_more" data-template="used_for_template" data-append="append_filed"
-            class="btn btn-primary btn-s mt-1" href="javascript:void(0)" role="button">
+            class="btn bg-white btn-s mt-1" href="javascript:void(0)" role="button">
             <i class="fa fa-plus" aria-hidden="true"></i> Añadir soporte
         </a>
 

@@ -51,10 +51,10 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix text-center">
                 <div class="">
-                    <a href="mailto:<?= $profile->email ?>" class="btn btn-md btn-info mr-2">
-                        <i class="fas fa-envelope mr-2"></i> MANDAR EMAIL
+                    <a href="mailto:<?= $profile->email ?>" class="btn btn-md btn-danger mr-2 mb-2">
+                        <i class="fas fa-envelope mr-2"></i> EMAIL
                     </a>
-                    <a href="tel:+34<?= $profile->mobile_no ?>" class="btn btn-md btn-info">
+                    <a href="tel:+34<?= $profile->mobile_no ?>" class="btn btn-danger btn-info">
                         <i class="fas fa-phone mr-2"></i> LLAMAR
                     </a>
                 </div>
@@ -105,63 +105,55 @@
                                 aria-labelledby="home-tab">
                                 <div class="row">
                                     <?php if ($default_qr) : ?>
-                                    <div class="col-md-12">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <div class="card">
-                                                    <div class="ribbon-wrapper ribbon-xl text-shadow-none">
-                                                        <div class="ribbon bg-warning text-lg text-white">
-                                                            <i class="fa fa-star mr-1 text-white"
-                                                                style="text-shadow:none"></i>
-                                                            <span class="fobt-weight-bold text-white"
-                                                                style="text-shadow:none; font-weight:bold"> PRINCIPAL
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-header bg-info">
-                                                        <h4 class="card-title text-center font-weight-bold">
-                                                            <?= $default_qr->filename ?></h4>
-                                                    </div>
-                                                    <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>"
-                                                        class="card-img-top">
-                                                    <div class="card-body">
-                                                        <!--h5 class="card-title"><?= $default_qr->filename ?></h5-->
-                                                        <p class="card-text text-center"><strong>Scans:</strong>
-                                                            <?= $default_qr->scan ?></p>
-                                                    </div>
-
-                                                    <div class="card-footer">
-                                                        <div class="text-center mx-auto">
-                                                            <!--URL -->
-                                                            <a href="<?= htmlspecialchars($dcode->link); ?>"
-                                                                target="_blank" class="btn btn-primary mr-2"><i
-                                                                    class="fas fa-link"></i></a>
-                                                            <?php if ($puede_editar) : ?>
-                                                            <!-- VER / EDIT-URL -->
-                                                            <a href="my_eway.php?filename=<?php echo $dcode->filename; ?>&dynamic_id=<?php echo $dcode->id; ?>&operation=edit_url"
-                                                                class="btn btn-primary mr-2"><i
-                                                                    class="fas fa-eye"></i></a>
-                                                            <!-- EDIT -->
-                                                            <a href="my_eway_edit.php?filename=<?php echo $dcode->filename; ?>&dynamic_id=<?php echo $dcode->id; ?>&operation=edit"
-                                                                class="btn btn-primary mr-2"><i
-                                                                    class="fas fa-edit"></i></a>
-                                                            <?php endif ?>
-
-                                                            <!-- DOWNLOAD -->
-                                                            <a href="<?php echo PATH . htmlspecialchars($dcode->qrcode); ?>"
-                                                                class="btn btn-primary mr-2" download><i
-                                                                    class="fa fa-download"></i></a>
-                                                        </div>
-                                                    </div>
-
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="ribbon-wrapper ribbon-xl text-shadow-none">
+                                                <div class="ribbon bg-warning text-lg text-white">
+                                                    <i class="fa fa-star mr-1 text-white" style="text-shadow:none"></i>
+                                                    <span class="fobt-weight-bold text-white"
+                                                        style="text-shadow:none; font-weight:bold"> PRINCIPAL
+                                                    </span>
                                                 </div>
                                             </div>
+                                            <div class="card-header bg-info">
+                                                <h4 class="card-title text-center font-weight-bold">
+                                                    <?= $default_qr->filename ?></h4>
+                                            </div>
+                                            <img src="<?= PATH . htmlspecialchars($default_qr->qrcode) ?>"
+                                                class="card-img-top">
+                                            <div class="card-body">
+                                                <!--h5 class="card-title"><?= $default_qr->filename ?></h5-->
+                                                <p class="card-text text-center"><strong>Scans:</strong>
+                                                    <?= $default_qr->scan ?></p>
+                                            </div>
+
+                                            <div class="card-footer">
+                                                <div class="text-center mx-auto">
+                                                    <!--URL -->
+                                                    <a href="<?= htmlspecialchars($default_qr->link); ?>"
+                                                        target="_blank" class="btn btn-primary mr-2"><i
+                                                            class="fas fa-link"></i></a>
+                                                    <?php if ($puede_editar) : ?>
+                                                    <!-- VER / EDIT-URL -->
+                                                    <a href="my_eway.php?filename=<?php echo $default_qr->filename; ?>&dynamic_id=<?php echo $default_qr->id; ?>&operation=edit_url"
+                                                        class="btn btn-primary mr-2"><i class="fas fa-eye"></i></a>
+                                                    <!-- EDIT -->
+                                                    <a href="my_eway_edit.php?filename=<?php echo $default_qr->filename; ?>&dynamic_id=<?php echo $dcode->id; ?>&operation=edit"
+                                                        class="btn btn-primary mr-2"><i class="fas fa-edit"></i></a>
+                                                    <?php endif ?>
+
+                                                    <!-- DOWNLOAD -->
+                                                    <a href="<?php echo PATH . htmlspecialchars($dcode->qrcode); ?>"
+                                                        class="btn btn-primary mr-2" download><i
+                                                            class="fa fa-download"></i></a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <?php endif ?>
                                     <?php foreach ($dynamic_qrcodes as $dcode) : ?>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header bg-info">
                                                 <h4 class="card-title text-center font-weight-bold">
@@ -212,7 +204,7 @@
                                         <!--h3> QR Estáticos</h3-->
                                     </div>
                                     <?php foreach ($static_qrcodes as $dcode) : ?>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header bg-info">
                                                 <h4 class="card-title text-center font-weight-bold">

@@ -69,12 +69,12 @@ if ($edit) {
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            <div class="content-header bg-warning">
                 <div class="container-fluid">
                     <div class="row mb-2">
 
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">EDITAR MI EWAY</h1>
+                            <h1 class="m-0 text-dark">EDITAR</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -91,14 +91,15 @@ if ($edit) {
 
                     <!--CONTENEDOR SUPERIOR QR-->
                     <div class="col-12 col-sm-6 col-md-3 mx-auto">
-                        <div class="card card-primary mb-3">
+                        <div class="card card-primary bg-primary mb-3">
                             <div class="card-header">
                                 <h3 class="card-title float-none text-center text-uppercase font-weight-bold text-xl">
                                     <?= $dynamic_qrcode['filename'] ?></h3>
                             </div>
                             <div class="card-body row">
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
-                                    <a class="btn btn-lg btn-primary" href="<?php echo $dynamic_qrcode['link']; ?>" target="_blank">
+                                    <a class="btn btn-lg btn-info" href="<?php echo $dynamic_qrcode['link']; ?>"
+                                        target="_blank">
                                         <i class="fas fa-link align-middle"></i>
                                     </a>
                                 </div>
@@ -106,7 +107,8 @@ if ($edit) {
                                     <img src="<?= PATH . htmlspecialchars($dynamic_qrcode['qrcode']) ?>" class="w-100">
                                 </div>
                                 <div class="col-3 pl-2 pr-2 pt-4 pb-4 mt-4 mx-auto text-center">
-                                    <a class="btn btn-lg btn-primary" download href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
+                                    <a class="btn btn-lg btn-info" download
+                                        href="<?php echo PATH . htmlspecialchars($dynamic_qrcode['qrcode']); ?>">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>
@@ -120,13 +122,15 @@ if ($edit) {
                             <h3 class="card-title">EDITAR</h3>
                         </div>
                         <form class="form" action="" method="post" id="dynamic_form" enctype="multipart/form-data">
-                            <div class="card-body">
+                            <div class="card-body p-1 m-1">
                                 <!--FORMULARIO-->
                                 <?php include BASE_PATH . '/forms/renacimiento/my_eway_edit_form.php'; ?>
                                 <!--FORMULARIO-->
                             </div>
-                            <div class="card-footer mx-auto text-center">
-                                <button type="submit" class="btn btn-lg btn-primary text-center font-weight-bold text-uppercase text-lg" id="actualizar"><i class="fas fa-save mr-2"></i>Guardar</button>
+                            <div class=" mx-auto text-center">
+                                <button type="submit"
+                                    class="btn btn-lg btn-info text-center font-weight-bold text-uppercase text-lg"
+                                    id="actualizar"><i class="fas fa-save mr-2"></i>Guardar</button>
                                 </a>
                             </div>
                         </form>
@@ -169,54 +173,54 @@ if ($edit) {
 
         <!-- SCRIPTS -->
         <script type="text/javascript">
-            $(document).ready(function() {
-                let i = 1;
-                //AÑADIR SOPORTES
-                $('#add_more').on('click', function() {
-                    i++;
-                    let template_id = $(this).data('template');
-                    let append_id = $(this).data('append');
-                    let _template = $("#" + template_id).html();
-                    $('#' + append_id).append(_template);
-                    $('#num_fields').val(i);
-                });
-                //eliminar SOPORTES
-                $('body').on('click', '.remove', function() {
-                    $(this).closest('.del-row').remove();
-                });
-                //SACAR MODAL
-                $('#exampleModal').on('show.bs.modal', function(e) {
-                    let btn = $(e.relatedTarget);
-                    $(this).find('.modal-body').load(btn.data('remote'));
-                });
-
-                //INICIALIZAR SWITCH
-                $("[name='state']").bootstrapSwitch();
-                //CONVERTIR VALOR DEL SWITCH
-                $('#actualizar').on('click', function() {
-                    var activado = '';
-
-                    if ($('#interruptor').is(':checked')) {
-                        $activado = $('#interruptor').attr('value', 'enable');
-                    } else {
-                        $activado = $('#interruptor').attr('value', 'disable');
-                    }
-                });
-
-
-                //VALIDACIÓN
-                $('#dynamic_form').validate({
-                    rules: {
-                        filename: {
-                            required: true,
-                        },
-                        link: {
-                            required: true,
-                            minlength: 3
-                        },
-                    }
-                });
+        $(document).ready(function() {
+            let i = 1;
+            //AÑADIR SOPORTES
+            $('#add_more').on('click', function() {
+                i++;
+                let template_id = $(this).data('template');
+                let append_id = $(this).data('append');
+                let _template = $("#" + template_id).html();
+                $('#' + append_id).append(_template);
+                $('#num_fields').val(i);
             });
+            //eliminar SOPORTES
+            $('body').on('click', '.remove', function() {
+                $(this).closest('.del-row').remove();
+            });
+            //SACAR MODAL
+            $('#exampleModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget);
+                $(this).find('.modal-body').load(btn.data('remote'));
+            });
+
+            //INICIALIZAR SWITCH
+            $("[name='state']").bootstrapSwitch();
+            //CONVERTIR VALOR DEL SWITCH
+            $('#actualizar').on('click', function() {
+                var activado = '';
+
+                if ($('#interruptor').is(':checked')) {
+                    $activado = $('#interruptor').attr('value', 'enable');
+                } else {
+                    $activado = $('#interruptor').attr('value', 'disable');
+                }
+            });
+
+
+            //VALIDACIÓN
+            $('#dynamic_form').validate({
+                rules: {
+                    filename: {
+                        required: true,
+                    },
+                    link: {
+                        required: true,
+                        minlength: 3
+                    },
+                }
+            });
+        });
         </script>
 </body>
 
