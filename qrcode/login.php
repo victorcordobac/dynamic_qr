@@ -14,11 +14,27 @@ session_start();
 require_once 'config/config.php';
 $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-// If User has already logged in, redirect to dashboard page.
+//SACAR DATOS DE EWAY PRINCIPAL
+$db = getDbInstance();
+if (isset($_SESSION['user_id'])) {
+    $db->where('created_by', $_SESSION['user_id']);
+    $default_qr = $db->objectBuilder()->where('is_default', 1)->orderBy('id', 'desc')->getOne('dynamic_qrcodes');
+    if ($default_qr) {
+        $default_qr_url = "my_eway.php?filename=" . $default_qr->filename . "&dynamic_id=" . $default_qr->id . "&operation=edit_url";
+    } else $default_qr_url = "eways.php";
+} else $default_qr_url = "eways.php";
+
+
+//YA HE HECHO LOGIN
+// If User has already logged in, redirect to EWAY PRINCIPAL
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true) {
-    header('Location: eways.php');
+
+    header("Location: $default_qr_url");
+
+    //header('Location: eways.php');
 }
 
+//REMEMBER ME
 // If user has previously selected "remember me option":
 if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
     // Get user credentials from cookies.
@@ -44,7 +60,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 
             $_SESSION['user_logged_in'] = true;
             $_SESSION['admin_type'] = $row['admin_type'];
-            header('Location: eways.php');
+            header("Location: $default_qr_url");
             exit;
         } else {
             clearAuthCookie();
@@ -79,7 +95,8 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 
                 <form method="POST" action="authenticate.php">
                     <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" required="required">
+                        <input type="text" name="username" class="form-control" placeholder="Nombre de usuario"
+                            required="required">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fa fa-user"></span>
@@ -87,7 +104,8 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+                        <input type="password" name="password" class="form-control" placeholder="Password"
+                            required="required">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -113,37 +131,38 @@ $buttons = $db->objectBuilder()->get('social_setting', null, ['provider']);
 
                 </form>
                 <?php if ($buttons) : ?>
-                    <div class="social-auth-links text-center mb-3">
-                        <p>- O -</p>
-                        <?php foreach ($buttons as $btn) :
+                <div class="social-auth-links text-center mb-3">
+                    <p>- O -</p>
+                    <?php foreach ($buttons as $btn) :
                             $css = 'primary';
                             if ($btn->provider == 'Google') {
                                 $css = 'danger';
                             }
                         ?>
-                            <a name="" id="" class="btn btn-<?= $css ?> btn-block" href="auth_login.php?network=<?= $btn->provider ?>" role="button">
-                                <i class="fab fa-<?= strtolower($btn->provider) ?> mr-2" aria-hidden="true"></i>
-                                Acceder usando <?= $btn->provider ?>
-                            </a>
-                        <?php endforeach ?>
-                    </div>
+                    <a name="" id="" class="btn btn-<?= $css ?> btn-block"
+                        href="auth_login.php?network=<?= $btn->provider ?>" role="button">
+                        <i class="fab fa-<?= strtolower($btn->provider) ?> mr-2" aria-hidden="true"></i>
+                        Acceder usando <?= $btn->provider ?>
+                    </a>
+                    <?php endforeach ?>
+                </div>
                 <?php endif; ?>
                 <p class="mb-0">
                     <a href="create_user_profile.php" class="text-center">Registrarse</a>
                 </p>
                 <?php if (isset($_SESSION['login_failure'])) : ?>
-                    <br>
-                    <div class="text-center mb-3">
-                        <div class="card-body p-0">
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <?php
+                <br>
+                <div class="text-center mb-3">
+                    <div class="card-body p-0">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <?php
                                 echo $_SESSION['login_failure'];
                                 unset($_SESSION['login_failure']);
                                 ?>
-                            </div>
                         </div>
                     </div>
+                </div>
                 <?php endif; ?>
 
 

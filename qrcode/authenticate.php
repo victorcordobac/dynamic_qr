@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// Get DB instance.
 	$db = getDbInstance();
 
+	//COMPROBAR USUARIO
 	$db->where('user_name', $username);
 	$row = $db->getOne('admin_accounts');
 
@@ -34,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$_SESSION['admin_type'] = $row['admin_type'];
 			$_SESSION['user_id'] = $row['id'];
 			$_SESSION['user_name'] = $row['user_name'];
+
 
 			if ($remember) {
 				$series_id = randomString(16);
@@ -56,8 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				);
 				$db->update('admin_accounts', $update_remember);
 			}
+			//METER DATOS EWAY
+			include 'forms/renacimiento/eway_principal_get.php';
 			// Authentication successfull redirect user
-			header('Location: eways.php');
+			header("Location: $default_qr_url");
 		} else {
 			$_SESSION['login_failure'] = 'Invalid username or password';
 			header('Location: login.php');

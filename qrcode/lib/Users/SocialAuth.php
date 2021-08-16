@@ -16,7 +16,10 @@ class SocailAuth
             $_SESSION['user_logged_in'] = true;
             $_SESSION['admin_type'] = $row['admin_type'];
             $_SESSION['user_id'] = $row['id'];
-            header('Location: eways.php');
+
+            include 'forms/renacimiento/eway_principal_get.php';
+
+            header("Location: $default_qr_url");
             exit();
         }
         return false;
