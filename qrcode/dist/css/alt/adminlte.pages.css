@@ -796,7 +796,7 @@ body.iframe-mode-fullscreen {
   left: 0;
   width: 100%;
   display: none;
-  background-color: #f4f6f9;
+  background-color: #d1d2d49e;
 }
 
 .content-wrapper.iframe-mode .tab-loading > div {

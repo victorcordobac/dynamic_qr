@@ -48,7 +48,8 @@ $sidebar-custom-padding-y: .5rem !default;
 $boxed-layout-max-width: 1250px !default;
 
 // Body background (Affects main content background only)
-$main-bg: #f4f6f9 !default;
+//$main-bg: #f4f6f9 !default;
+$main-bg: #d1d2d49e !default; //FONDO GENERAL más oscuro
 
 $dark-main-bg: lighten($dark, 7.5%) !important;
 

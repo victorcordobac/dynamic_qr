@@ -10073,7 +10073,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .preloader {
   display: flex;
-  background-color: #f4f6f9;
+  background-color: #d1d2d49e;
   height: 100vh;
   width: 100%;
   transition: height 200ms linear;
@@ -11208,7 +11208,7 @@ body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-m
 }
 
 .content-wrapper {
-  background-color: #f4f6f9;
+  background-color: #d1d2d49e;
 }
 
 .content-wrapper > .content {
